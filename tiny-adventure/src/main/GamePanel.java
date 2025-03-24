@@ -1,6 +1,7 @@
 package main;
 import entity.Player;
-
+import tiles.TileManager;
+import tiles.Tile;
 import java.awt.*;
 import javax.swing.JPanel;
 
@@ -8,26 +9,26 @@ public class GamePanel extends JPanel implements Runnable{
     // SCREEN SETTINGS
     final int originalTileSize = 16; // 16x16 tile
     //scale to screen
-    final int scale = 3;
+    final int scale = 6;
     public final int tileSize = originalTileSize * scale;
     //remember to scale characters and objects too
     // how many tiles can be displayed on a screen
-    final int maxScreenCol = 16;
-    final int maxScreenRow = 12; //4:3
-    final int screenWidth = tileSize * maxScreenCol;  //16*16*3 = 768
-    final int screenHeight = tileSize * maxScreenRow; //12*16*3 = 576
+    public final int maxScreenCol = 16;
+    public final int maxScreenRow = 12; //4:3
+    public final int screenWidth = tileSize * maxScreenCol;  //16*16*3 = 768
+    public final int screenHeight = tileSize * maxScreenRow; //12*16*3 = 576
 
     //Setting the
     int FPS = 60;
 
+    //Tile
+    TileManager tileM = new TileManager(this);
     //creating a game clock
     KeyHandler keyH = new KeyHandler();
     Thread gameThread;
     Player player = new Player(this, keyH);
-    //Set default position
-    int playerX=100;
-    int playerY=100;
-    int playerSpeed = 4;
+
+
 
     public GamePanel(){
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -75,8 +76,9 @@ public class GamePanel extends JPanel implements Runnable{
         //Jpanel drawing standard
         super.paintComponent(g); // super = parent class of this class -> Jpanel
         Graphics2D g2 = (Graphics2D)g; // change for more functionalities
-
+        tileM.draw(g2); //title is the layer before player
         player.draw(g2);
+        // the next layer could be effects and items ?
         g2.dispose();//dispose graphics context and release any system resources that it is using
     }
 }
