@@ -12,19 +12,22 @@ import java.util.Objects;
 public class Player extends Entity {
     GamePanel gp;
     KeyHandler keyH;
-
+    public final int screenX;
+    public final int screenY; // background scroll
     public Player(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
         this.keyH = keyH;
 
+        screenX = gp.screenWidth/2 - gp.tileSize/2;
+        screenY =gp.screenHeight/2 - gp.tileSize/2;
         setDefaultValues();
         getPlayerImage();
     }
 
     public void setDefaultValues() {
         // PLACEHOLDER
-        x = 100;
-        y = 150;
+        worldX = gp.tileSize * 25; //CHANGE LATER ASAP
+        worldY = gp.tileSize* 10;
         speed = 4;
         direction = "right";
     }
@@ -74,16 +77,16 @@ public class Player extends Entity {
         if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
             if (keyH.upPressed) {
                 direction = "up";
-                y -= speed;
+                worldY -= speed;
             } else if (keyH.downPressed) {
                 direction = "down";
-                y += speed;
+                worldY += speed;
             } else if (keyH.leftPressed) {
                 direction = "left";
-                x -= speed;
+                worldX -= speed;
             } else if (keyH.rightPressed) {
                 direction = "right";
-                x += speed;
+                worldX += speed;
             }
 
         } else {
@@ -181,7 +184,7 @@ public class Player extends Entity {
                 };
                 break;
         }
-        g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
     }
 
 
