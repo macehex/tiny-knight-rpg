@@ -14,23 +14,34 @@ public class Player extends Entity {
     KeyHandler keyH;
     public final int screenX;
     public final int screenY; // background scroll
+    // key item slot
+    public int hasKey = 0 ;
     public Player(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
         this.keyH = keyH;
 
-        screenX = gp.screenWidth/2 - gp.tileSize/2;
-        screenY =gp.screenHeight/2 - gp.tileSize/2;
+        screenX = gp.screenWidth / 2 - gp.tileSize / 2;
+        screenY = gp.screenHeight / 2 - gp.tileSize / 2;
+
+        solidArea = new Rectangle();
+        solidArea.x = 8;
+        solidArea.y = 16;
+        solidArea.width = 16;
+        solidArea.height = 32;
+        solidAreaDefaultX = solidArea.x;
+        SolidAreaDefaultY = solidArea.y;
         setDefaultValues();
         getPlayerImage();
     }
 
     public void setDefaultValues() {
         // PLACEHOLDER
-        worldX = gp.tileSize * 25; //CHANGE LATER ASAP
-        worldY = gp.tileSize* 10;
+        worldX = gp.tileSize * 23; //CHANGE LATER ASAP
+        worldY = gp.tileSize * 7;
         speed = 4;
         direction = "right";
     }
+
     public void getPlayerImage() {
         try {
             up1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/warrior_runu1.png")));
@@ -61,12 +72,12 @@ public class Player extends Entity {
             right5 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/warrior_runr5.png")));
             right6 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/warrior_runr6.png")));
 
-            idle1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/Warrior_idle1.png")));
-            idle2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/Warrior_idle2.png")));
-            idle3 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/Warrior_idle3.png")));
-            idle4 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/Warrior_idle4.png")));
-            idle5 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/Warrior_idle1.png")));
-            idle6 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/Warrior_idle1.png")));
+            idle1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/idle/Warrior_idle1.png")));
+            idle2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/idle/Warrior_idle2.png")));
+            idle3 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/idle/Warrior_idle3.png")));
+            idle4 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/idle/Warrior_idle4.png")));
+            idle5 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/idle/Warrior_idle1.png")));
+            idle6 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/idle/Warrior_idle1.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -74,51 +85,94 @@ public class Player extends Entity {
 
     public void update() {
         //idle state
-        if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
+        if (!(keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed)) {
+            direction = "idle";
+            spriteCounter++;
+            //update() gets called 60 times per second
+            if (spriteCounter > 6) {
+                switch (spriteNum) {
+                    case 1:
+                        spriteNum = 2;
+                        break;
+                    case 2:
+                        spriteNum = 3;
+                        break;
+                    case 3:
+                        spriteNum = 4;
+                        break;
+                    case 4:
+                        spriteNum = 5;
+                        break;
+                    case 5:
+                        spriteNum = 6;
+                        break;
+                    case 6:
+                        spriteNum = 1;
+                        break;
+                }
+                spriteCounter = 0;
+            }
+        } else {
             if (keyH.upPressed) {
                 direction = "up";
-                worldY -= speed;
             } else if (keyH.downPressed) {
                 direction = "down";
-                worldY += speed;
             } else if (keyH.leftPressed) {
                 direction = "left";
-                worldX -= speed;
             } else if (keyH.rightPressed) {
                 direction = "right";
-                worldX += speed;
+            }
+            //   check tile collision state
+            collisionOn = false;
+            gp.cChecker.checkTile(this);
+            // check object collision
+            int objIndex = gp.cChecker.checkObject(this, true);
+            pickUpObject(objIndex);
+            // if collision false. player can move
+            if (!collisionOn) {
+                switch (direction) {
+                    case "up":
+                        worldY -= speed;
+                        break;
+                    case "down":
+                        worldY += speed;
+                        break;
+                    case "left":
+                        worldX -= speed;
+                        break;
+                    case "right":
+                        worldX += speed;
+                        break;
+                }
+            }
+            spriteCounter++;
+            //update() gets called 60 times per second
+            if (spriteCounter > 6) {
+                switch (spriteNum) {
+                    case 1:
+                        spriteNum = 2;
+                        break;
+                    case 2:
+                        spriteNum = 3;
+                        break;
+                    case 3:
+                        spriteNum = 4;
+                        break;
+                    case 4:
+                        spriteNum = 5;
+                        break;
+                    case 5:
+                        spriteNum = 6;
+                        break;
+                    case 6:
+                        spriteNum = 1;
+                        break;
+                }
+                spriteCounter = 0;
             }
 
-        } else {
-            direction = "idle";
-        }
-        spriteCounter++;
-        //update() gets called 60 times per second
-        if (spriteCounter > 6) {
-            switch (spriteNum){
-                case 1:
-                    spriteNum =2;
-                    break;
-                case 2:
-                    spriteNum =3;
-                    break;
-                case 3:
-                    spriteNum =4;
-                    break;
-                case 4:
-                    spriteNum =5;
-                    break;
-                case 5:
-                    spriteNum =6;
-                    break;
-                case 6:
-                    spriteNum =1;
-                    break;
-            }
-            spriteCounter = 0;
-        }
 
-
+        }
     }
 
     public void draw(Graphics2D g2) {
@@ -184,8 +238,37 @@ public class Player extends Entity {
                 };
                 break;
         }
-        g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(image, screenX, screenY, gp.tileSize * 2, gp.tileSize * 2, null);
     }
 
-
+    public void pickUpObject(int i){
+        if(i != 999){
+            //if i not equal to object index
+            String objectName = gp.obj[i].name;
+            switch (objectName){
+                case "Key":
+                    gp.playSoundEffect(5);
+                    hasKey++;
+                    gp.obj[i] = null; // delete touched object
+                    System.out.println("Inventory.key: "+ hasKey);
+                    break;
+                case "Door":
+                    if(hasKey>0){
+                        gp.playSoundEffect(3);
+                        gp.obj[i]=null;
+                        hasKey--;
+                        System.out.println("Inventory.key: "+ hasKey);
+                    }
+                    break;
+                case "Chest":
+                    gp.playSoundEffect(0);
+                    break;
+                case "Potion": //increase movement speed
+                    gp.playSoundEffect(4);
+                    speed += 1;
+                    gp.obj[i] = null ;
+                    break;
+            }
+        }
+    }
 }

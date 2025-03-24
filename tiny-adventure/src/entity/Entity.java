@@ -1,5 +1,5 @@
 package entity;
-
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Entity {
@@ -17,5 +17,9 @@ public class Entity {
     public int spriteCounter = 0;
     public int spriteNum = 1;
 
+    public int solidAreaDefaultX, SolidAreaDefaultY;
+    // hit box
+    public Rectangle solidArea; // x y width and height
+    public boolean collisionOn = false;
 
 }

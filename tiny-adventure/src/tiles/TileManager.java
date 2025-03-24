@@ -14,8 +14,8 @@ import java.util.Objects;
 
 public class TileManager {
     GamePanel gp;
-    Tile[] tile;
-    int[][] mapTileNum;
+    public Tile[] tile;
+    public int[][] mapTileNum;
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
@@ -32,12 +32,15 @@ public class TileManager {
             tile[0].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(("/tiles/yellow_ground.png"))));
             tile[1] = new Tile();
             tile[1].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(("/tiles/water.png"))));
+            tile[1].collision =true;
             tile[2] = new Tile();
-            tile[2].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(("/tiles/yellow_ground.png"))));
+            tile[2].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(("/tiles/water.png"))));
+            tile[2].collision =true;
             tile[3] = new Tile();
             tile[3].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(("/tiles/yellow_ground.png"))));
             tile[4] = new Tile();
-            tile[4].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(("/tiles/water.png"))));
+            tile[4].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(("/tiles/Outdoors_22.png"))));
+
             tile[5] = new Tile();
             tile[5].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(("/tiles/yellow_ground.png"))));
         } catch (IOException e) {
@@ -45,12 +48,7 @@ public class TileManager {
         }
     }
 
-    //    public void draw(Graphics2D g2) {
-//        g2.drawImage(tile[0].image, 0, 0, gp.tileSize, gp.tileSize, null);
-//        g2.drawImage(tile[1].image, 48, 0, gp.tileSize, gp.tileSize, null);
-//        g2.drawImage(tile[2].image, 96, 0, gp.tileSize, gp.tileSize, null);
-//
-//    }
+
     public void loadMap(String mapPath) {
         try {
             InputStream is = getClass().getResourceAsStream(mapPath);
@@ -90,8 +88,14 @@ public class TileManager {
             int worldY = worldRow * gp.tileSize;
             int screenX = worldX - gp.player.worldX + gp.player.screenX;
             int screenY = worldY - gp.player.worldY + gp.player.screenY;
-
-            g2.drawImage(tile[tileNum].image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+            // dont draw all of the tiles
+            if(worldX +gp.tileSize >gp.player.worldX - gp.player.screenX&&
+                    worldX - gp.tileSize< gp.player.worldX + gp.player.screenX&&
+                    worldY + gp.tileSize> gp.player.worldY - gp.player.screenY&&
+                    worldY -  gp.tileSize < gp.player.worldY + gp.player.screenY)
+            {
+                g2.drawImage(tile[tileNum].image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+            }
             //draw tiles
             worldCol++;
             if (worldCol == gp.maxWorldCol) {
