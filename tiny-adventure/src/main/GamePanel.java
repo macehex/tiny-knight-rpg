@@ -1,5 +1,6 @@
 package main;
 import entity.Player;
+import object.SuperObject;
 import tiles.TileManager;
 import tiles.Tile;
 import java.awt.*;
@@ -9,7 +10,7 @@ public class GamePanel extends JPanel implements Runnable{
     // SCREEN SETTINGS
     final int originalTileSize = 16; // 16x16 tile
     //scale to screen
-    final int scale = 6;
+    final int scale = 3;
     public final int tileSize = originalTileSize * scale;
     //remember to scale characters and objects too
     // how many tiles can be displayed on a screen
@@ -18,17 +19,33 @@ public class GamePanel extends JPanel implements Runnable{
     public final int screenWidth = tileSize * maxScreenCol;  //16*16*3 = 768
     public final int screenHeight = tileSize * maxScreenRow; //12*16*3 = 576
 
+    // GAME WORLD SETTINGS:
+    public final int maxWorldCol = 50;
+    public final int maxWorldRow = 50;
+//    public final int worldWidth = tileSize * maxWorldCol;
+//    public final int worldHeight = tileSize * maxWorldRow;
+
     //Setting the
     int FPS = 60;
 
     //Tile
     TileManager tileM = new TileManager(this);
+
+
     //creating a game clock
     KeyHandler keyH = new KeyHandler();
+    // Sound
+    Sound music = new Sound();
+    Sound sound_effect = new Sound();
+
+    public  CollisionChecker cChecker = new CollisionChecker(this);
+    public AssetSetter aSetter = new AssetSetter(this);
+    public Player player = new Player(this, keyH);
+
+    //UI
+    public UI ui = new UI(this);
     Thread gameThread;
-    Player player = new Player(this, keyH);
-
-
+    public SuperObject obj[] = new SuperObject[10];
 
     public GamePanel(){
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -37,7 +54,11 @@ public class GamePanel extends JPanel implements Runnable{
         this.addKeyListener(keyH);
         this.setFocusable(true);
     }
+    public void setupGame(){
 
+        aSetter.setObject(); //calling setobject method
+        playMusic(6);
+    }
     public void startGameThread(){
         gameThread = new Thread(this); // this : passing the GamePanel class to the constructor
         gameThread.start();
@@ -63,7 +84,8 @@ public class GamePanel extends JPanel implements Runnable{
                 drawCount++;
             }
             if(timer >= 1000000000){
-                System.out.printf("FPS: "+drawCount+"\n");
+//                System.out.printf("FPS: "+drawCount+"\n");
+                System.out.println("Playerx: "+player.worldX/this.tileSize+"PlayerY: "+player.worldY/this.tileSize);
                 drawCount =0;
                 timer = 0;
             }
@@ -76,9 +98,48 @@ public class GamePanel extends JPanel implements Runnable{
         //Jpanel drawing standard
         super.paintComponent(g); // super = parent class of this class -> Jpanel
         Graphics2D g2 = (Graphics2D)g; // change for more functionalities
+        // DEBUGGING
+        long drawStart =0;
+        if(keyH.checkDrawTime == true){
+            drawStart = System.nanoTime();
+        }
+
+
         tileM.draw(g2); //title is the layer before player
+
+        //draw object
+        for(int i =0; i<obj.length;i++){
+            if(obj[i] != null){
+                obj[i].draw(g2, this);
+            }
+        }
+        //ui goes before player
+        ui.draw(g2);
         player.draw(g2);
         // the next layer could be effects and items ?
+        // DEBUGGING
+        if(keyH.checkDrawTime == true){
+            long drawEnd = System.nanoTime();
+            long passed = drawEnd - drawStart;
+            g2.setColor(Color.white);
+            g2.drawString("Draw Time: "+ passed, 10, 400);
+            System.out.println("Draw Time: " + passed);
+
+        }
+
+
         g2.dispose();//dispose graphics context and release any system resources that it is using
+    }
+    public void playMusic(int i){
+        music.setFile(i);
+        music.play();
+        music.loop();
+    }
+    public void stopMusic(){
+        music.stop();
+    }
+    public void playSoundEffect(int i){
+        sound_effect.setFile(i);
+        sound_effect.play();
     }
 }

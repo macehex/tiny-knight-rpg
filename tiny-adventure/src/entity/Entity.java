@@ -1,10 +1,10 @@
 package entity;
-
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Entity {
     // blueprint for all chars, monsters
-    public int x, y;
+    public int worldX, worldY; // game camera
     public int speed;
 
     public BufferedImage up1, up2, up3, up4, up5, up6,
@@ -17,5 +17,9 @@ public class Entity {
     public int spriteCounter = 0;
     public int spriteNum = 1;
 
+    public int solidAreaDefaultX, SolidAreaDefaultY;
+    // hit box
+    public Rectangle solidArea; // x y width and height
+    public boolean collisionOn = false;
 
 }
