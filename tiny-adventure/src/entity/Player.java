@@ -24,8 +24,8 @@ public class Player extends Entity {
         screenY = gp.screenHeight / 2 - gp.tileSize / 2;
 
         solidArea = new Rectangle();
-        solidArea.x = 8;
-        solidArea.y = 16;
+        solidArea.x = 40;
+        solidArea.y = 25;
         solidArea.width = 16;
         solidArea.height = 32;
         solidAreaDefaultX = solidArea.x;
@@ -239,6 +239,9 @@ public class Player extends Entity {
                 break;
         }
         g2.drawImage(image, screenX, screenY, gp.tileSize * 2, gp.tileSize * 2, null);
+        // collision trouble shoot
+        g2.setColor(Color.red);
+        g2.drawRect(screenX + solidArea.x,screenY + solidArea.y, solidArea.width, solidArea.height);
     }
 
     public void pickUpObject(int i){
