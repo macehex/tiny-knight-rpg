@@ -250,23 +250,29 @@ public class Player extends Entity {
                     gp.playSoundEffect(5);
                     hasKey++;
                     gp.obj[i] = null; // delete touched object
-                    System.out.println("Inventory.key: "+ hasKey);
+                    gp.ui.showMessage("Picked up key");
                     break;
                 case "Door":
                     if(hasKey>0){
                         gp.playSoundEffect(3);
                         gp.obj[i]=null;
                         hasKey--;
-                        System.out.println("Inventory.key: "+ hasKey);
+                        gp.ui.showMessage("Door opened");
+                    }else{
+                        gp.ui.showMessage("Find a key");
                     }
                     break;
                 case "Chest":
+                    gp.playSoundEffect(0);
+                    gp.ui.gameFinished = true;
+                    gp.stopMusic();
                     gp.playSoundEffect(0);
                     break;
                 case "Potion": //increase movement speed
                     gp.playSoundEffect(4);
                     speed += 1;
                     gp.obj[i] = null ;
+                    gp.ui.showMessage("Picked up speed potion");
                     break;
             }
         }
