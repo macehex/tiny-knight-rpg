@@ -1,11 +1,14 @@
 package tiles;
 
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
 import main.GamePanel;
+import main.UI;
+import main.UltilityTool;
 
 import java.awt.*;
 import java.io.InputStreamReader;
@@ -26,28 +29,35 @@ public class TileManager {
     }
 
     public void getTitleImage() {
+        // name here
+        setup(0, "yellow_ground", false);
+        setup(1, "water", true);
+        setup(2, "water", true);
+        setup(3, "yellow_ground", false);
+        setup(4, "Outdoors_22", false);
+        setup(5, "yellow_ground", false);
 
+//            tile[1] = new Tile();
+//            tile[1].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(("/tiles/water.png"))));
+//            tile[1].collision =true;
+//            tile[2] = new Tile();
+//            tile[2].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(("/tiles/water.png"))));
+
+
+
+    }
+
+    public void setup(int index, String imageName, boolean collision) {
+        UltilityTool uTool = new UltilityTool();
         try {
-            tile[0] = new Tile();
-            tile[0].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(("/tiles/yellow_ground.png"))));
-            tile[1] = new Tile();
-            tile[1].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(("/tiles/water.png"))));
-            tile[1].collision =true;
-            tile[2] = new Tile();
-            tile[2].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(("/tiles/water.png"))));
-            tile[2].collision =true;
-            tile[3] = new Tile();
-            tile[3].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(("/tiles/yellow_ground.png"))));
-            tile[4] = new Tile();
-            tile[4].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(("/tiles/Outdoors_22.png"))));
-
-            tile[5] = new Tile();
-            tile[5].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(("/tiles/yellow_ground.png"))));
+            tile[index] = new Tile();
+            tile[index].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(("/tiles/" + imageName + ".png"))));
+            tile[index].image = uTool.scaleImage(tile[index].image, gp.tileSize, gp.tileSize);
+            tile[index].collision = collision;
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
 
     public void loadMap(String mapPath) {
         try {
@@ -89,12 +99,11 @@ public class TileManager {
             int screenX = worldX - gp.player.worldX + gp.player.screenX;
             int screenY = worldY - gp.player.worldY + gp.player.screenY;
             // dont draw all of the tiles
-            if(worldX +gp.tileSize >gp.player.worldX - gp.player.screenX&&
-                    worldX - gp.tileSize< gp.player.worldX + gp.player.screenX&&
-                    worldY + gp.tileSize> gp.player.worldY - gp.player.screenY&&
-                    worldY -  gp.tileSize < gp.player.worldY + gp.player.screenY)
-            {
-                g2.drawImage(tile[tileNum].image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+            if (worldX + gp.tileSize > gp.player.worldX - gp.player.screenX &&
+                    worldX - gp.tileSize < gp.player.worldX + gp.player.screenX &&
+                    worldY + gp.tileSize > gp.player.worldY - gp.player.screenY &&
+                    worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
+                g2.drawImage(tile[tileNum].image, screenX, screenY,null);
             }
             //draw tiles
             worldCol++;

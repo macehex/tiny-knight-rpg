@@ -30,6 +30,8 @@ public class GamePanel extends JPanel implements Runnable{
 
     //Tile
     TileManager tileM = new TileManager(this);
+
+
     //creating a game clock
     KeyHandler keyH = new KeyHandler();
     // Sound
@@ -96,6 +98,13 @@ public class GamePanel extends JPanel implements Runnable{
         //Jpanel drawing standard
         super.paintComponent(g); // super = parent class of this class -> Jpanel
         Graphics2D g2 = (Graphics2D)g; // change for more functionalities
+        // DEBUGGING
+        long drawStart =0;
+        if(keyH.checkDrawTime == true){
+            drawStart = System.nanoTime();
+        }
+
+
         tileM.draw(g2); //title is the layer before player
 
         //draw object
@@ -108,6 +117,17 @@ public class GamePanel extends JPanel implements Runnable{
         ui.draw(g2);
         player.draw(g2);
         // the next layer could be effects and items ?
+        // DEBUGGING
+        if(keyH.checkDrawTime == true){
+            long drawEnd = System.nanoTime();
+            long passed = drawEnd - drawStart;
+            g2.setColor(Color.white);
+            g2.drawString("Draw Time: "+ passed, 10, 400);
+            System.out.println("Draw Time: " + passed);
+
+        }
+
+
         g2.dispose();//dispose graphics context and release any system resources that it is using
     }
     public void playMusic(int i){

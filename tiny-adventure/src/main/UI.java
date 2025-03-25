@@ -26,7 +26,7 @@ public class UI {
         this.gp = gp;
         Consolas_40 = new Font("Consolas", Font.PLAIN, 40);
         TimeNewsRoman_80B = new Font("Times New Roman", Font.BOLD, 40);
-        OBJ_Key key = new OBJ_Key();
+        OBJ_Key key = new OBJ_Key(gp);
         keyImage = key.image;
     }
     // notification

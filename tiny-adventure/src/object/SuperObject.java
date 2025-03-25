@@ -1,6 +1,7 @@
 package object;
 
 import main.GamePanel;
+import main.UltilityTool;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -16,6 +17,8 @@ public class SuperObject {
     // animation
     public int spriteCounter = 0;
     public int spriteNum = 1;
+    UltilityTool uTool = new UltilityTool();
+
 
     public void draw(Graphics2D g2, GamePanel gp){
         int screenX = worldX - gp.player.worldX + gp.player.screenX;
