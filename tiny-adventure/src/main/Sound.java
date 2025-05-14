@@ -21,8 +21,6 @@ public class Sound {
         soundURL[3]=soundURL[0];
         soundURL[4]=soundURL[0];
         soundURL[5]=soundURL[0];
-
-
     }
     public void setFile(int i){
         try{
@@ -39,7 +37,7 @@ public class Sound {
         clip.start();
     }
     public void loop(){
-        clip.loop(clip.LOOP_CONTINUOUSLY);
+        clip.loop(Clip.LOOP_CONTINUOUSLY);
     }
     public void stop(){
         clip.stop();

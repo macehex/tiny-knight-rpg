@@ -7,7 +7,7 @@ public class Main {
         JFrame window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
-        window.setTitle("enter the castle");
+        window.setTitle("tiny knight");
 
         GamePanel gamePanel = new GamePanel(); //add game panel
         window.add(gamePanel);

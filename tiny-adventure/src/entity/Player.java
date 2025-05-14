@@ -12,7 +12,6 @@ import java.nio.Buffer;
 import java.util.Objects;
 
 public class Player extends Entity {
-    GamePanel gp;
     KeyHandler keyH;
     public final int screenX;
     public final int screenY; // background scroll
@@ -20,7 +19,8 @@ public class Player extends Entity {
     public int hasKey = 0;
 
     public Player(GamePanel gp, KeyHandler keyH) {
-        this.gp = gp;
+        super(gp);
+
         this.keyH = keyH;
 
         screenX = gp.screenWidth / 2 - gp.tileSize / 2;
@@ -47,49 +47,39 @@ public class Player extends Entity {
     }
 
     public void getPlayerImage() {
-        up1 = setup("warrior_runu1");
-        up2 = setup("warrior_runu2");
-        up3 = setup("warrior_runu3");
-        up4 = setup("warrior_runu4");
-        up5 = setup("warrior_runu5");
-        up6 = setup("warrior_runu6");
-        down1 = setup("warrior_rund1");
-        down2 = setup("warrior_rund2");
-        down3 = setup("warrior_rund3");
-        down4 = setup("warrior_rund4");
-        down5 = setup("warrior_rund5");
-        down6 = setup("warrior_rund6");
-        left1 = setup("warrior_runl1");
-        left2 = setup("warrior_runl2");
-        left3 = setup("warrior_runl3");
-        left4 = setup("warrior_runl4");
-        left5 = setup("warrior_runl5");
-        left6 = setup("warrior_runl6");
-        right1 = setup("warrior_runr1");
-        right2 = setup("warrior_runr2");
-        right3 = setup("warrior_runr3");
-        right4 = setup("warrior_runr4");
-        right5 = setup("warrior_runr5");
-        right6 = setup("warrior_runr6");
-        idle1 = setup("idle/Warrior_idle1");
-        idle2 = setup("idle/Warrior_idle2");
-        idle3 = setup("idle/Warrior_idle3");
-        idle4 = setup("idle/Warrior_idle4");
-        idle5 = setup("idle/Warrior_idle1");
-        idle6 = setup("idle/Warrior_idle1");
+        up1 = setup("/player/warrior_runu1");
+        up2 = setup("/player/warrior_runu2");
+        up3 = setup("/player/warrior_runu3");
+        up4 = setup("/player/warrior_runu4");
+        up5 = setup("/player/warrior_runu5");
+        up6 = setup("/player/warrior_runu6");
+        down1 = setup("/player/warrior_rund1");
+        down2 = setup("/player/warrior_rund2");
+        down3 = setup("/player/warrior_rund3");
+        down4 = setup("/player/warrior_rund4");
+        down5 = setup("/player/warrior_rund5");
+        down6 = setup("/player/warrior_rund6");
+        left1 = setup("/player/warrior_runl1");
+        left2 = setup("/player/warrior_runl2");
+        left3 = setup("/player/warrior_runl3");
+        left4 = setup("/player/warrior_runl4");
+        left5 = setup("/player/warrior_runl5");
+        left6 = setup("/player/warrior_runl6");
+        right1 = setup("/player/warrior_runr1");
+        right2 = setup("/player/warrior_runr2");
+        right3 = setup("/player/warrior_runr3");
+        right4 = setup("/player/warrior_runr4");
+        right5 = setup("/player/warrior_runr5");
+        right6 = setup("/player/warrior_runr6");
+        idle1 = setup("/player/idle/Warrior_idle1");
+        idle2 = setup("/player/idle/Warrior_idle2");
+        idle3 = setup("/player/idle/Warrior_idle3");
+        idle4 = setup("/player/idle/Warrior_idle4");
+        idle5 = setup("/player/idle/Warrior_idle1");
+        idle6 = setup("/player/idle/Warrior_idle1");
 
     }
-    public BufferedImage setup(String imageName) {
-        UltilityTool uTool = new UltilityTool();
-        BufferedImage image = null;
-        try {
-            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/" + imageName + ".png")));
-            image = uTool.scaleImage(image, gp.tileSize*2, gp.tileSize*2);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return image;
-    }
+
 
     public void update() {
         //idle state
@@ -136,6 +126,11 @@ public class Player extends Entity {
             // check object collision
             int objIndex = gp.cChecker.checkObject(this, true);
             pickUpObject(objIndex);
+
+            //CHECK NPC collision
+            int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
+            interactNPC(npcIndex);
+
             // if collision false. player can move
             if (!collisionOn) {
                 switch (direction) {
@@ -248,8 +243,10 @@ public class Player extends Entity {
         }
         g2.drawImage(image, screenX, screenY, null);
 //        // collision trouble shoot
-//        g2.setColor(Color.red);
-//        g2.drawRect(screenX + solidArea.x,screenY + solidArea.y, solidArea.width, solidArea.height);
+        g2.setColor(Color.red);
+        g2.drawRect(screenX + solidArea.x,screenY + solidArea.y, solidArea.width, solidArea.height);
+
+
     }
 
     public void pickUpObject(int i) {
@@ -287,5 +284,19 @@ public class Player extends Entity {
                     break;
             }
         }
+    }
+    public void interactNPC(int i){
+        if(i!=999){
+
+            System.out.println("Hitting an npc");
+            if(gp.keyH.fPressed){
+                gp.gameState=gp.dialogueState;
+                gp.npc[i].speak();
+            }
+            gp.keyH.fPressed = false;
+        }
+    }
+    public void interactKing(int i){
+        gp.gameState=gp.dialogueState;
     }
 }
