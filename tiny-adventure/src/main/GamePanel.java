@@ -55,10 +55,10 @@ public class GamePanel extends JPanel implements Runnable {
 
     // CREATING GAME STATE
     public int gameState;
+    public final int titleState = 0;
     public final int playState = 1;
     public final int pauseState = 2;
     public final int dialogueState = 3;
-
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.black);
@@ -72,9 +72,12 @@ public class GamePanel extends JPanel implements Runnable {
         aSetter.setObject(); //calling setobject method
         aSetter.setNPC();
         aSetter.setKing();
-        playMusic(6);
-        stopMusic();
-        gameState = playState;
+//        playMusic(6);
+//        stopMusic();
+        //DEFAULT
+//        gameState = titleState;
+        gameState = titleState;
+
     }
 
     public void startGameThread() {
@@ -137,34 +140,38 @@ public class GamePanel extends JPanel implements Runnable {
         if (keyH.checkDrawTime == true) {
             drawStart = System.nanoTime();
         }
-
-
-        tileM.draw(g2); //title is the layer before player
-
-        //draw object
-        for (int i = 0; i < obj.length; i++) {
-            if (obj[i] != null) {
-                obj[i].draw(g2, this);
-            }
+        // TITLE SCREEN
+        if(gameState == titleState){
+            ui.draw(g2);
         }
-        // play npc
-        for (int i = 0; i < npc.length; i++) {
-            if (npc[i] != null) {
-                npc[i].draw(g2);
-            }
-        }
-        player.draw(g2);
-        //ui goes after player
-        ui.draw(g2);
-        // the next layer could be effects and items ?
-        // DEBUGGING
-        if (keyH.checkDrawTime == true) {
-            long drawEnd = System.nanoTime();
-            long passed = drawEnd - drawStart;
-            g2.setColor(Color.white);
-            g2.drawString("Draw Time: " + passed, 10, 400);
-            System.out.println("Draw Time: " + passed);
+        // NOT TITLE SCREEN
+        else if(gameState == playState){
+            tileM.draw(g2); //title is the layer before player
 
+            //draw object
+            for (int i = 0; i < obj.length; i++) {
+                if (obj[i] != null) {
+                    obj[i].draw(g2, this);
+                }
+            }
+            // play npc
+            for (int i = 0; i < npc.length; i++) {
+                if (npc[i] != null) {
+                    npc[i].draw(g2);
+                }
+            }
+            player.draw(g2);
+            //ui goes after player
+            ui.draw(g2);
+            // the next layer could be effects and items ?
+            // DEBUGGING
+            if (keyH.checkDrawTime == true) {
+                long drawEnd = System.nanoTime();
+                long passed = drawEnd - drawStart;
+                g2.setColor(Color.white);
+                g2.drawString("Draw Time: " + passed, 10, 400);
+                System.out.println("Draw Time: " + passed);
+            }
         }
 
 

@@ -20,11 +20,9 @@ public class KeyHandler implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode(); //return key number that's pressed
-
         //        if(code == keyEvent.SHIFT){
 //            dashPressed = false;
 //        }
-
         if(gp.gameState==gp.playState) {
             switch (code) {
                 case KeyEvent.VK_W:
@@ -62,7 +60,43 @@ public class KeyHandler implements KeyListener {
                     gp.gameState = gp.playState;
                 }
             }
+            else if(gp.gameState==gp.titleState) {
+            switch (code) {
+                case KeyEvent.VK_W:
+                    gp.ui.commandNum--;
+                    if(gp.ui.commandNum<0){
+                        gp.ui.commandNum = 3;
+                    }
+                    break;
+                case KeyEvent.VK_S:
+                    gp.ui.commandNum++;
+                    if(gp.ui.commandNum >3)
+                    {
+                        gp.ui.commandNum = 0;
+                    }
+                    break;
+                case KeyEvent.VK_ENTER:
+                    switch (gp.ui.commandNum){
+                        case 0:
+                        //New game
+                            gp.gameState = gp.playState;
+                            gp.playMusic(6);
+                            break;
+                        case 1:
+                            //Load game later hehe
+                            break;
+                        case 2:
+                            //settings later
+                            break;
+                        case 3:
+                            //exit
+                            System.exit(0);
+                            break;
+                    }
+                    break;
 
+            }
+            }
     }
 
     @Override

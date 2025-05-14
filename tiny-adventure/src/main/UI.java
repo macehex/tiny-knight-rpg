@@ -1,11 +1,12 @@
 package main;
 
-import object.OBJ_Chest;
 import object.OBJ_Key;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.text.DecimalFormat;
+import java.io.IOException;
+import java.util.Objects;
 
 public class UI {
     // all the onscreen ui
@@ -14,10 +15,13 @@ public class UI {
     int messageCounter = 0;
     Font Consolas_40, TimeNewsRoman_80B, TimeNewsRoman_25, Pixeloid_80,Pixeloid_40;
     BufferedImage keyImage;
+    BufferedImage titleScreenImage, titleButtonImage;
     public boolean messageOn = false;
     public String message = "";
 
     public String currentDialogue = "";
+    // title
+    public int commandNum = 0;
     public boolean gameFinished = false ;
 
 
@@ -76,32 +80,97 @@ public class UI {
 
         g2.setFont(Pixeloid_80);
         g2.setColor(Color.white);
-        // PLAY state
-        switch(gp.gameState){
-            case 1:
-                // ìf playState
-                // display playing ui
-                // set font
-                g2.setFont(Pixeloid_40);
-                g2.setColor(Color.white);
-                g2.drawImage(keyImage, gp.tileSize / 4, gp.tileSize / 4, gp.tileSize * 1, gp.tileSize * 1, null);
-                g2.drawString("x " + gp.player.hasKey, 60, 45);
-            break;
-            //PAUSE state
-            case 2:
-                //if pausing state
-                drawPauseScreen();
-                break;
-            //DIALOGUE state
-            case 3:
-                //ìf dialogue state
-                drawDialogueScreen();
-                break;
+        //TITLE state
+        if(gp.gameState==gp.titleState){
+            drawTitleScreen(g2);
         }
+        // PLAY state
+
+            switch(gp.gameState){
+                case 1:
+                    // ìf playState
+                    // display playing ui
+                    // set font
+                    g2.setFont(Pixeloid_40);
+                    g2.setColor(Color.white);
+                    g2.drawImage(keyImage, gp.tileSize / 4, gp.tileSize / 4, gp.tileSize * 1, gp.tileSize * 1, null);
+                    g2.drawString("x " + gp.player.hasKey, 60, 45);
+                break;
+                //PAUSE state
+                case 2:
+                    //if pausing state
+                    drawPauseScreen();
+                    break;
+                //DIALOGUE state
+                case 3:
+                    //ìf dialogue state
+                    drawDialogueScreen();
+                    break;
+            }
+
     }
     public int getXforCenteredText(String text){
         int length = (int)g2.getFontMetrics().getStringBounds(text,g2).getWidth();
         int x = gp.screenWidth/2 - length /2;
         return x;
+    }
+    public void drawTitleScreen(Graphics2D g2){
+
+        try{
+            titleScreenImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/title_screen/Start_Menu.png")));
+            titleButtonImage =  ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/title_screen/title_button.png")));
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        g2.setColor(Color.black);
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,20F));
+        g2.drawImage(titleScreenImage, 0, 0,null);
+        int button_x = gp.screenWidth/2-gp.screenWidth/7;
+        int button_y = gp.screenHeight/2;
+        int space = gp.screenHeight/4 - gp.screenHeight/7;
+
+        g2.drawImage(titleButtonImage, button_x, button_y,null);
+
+        int textspace = gp.screenHeight/14;
+        String text1 = "New Game";
+        int x = getXforCenteredText(text1);
+        int x_choose = x;
+        int y=button_y + textspace;
+        g2.drawString(text1,x,y);
+        if(commandNum == 0){
+            g2.drawString(">",x-gp.tileSize,y);
+        }
+        button_y+= space;
+
+        g2.drawImage(titleButtonImage, button_x, button_y,null);
+
+        String text2 = "Load Game";
+        y = button_y + textspace;
+        g2.drawString(text2,x,y);
+        if(commandNum == 1){
+            g2.drawString(">",x-gp.tileSize,y);
+        }
+        button_y+= space;
+
+        g2.drawImage(titleButtonImage, button_x, button_y,null);
+
+
+        String text3 = "Settings";
+        x += textspace/3;
+        y=button_y + textspace;
+        g2.drawString(text3,x,y);
+        if(commandNum == 2){
+            g2.drawString(">",x_choose,y);
+        }
+        button_y+= space;
+
+        g2.drawImage(titleButtonImage, button_x, button_y,null);
+        String text4 = "Exit";
+        x += textspace/2;
+        y=button_y + textspace;
+        if(commandNum == 3){
+            g2.drawString(">",x_choose,y);
+        }
+        g2.drawString(text4,x,y);
     }
 }
