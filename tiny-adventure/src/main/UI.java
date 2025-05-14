@@ -10,24 +10,61 @@ import java.text.DecimalFormat;
 public class UI {
     // all the onscreen ui
     GamePanel gp;
+    Graphics2D g2;
     int messageCounter = 0;
-    Font Consolas_40, TimeNewsRoman_80B;
+    Font Consolas_40, TimeNewsRoman_80B, TimeNewsRoman_25, Pixeloid_80,Pixeloid_40;
     BufferedImage keyImage;
     public boolean messageOn = false;
     public String message = "";
 
+    public String currentDialogue = "";
     public boolean gameFinished = false ;
-    DecimalFormat dFormat = new DecimalFormat("#0.00");
 
-    // play time
-    double playTime;
 
     public UI(GamePanel gp) {
         this.gp = gp;
+        Pixeloid_40 = new Font("Pixeloid Sans", Font.PLAIN, 40);
+
+        Pixeloid_80 = new Font("Pixeloid Sans", Font.PLAIN, 80);
         Consolas_40 = new Font("Consolas", Font.PLAIN, 40);
         TimeNewsRoman_80B = new Font("Times New Roman", Font.BOLD, 40);
+        TimeNewsRoman_25 = new Font("Times New Roman", Font.PLAIN, 25);
+
         OBJ_Key key = new OBJ_Key(gp);
         keyImage = key.image;
+    }
+    public void drawPauseScreen(){
+
+        String text = "PAUSED";
+        int x = getXforCenteredText(text), y = gp.screenHeight/2;
+        g2.drawString(text,x, y);
+    }
+    public void drawDialogueScreen(){
+        //Window
+        int x= gp.tileSize*2;
+        int  y=gp.tileSize*6;
+        int width= gp.screenWidth-(gp.tileSize*4);
+        int height=gp.tileSize*5;
+        drawSubWindow(x, y,  width, height);
+
+        //draw texts
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN,22F));
+        x+=gp.tileSize;
+        y+= gp.tileSize;
+        for(String line : currentDialogue.split("\n")){
+            g2.drawString(line, x, y);
+            y+= 40;
+        }
+    }
+    public void drawSubWindow(int x, int y, int width,int height)
+    {
+        Color c = new Color(87,72,82,240);
+        g2.setColor(c);
+        g2.fillRoundRect(x,y,width,height,35,35);
+        c = new Color(185,145,88);
+        g2.setColor(c);
+        g2.setStroke(new BasicStroke(5));
+        g2.drawRoundRect(x+5,y+5,width-10,height-10,25,25);
     }
     // notification
     public void showMessage(String text){
@@ -35,53 +72,36 @@ public class UI {
         messageOn = true;
     }
     public void draw(Graphics2D g2){
-        if(gameFinished){
+        this.g2 = g2;
 
-            g2.setFont(Consolas_40);
-            g2.setColor(Color.white);
-            int textLength;
-            int x;
-            int y;
-
-            String text = "Treasure found" ;
-            textLength = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
-
-            x = gp.screenWidth/2 - textLength/2;
-            y = gp.screenHeight/2 - (gp.tileSize*3) ;
-            g2.drawString(text, x, y);
-            // second message
-            g2.setFont(TimeNewsRoman_80B);
-            g2.setColor(Color.BLUE);
-            text = "Congratulations!" ;
-            textLength = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
-
-            x = gp.screenWidth/2 - textLength/2;
-            y = gp.screenHeight/2 - (gp.tileSize*2) ;
-            g2.drawString(text, x, y);
-
-            // stop game
-            gp.gameThread = null;
-        }else {
-            // set font
-            g2.setFont(Consolas_40);
-            g2.setColor(Color.white);
-            g2.drawImage(keyImage, gp.tileSize / 4, gp.tileSize / 4, gp.tileSize * 2, gp.tileSize * 2, null);
-            g2.drawString("x " + gp.player.hasKey, 100, 70);
-
-//            // Show time
-            playTime += (double)1/60; // draw method get called 60/sec
-            g2.drawString("Time: "+dFormat.format(playTime), gp.tileSize*11, 65);
-            //showMessage
-            if (messageOn) {
-                g2.setFont(g2.getFont().deriveFont(23F));
-                // g2.drawImage(...) to draw the UI in the background
-                g2.drawString(message, gp.tileSize * 6 - 10, gp.tileSize * 11);
-                messageCounter++;
-                if (messageCounter > 60 * 1) {
-                    messageCounter = 0;
-                    messageOn = false;
-                }
-            }
+        g2.setFont(Pixeloid_80);
+        g2.setColor(Color.white);
+        // PLAY state
+        switch(gp.gameState){
+            case 1:
+                // ìf playState
+                // display playing ui
+                // set font
+                g2.setFont(Pixeloid_40);
+                g2.setColor(Color.white);
+                g2.drawImage(keyImage, gp.tileSize / 4, gp.tileSize / 4, gp.tileSize * 1, gp.tileSize * 1, null);
+                g2.drawString("x " + gp.player.hasKey, 60, 45);
+            break;
+            //PAUSE state
+            case 2:
+                //if pausing state
+                drawPauseScreen();
+                break;
+            //DIALOGUE state
+            case 3:
+                //ìf dialogue state
+                drawDialogueScreen();
+                break;
         }
+    }
+    public int getXforCenteredText(String text){
+        int length = (int)g2.getFontMetrics().getStringBounds(text,g2).getWidth();
+        int x = gp.screenWidth/2 - length /2;
+        return x;
     }
 }
