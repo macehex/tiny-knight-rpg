@@ -1,23 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="100" height="55" tilewidth="16" tileheight="16" infinite="0" nextlayerid="14" nextobjectid="1">
- <tileset firstgid="1" name="land_1" tilewidth="16" tileheight="16" tilecount="950" columns="38">
-  <image source="asset/PNG/Flying-Islands-Pixel-Art-Top-Down-Tileset2-removebg-preview.png" width="612" height="408"/>
- </tileset>
- <tileset firstgid="951" name="land_2" tilewidth="16" tileheight="16" tilecount="950" columns="38">
-  <image source="asset/PNG/Flying-Islands-Pixel-Art-Top-Down-Tileset3-removebg-preview.png" width="612" height="408"/>
- </tileset>
- <tileset firstgid="1901" name="dragon" tilewidth="16" tileheight="16" tilecount="950" columns="38">
-  <image source="asset/PNG/Flying-Islands-Pixel-Art-Top-Down-Tileset4-removebg-preview.png" width="612" height="408"/>
- </tileset>
+ <tileset firstgid="1" source="Tilesets/land_1.tsx"/>
+ <tileset firstgid="951" source="Tilesets/land_2.tsx"/>
+ <tileset firstgid="1901" source="Tilesets/dragon.tsx"/>
  <tileset firstgid="2851" name="tree" tilewidth="16" tileheight="16" tilecount="950" columns="38">
   <image source="asset/PNG/Flying-Islands-Pixel-Art-Top-Down-Tileset5-removebg-preview.png" width="612" height="408"/>
  </tileset>
- <tileset firstgid="3801" name="statue" tilewidth="16" tileheight="16" tilecount="950" columns="38">
-  <image source="asset/PNG/Flying-Islands-Pixel-Art-Top-Down-Tileset6-removebg-preview.png" width="612" height="408"/>
- </tileset>
- <tileset firstgid="4751" name="background" tilewidth="16" tileheight="16" tilecount="2170" columns="62">
-  <image source="../../../../Downloads/image.png" width="1004" height="564"/>
- </tileset>
+ <tileset firstgid="3801" source="Tilesets/statue.tsx"/>
+ <tileset firstgid="4751" source="Tilesets/background.tsx"/>
  <layer id="1" name="background" width="100" height="55">
   <data encoding="csv">
 4751,4752,4753,4754,4755,4756,4757,4758,4759,4760,4761,4762,4763,4764,4765,4766,4767,4768,4769,4770,4771,4772,4773,4774,4775,4999,4999,5061,5062,5063,5064,5065,5066,5067,5068,5069,5070,5071,5072,5073,5074,5075,5076,5077,5078,5079,5080,5081,5082,5083,5084,5085,5086,5087,5088,5089,5090,5091,5092,5093,5094,5095,5096,5097,5247,5248,5249,5250,5251,5252,5253,5254,5255,5256,5257,5258,5259,5260,5261,5262,5263,5264,5265,5266,5267,5268,5269,5270,5271,5272,5273,5274,5275,5276,5277,5278,5279,5280,5281,5282,
