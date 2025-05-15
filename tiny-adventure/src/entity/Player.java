@@ -8,7 +8,6 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.nio.Buffer;
 import java.util.Objects;
 
 public class Player extends Entity {
@@ -17,6 +16,8 @@ public class Player extends Entity {
     public final int screenY; // background scroll
     // key item slot
     public int hasKey = 0;
+    public boolean invincible = false;
+    int invincibleCounter = 0;
 
     public Player(GamePanel gp, KeyHandler keyH) {
         super(gp);
@@ -33,7 +34,7 @@ public class Player extends Entity {
         solidArea.width = 16;
         solidArea.height = 32;
         solidAreaDefaultX = solidArea.x;
-        SolidAreaDefaultY = solidArea.y;
+        solidAreaDefaultY = solidArea.y;
         setDefaultValues();
         getPlayerImage();
     }
@@ -123,13 +124,18 @@ public class Player extends Entity {
             } else if (keyH.rightPressed) {
                 direction = "right";
             }
+
             //   check tile collision state
             collisionOn = false;
             gp.cChecker.checkTile(this);
             // check object collision
             int objIndex = gp.cChecker.checkObject(this, true);
             pickUpObject(objIndex);
-
+            //Check Monster collision
+            int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
+            contactMonster(monsterIndex);
+            //CHECK EVENT
+            gp.eHandler.checkEvent();
             //CHECK NPC collision
             int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
             interactNPC(npcIndex);
@@ -178,6 +184,14 @@ public class Player extends Entity {
             }
 
 
+        }
+        //outside of key statement
+        if(invincible){
+            invincibleCounter++;
+            if(invincibleCounter > 60){
+                invincible =false;
+                invincibleCounter = 0;
+            }
         }
     }
 
@@ -251,6 +265,18 @@ public class Player extends Entity {
 
 
     }
+    @Override
+    public BufferedImage setup(String imagePath) {
+        UltilityTool uTool = new UltilityTool();
+        BufferedImage image = null;
+        try {
+            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(imagePath + ".png")));
+            image = uTool.scaleImage(image, gp.tileSize * 2, gp.tileSize * 2);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return image;
+    }
 
     public void pickUpObject(int i) {
         if (i != 999) {
@@ -279,12 +305,32 @@ public class Player extends Entity {
                     gp.stopMusic();
                     gp.playSoundEffect(0);
                     break;
-                case "Potion": //increase movement speed
+                case "Speed Potion": //increase movement speed
                     gp.playSoundEffect(4);
                     speed += 1;
                     gp.obj[i] = null;
                     gp.ui.showMessage("Picked up speed potion");
                     break;
+                case "Health Potion 2":
+                    gp.playSoundEffect(4);
+                    if(gp.player.life<gp.player.maxLife+2){
+                        gp.player.life+=2;
+                    }else{
+                        gp.player.life=gp.player.maxLife;
+                    }
+                    gp.obj[i] = null;
+                    gp.ui.showMessage("Picked up health+2 potion");
+                    break;
+
+            }
+        }
+    }
+    public void contactMonster(int i){
+        if(i!= 999){
+            // resume  for 2 sec
+            if(!invincible){
+                life -= 1;
+                invincible = true;
             }
         }
     }

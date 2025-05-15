@@ -4,7 +4,6 @@ import main.GamePanel;
 import main.UltilityTool;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
@@ -92,6 +91,19 @@ public class NPC extends Entity {
         }
 
     }
+    @Override
+    public BufferedImage setup(String imagePath) {
+        UltilityTool uTool = new UltilityTool();
+        BufferedImage image = null;
+        try {
+            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(imagePath + ".png")));
+            image = uTool.scaleImage(image, gp.tileSize * 2, gp.tileSize * 2);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return image;
+    }
+
     // ENTITY already hava an update function!
     public void speak(){
         if(dialogues[dialogueIndex] == null){
