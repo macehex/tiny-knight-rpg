@@ -1,21 +1,25 @@
 package object;
 
+import entity.Entity;
 import main.GamePanel;
+import main.UltilityTool;
 
 import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
 
-public class OBJ_Key extends SuperObject{
-    GamePanel gp;
+public class OBJ_Key extends Entity {
     public OBJ_Key(GamePanel gp){
-        this.gp = gp;
+        super(gp);
         name = "Key";
-        try{
-            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/object/key.png")));
-            uTool.scaleImage(image,gp.tileSize, gp.tileSize);
-        }catch (IOException e){
-            e.printStackTrace();
-        }
+        down1 = setup("/object/key");
+        //  HIT BOX
+        solidArea.x = 12;
+        solidArea.y = 12;
+        solidArea.width = 32;
+        solidArea.height = 32;
+        collision = false;
+
     }
 }

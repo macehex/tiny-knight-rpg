@@ -1,8 +1,8 @@
 package main;
 
+import entity.Entity;
 import object.OBJ_Heart;
 import object.OBJ_Key;
-import object.SuperObject;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -41,14 +41,13 @@ public class UI {
         OBJ_Key key = new OBJ_Key(gp);
         keyImage = key.image;
         //CREATE 2D OBJECT
-        SuperObject heart =new OBJ_Heart(gp);
+        Entity heart =new OBJ_Heart(gp);
         heart_blank = heart.image;
         heart_full = heart.image2;
         heart_background = heart.image3;
         emblem = heart.image4;
     }
     public void drawPauseScreen(){
-
         String text = "PAUSED";
         int x = getXforCenteredText(text), y = gp.screenHeight/2;
         g2.drawString(text,x, y);
@@ -111,7 +110,6 @@ public class UI {
             case 2:
                     //if pausing state
                     drawPlayerLife();
-
                     drawPauseScreen();
                     break;
                 //DIALOGUE state

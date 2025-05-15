@@ -62,7 +62,7 @@ public class EventHandler {
 
         }
         gp.player.solidArea.x = gp.player.solidAreaDefaultX;
-        gp.player.solidArea.y = gp.player.SolidAreaDefaultY;
+        gp.player.solidArea.y = gp.player.solidAreaDefaultY;
 
         eventRect[col][row].x = eventRect[col][row].eventRectDefaultX;
         eventRect[col][row].y = eventRect[col][row].eventRectDefaultY;

@@ -10,8 +10,12 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class Entity {
-    // blueprint for all chars, monsters
+    // blueprint for all chars, monsters, objects
     GamePanel gp;
+    public BufferedImage image, image2,image3,image4,image5,image6;
+    public String name;
+    public boolean collision = false ;
+
     public int worldX, worldY; // game camera
     public int speed;
 
@@ -20,24 +24,24 @@ public class Entity {
             left1, left2, left3, left4, left5, left6,
             right1, right2, right3, right4, right5, right6,
             idle1, idle2, idle3, idle4, idle5, idle6;
-    public String direction;
+    public String direction = "down";
 
     public int spriteCounter = 0;
     public int spriteNum = 1;
 
-    public int solidAreaDefaultX, SolidAreaDefaultY;
+    public int solidAreaDefaultX, solidAreaDefaultY;
     // hit box
-//    public Rectangle solidArea; // x y width and height
     public boolean collisionOn = false;
     //default entity hitbox
     public Rectangle solidArea = new Rectangle(0, 0, 32, 32);
 
     //NPC variables
     public int actionLockCounter = 0;
-    String dialogues[] = new String [20];
+    String[] dialogues = new String [20];
     int dialogueIndex = 0;
 
     //Character and monster  status
+    public int type; // 0 - player, 1 = npc, 2 = shroom
 
     public int maxLife;
     public int life;
@@ -46,7 +50,6 @@ public class Entity {
     public Entity(GamePanel gp) {
         this.gp = gp;
     }
-
     public void setAction() {
 
     }
@@ -59,7 +62,16 @@ public class Entity {
         collisionOn = false;
         gp.cChecker.checkTile(this); //passing "NPC" class (because npc has the priority )
         gp.cChecker.checkObject(this, false);
-        gp.cChecker.checkPlayer(this);
+
+        gp.cChecker.checkEntity(this, gp.npc);
+        gp.cChecker.checkEntity(this, gp.monster);
+
+        boolean contactPlayer = gp.cChecker.checkPlayer(this);
+        if(this.type ==2 && contactPlayer){
+            // damage
+            gp.player.life -= 1;
+            gp.player.invincible = true;
+        }
         if (!collisionOn) {
             switch (direction) {
                 case "up":
@@ -170,19 +182,19 @@ public class Entity {
                     };
                     break;
             }
-            g2.drawImage(image, screenX - gp.tileSize / 2, screenY - gp.tileSize / 2, gp.tileSize * 2, gp.tileSize * 2, null);
+            g2.drawImage(image, screenX , screenY , gp.tileSize, gp.tileSize, null);
 //        // collision trouble shoot
             g2.setColor(Color.red);
             g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
         }
     }
-
     public BufferedImage setup(String imagePath) {
         UltilityTool uTool = new UltilityTool();
         BufferedImage image = null;
         try {
             image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(imagePath + ".png")));
-            image = uTool.scaleImage(image, gp.tileSize * 2, gp.tileSize * 2);
+            image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
+
         } catch (IOException e) {
             e.printStackTrace();
         }

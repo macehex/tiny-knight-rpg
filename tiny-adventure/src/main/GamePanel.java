@@ -3,18 +3,20 @@ package main;
 import entity.Entity;
 import entity.King;
 import entity.Player;
-import object.SuperObject;
 import tiles.TileManager;
 import tiles.Tile;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import javax.swing.JPanel;
 
 public class GamePanel extends JPanel implements Runnable {
     // SCREEN SETTINGS
-    final int originalTileSize = 16; // 16x16 tile
+    public final int originalTileSize = 16; // 16x16 tile
     //scale to screen
-    final int scale = 3;
+    public final int scale = 3;
     public final int tileSize = originalTileSize * scale;
     //remember to scale characters and objects too
     // how many tiles can be displayed on a screen
@@ -47,12 +49,14 @@ public class GamePanel extends JPanel implements Runnable {
     //setting stuffs
     public AssetSetter aSetter = new AssetSetter(this);
     public Player player = new Player(this, keyH);
-    public Entity npc[] = new Entity[10];
-    public Entity king[] = new King[2];
+    public Entity[] npc = new Entity[10];
+    public Entity[] king = new King[2];
+    public Entity[] obj = new Entity[15];
+    public Entity[] monster = new Entity[30];
+    ArrayList<Entity> entityList = new ArrayList<>();
     //UI
     public UI ui = new UI(this);
     Thread gameThread;
-    public SuperObject obj[] = new SuperObject[10];
 
     // CREATING GAME STATE
     public int gameState;
@@ -73,6 +77,7 @@ public class GamePanel extends JPanel implements Runnable {
         aSetter.setObject(); //calling setobject method
         aSetter.setNPC();
         aSetter.setKing();
+        aSetter.setMonster();
 //        playMusic(6);
 //        stopMusic();
         //DEFAULT
@@ -116,19 +121,25 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() {
-        if (gameState == playState) {
-            player.update();
-            //NPC update
-            for (int i = 0; i < npc.length; i++) {
-                if (npc[i] != null) {
-                    npc[i].update();
+        switch(gameState){
+            case playState:
+                player.update();
+                //NPC update
+                for (int i = 0; i < npc.length; i++) {
+                    if (npc[i] != null) {
+                        npc[i].update();
+                    }
                 }
-            }
-
-        }
-        if (gameState == pauseState) {
-            //nothing yet
-            // update UI?
+                for (int i = 0; i < monster.length; i++) {
+                    if (monster[i] != null) {
+                        monster[i].update();
+                    }
+                }
+                break;
+            case pauseState:
+                //nothing yet
+                // update UI?
+                break;
         }
     }
 
@@ -149,22 +160,41 @@ public class GamePanel extends JPanel implements Runnable {
 //        else if(gameState == playState){
             else{
             tileM.draw(g2); //title is the layer before player
+            entityList.add(player);
+            for(int i =0; i<npc.length;i++){
+                if(npc[i]!=null){
+                    entityList.add(npc[i]);
+                }
+            }
+            for(int i =0; i< obj.length;i++){
+                if(obj[i]!=null){
+                    entityList.add(obj[i]);
+                }
+            }
+            for(int i =0; i< monster.length;i++){
+                if(monster[i]!=null){
+                    entityList.add(monster[i]);
+                }
+            }
 
-            //draw object
-            for (int i = 0; i < obj.length; i++) {
-                if (obj[i] != null) {
-                    obj[i].draw(g2, this);
+
+
+            Collections.sort(entityList, new Comparator<Entity>() {
+                @Override
+                public int compare(Entity o1, Entity o2) {
+                    int result = Integer.compare(o1.worldY,o2.worldY);
+                    return result;
                 }
+            });
+            //draw entities
+            for(int i = 0 ; i< entityList.size();i++){
+                entityList.get(i).draw(g2);
             }
-            // play npc
-            for (int i = 0; i < npc.length; i++) {
-                if (npc[i] != null) {
-                    npc[i].draw(g2);
-                }
-            }
-            player.draw(g2);
-            //ui goes after player
+            //empty
+            entityList.clear();
+
             ui.draw(g2);
+
             // the next layer could be effects and items ?
             // DEBUGGING
             if (keyH.checkDrawTime == true) {
