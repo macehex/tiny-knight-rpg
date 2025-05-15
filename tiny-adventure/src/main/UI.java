@@ -1,6 +1,8 @@
 package main;
 
+import object.OBJ_Heart;
 import object.OBJ_Key;
+import object.SuperObject;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -24,6 +26,8 @@ public class UI {
     public int commandNum = 0;
     public boolean gameFinished = false ;
 
+    // gameState = playState UI
+    BufferedImage heart_full, heart_half, heart_blank,heart_background;
 
     public UI(GamePanel gp) {
         this.gp = gp;
@@ -36,6 +40,11 @@ public class UI {
 
         OBJ_Key key = new OBJ_Key(gp);
         keyImage = key.image;
+        //CREATE 2D OBJECT
+        SuperObject heart =new OBJ_Heart(gp);
+        heart_blank = heart.image;
+        heart_full = heart.image2;
+        heart_background = heart.image3;
     }
     public void drawPauseScreen(){
 
@@ -86,24 +95,28 @@ public class UI {
         }
         // PLAY state
 
-            switch(gp.gameState){
-                case 1:
+        switch(gp.gameState){
+            case 1:
                     // ìf playState
                     // display playing ui
                     // set font
-                    g2.setFont(Pixeloid_40);
-                    g2.setColor(Color.white);
-                    g2.drawImage(keyImage, gp.tileSize / 4, gp.tileSize / 4, gp.tileSize * 1, gp.tileSize * 1, null);
-                    g2.drawString("x " + gp.player.hasKey, 60, 45);
-                break;
-                //PAUSE state
-                case 2:
+//                    draw key
+//                    g2.setFont(Pixeloid_40);
+//                    g2.setColor(Color.white);
+//                    g2.drawImage(keyImage, gp.tileSize / 4, gp.tileSize / 4, gp.tileSize * 1, gp.tileSize * 1, null);
+//                    g2.drawString("x " + gp.player.hasKey, 60, 45);
+                    drawPlayerLife();
+                    break;
+            case 2:
                     //if pausing state
+                    drawPlayerLife();
+
                     drawPauseScreen();
                     break;
                 //DIALOGUE state
                 case 3:
                     //ìf dialogue state
+                    drawPlayerLife();
                     drawDialogueScreen();
                     break;
             }
@@ -114,6 +127,31 @@ public class UI {
         int x = gp.screenWidth/2 - length /2;
         return x;
     }
+    public void drawPlayerLife(){
+        int x = gp.tileSize/2;
+        int y = gp.tileSize/2;
+        int i = 0;
+        //blank max heart
+        g2.drawImage(heart_background,x-gp.tileSize/5,y,null);
+        while( i < gp.player.maxLife){
+            g2.drawImage(heart_full,x , y,null);
+            i++;
+            x+= gp.tileSize/2+gp.tileSize/3;
+        }
+        // draw red heart
+        //reset
+        x = gp.tileSize/2;
+        y = gp.tileSize/2;
+        i = 0;
+
+        while( i < gp.player.life)
+        {
+            g2.drawImage(heart_full,x,y,null);
+            i++;
+            x+= gp.tileSize/2+gp.tileSize/3;
+        }
+    }
+
     public void drawTitleScreen(Graphics2D g2){
 
         try{
