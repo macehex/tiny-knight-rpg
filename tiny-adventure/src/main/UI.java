@@ -27,7 +27,7 @@ public class UI {
     public boolean gameFinished = false ;
 
     // gameState = playState UI
-    BufferedImage heart_full, heart_half, heart_blank,heart_background;
+    BufferedImage heart_full, heart_half, heart_blank,heart_background, emblem;
 
     public UI(GamePanel gp) {
         this.gp = gp;
@@ -45,6 +45,7 @@ public class UI {
         heart_blank = heart.image;
         heart_full = heart.image2;
         heart_background = heart.image3;
+        emblem = heart.image4;
     }
     public void drawPauseScreen(){
 
@@ -132,24 +133,17 @@ public class UI {
         int y = gp.tileSize/2;
         int i = 0;
         //blank max heart
-        g2.drawImage(heart_background,x-gp.tileSize/5,y,null);
-        while( i < gp.player.maxLife){
+        g2.drawImage(emblem, x- gp.tileSize/4,y- gp.tileSize/4,null);
+        g2.drawImage(heart_background,x+gp.tileSize+gp.tileSize/4,y,null);
+
+        x = gp.tileSize*2+1;
+        y = y+gp.tileSize/5;
+        while( i < gp.player.life){
             g2.drawImage(heart_full,x , y,null);
             i++;
-            x+= gp.tileSize/2+gp.tileSize/3;
+            x+= gp.tileSize+gp.tileSize/4;
         }
-        // draw red heart
-        //reset
-        x = gp.tileSize/2;
-        y = gp.tileSize/2;
-        i = 0;
 
-        while( i < gp.player.life)
-        {
-            g2.drawImage(heart_full,x,y,null);
-            i++;
-            x+= gp.tileSize/2+gp.tileSize/3;
-        }
     }
 
     public void drawTitleScreen(Graphics2D g2){

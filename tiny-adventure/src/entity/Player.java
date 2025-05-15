@@ -129,7 +129,8 @@ public class Player extends Entity {
             // check object collision
             int objIndex = gp.cChecker.checkObject(this, true);
             pickUpObject(objIndex);
-
+            //CHECK EVENT
+            gp.eHandler.checkEvent();
             //CHECK NPC collision
             int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
             interactNPC(npcIndex);
@@ -279,12 +280,19 @@ public class Player extends Entity {
                     gp.stopMusic();
                     gp.playSoundEffect(0);
                     break;
-                case "Potion": //increase movement speed
+                case "Speed Potion": //increase movement speed
                     gp.playSoundEffect(4);
                     speed += 1;
                     gp.obj[i] = null;
                     gp.ui.showMessage("Picked up speed potion");
                     break;
+                case "Health Potion 2":
+                    gp.playSoundEffect(4);
+                    gp.player.life+=2;
+                    gp.obj[i] = null;
+                    gp.ui.showMessage("Picked up health+2 potion");
+                    break;
+
             }
         }
     }

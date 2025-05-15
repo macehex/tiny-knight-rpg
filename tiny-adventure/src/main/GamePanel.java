@@ -35,14 +35,15 @@ public class GamePanel extends JPanel implements Runnable {
     //Tile
     TileManager tileM = new TileManager(this);
 
-
     //creating a game clock
     public KeyHandler keyH = new KeyHandler(this);
+
     // Sound
     Sound music = new Sound();
     Sound sound_effect = new Sound();
 
     public CollisionChecker cChecker = new CollisionChecker(this);
+    public EventHandler eHandler = new EventHandler(this);
     //setting stuffs
     public AssetSetter aSetter = new AssetSetter(this);
     public Player player = new Player(this, keyH);
@@ -145,7 +146,8 @@ public class GamePanel extends JPanel implements Runnable {
             ui.draw(g2);
         }
         // NOT TITLE SCREEN
-        else if(gameState == playState){
+//        else if(gameState == playState){
+            else{
             tileM.draw(g2); //title is the layer before player
 
             //draw object

@@ -2,10 +2,7 @@ package main;
 
 import entity.NPC;
 import entity.King;
-import object.OBJ_Chest;
-import object.OBJ_Door;
-import object.OBJ_Key;
-import object.OBJ_Potion;
+import object.*;
 
 public class AssetSetter {
     GamePanel gp;
@@ -34,10 +31,12 @@ public class AssetSetter {
         gp.obj[4].worldY = 21 * gp.tileSize;
 
 
-        gp.obj[5] = new OBJ_Potion(gp);
+        gp.obj[5] = new OBJ_Potion_Speed(gp);
         gp.obj[5].worldX = 20 *gp.tileSize;
         gp.obj[5].worldY = 26 * gp.tileSize;
-
+        gp.obj[6] = new OBJ_Potion_Heath_Two(gp);
+        gp.obj[6].worldX = 21 *gp.tileSize;
+        gp.obj[6].worldY = 26 * gp.tileSize;
     }
     public void setNPC(){
         gp.npc[0]= new NPC(gp);
