@@ -124,6 +124,11 @@ public class Player extends Entity {
         }
         else if (!(keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed)) {
             direction = "idle";
+            //CHECK NPC collision for idle case
+            int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
+            interactNPC(npcIndex);
+
+
             spriteCounter++;
             //update() gets called 60 times per second
             if (spriteCounter > 6) {
