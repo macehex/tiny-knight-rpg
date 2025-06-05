@@ -16,8 +16,6 @@ public class Player extends Entity {
     public final int screenY; // background scroll
     // key item slot
     public int hasKey = 0;
-    public boolean invincible = false;
-    int invincibleCounter = 0;
 
     public Player(GamePanel gp, KeyHandler keyH) {
         super(gp);
@@ -35,6 +33,10 @@ public class Player extends Entity {
         solidArea.height = 32;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
+
+        attackArea.width = 48;
+        attackArea.height = 48;
+
         setDefaultValues();
         getPlayerImage();
         getPlayerAttackImage();
@@ -228,7 +230,7 @@ public class Player extends Entity {
         //outside of key statement
         if(invincible){
             invincibleCounter++;
-            if(invincibleCounter > 60){
+            if(invincibleCounter > 100){
                 invincible =false;
                 invincibleCounter = 0;
             }
@@ -254,6 +256,7 @@ public class Player extends Entity {
                         default -> image;
                     };
                 } else {
+                    direction = "right";
                     image = switch (spriteNum) {
                         case 1 -> attackRight1;
                         case 2 -> attackRight2;
@@ -383,9 +386,11 @@ public class Player extends Entity {
     }
     if(spriteCounter>15&& spriteCounter<=22){
         spriteNum = 4;
+        checkAttacking();
     }
     if(spriteCounter>22&& spriteCounter<=28){
         spriteNum = 5;
+        checkAttacking();
     }
     if(spriteCounter>28&& spriteCounter<=30){
         spriteNum = 6;
@@ -470,5 +475,46 @@ public class Player extends Entity {
     }
     public void interactKing(int i){
         gp.gameState=gp.dialogueState;
+    }
+
+    public void checkAttacking(){
+        //save current worldX and Y, solidArea
+        int currentWorldX = worldX;
+        int currentWorldY = worldY;
+        int solidAreaWidth = solidArea.width;
+        int solidAreaHeight = solidArea.height;
+
+        // Adjusting the hitbox to the attack area
+        switch (direction){
+            //because when idle the dedault attack is right
+            case "up": worldY -= attackArea.height; break;
+            case "down": worldY += attackArea.height; break;
+            case"right": worldX -= attackArea.width; break;
+            case "left": worldX += attackArea.width; break;
+        }
+        solidArea.width = attackArea.width;
+        solidArea.height = attackArea.height;
+        // check monster collision with the updated worldX, Y and solidArea
+        int monsterIndex= gp.cChecker.checkEntity(this, gp.monster);
+        damageMonster(monsterIndex);
+
+        worldX = currentWorldX;
+        worldY = currentWorldY;
+        solidArea.width = solidAreaWidth;
+        solidArea.height = solidAreaHeight;
+    }
+    public void damageMonster(int i ){
+        if(i != 999){
+            System.out.println("Attack dealt!");
+            if(!gp.monster[i].invincible){
+                gp.monster[i].life -=1;
+                gp.monster[i].invincible = true;
+                if(gp.monster[i].life<=0){
+                    gp.monster[i]= null;
+                }
+            }
+        }else{
+            System.out.println("Missed attack!");
+        }
     }
 }

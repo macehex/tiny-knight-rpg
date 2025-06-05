@@ -17,9 +17,11 @@ public class Entity {
                             attackDown1, attackDown2, attackDown3, attackDown4, attackDown5, attackDown6;
     public BufferedImage attackRight1, attackRight2, attackRight3, attackRight4, attackRight5, attackRight6;
     public BufferedImage attackLeft1, attackLeft2, attackLeft3, attackLeft4, attackLeft5, attackLeft6;
-
+    public Rectangle attackArea = new Rectangle(0,0,0,0);
     public String name;
     public boolean collision = false ;
+    public boolean invincible = false;
+    int invincibleCounter = 0;
 
     public int worldX, worldY; // game camera
     public int speed;
@@ -118,6 +120,13 @@ public class Entity {
                     break;
             }
             spriteCounter = 0;
+        }
+        if(invincible){
+            invincibleCounter++;
+            if(invincibleCounter > 30){
+                invincible =false;
+                invincibleCounter = 0;
+            }
         }
 
     }
