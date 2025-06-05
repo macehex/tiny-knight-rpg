@@ -27,6 +27,7 @@ public class MON_Shroom extends Entity {
         solidAreaDefaultY = solidArea.y;
 
         getImage();
+        getDyingImages();
     }
     public void getImage() {
         up1 = setup("/enemies/shroom/idle/shroom1");
