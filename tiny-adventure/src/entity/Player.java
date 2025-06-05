@@ -37,6 +37,7 @@ public class Player extends Entity {
         solidAreaDefaultY = solidArea.y;
         setDefaultValues();
         getPlayerImage();
+        getPlayerAttackImage();
     }
 
     public void setDefaultValues() {
@@ -44,50 +45,84 @@ public class Player extends Entity {
         worldX = gp.tileSize * 23; //CHANGE LATER ASAP
         worldY = gp.tileSize * 7;
         speed = 4;
-        direction = "right";
+        direction = "idle";
         // PLAYER STATUS
         maxLife = 5;
         life = maxLife;
     }
 
     public void getPlayerImage() {
-        up1 = setup("/player/warrior_runu1");
-        up2 = setup("/player/warrior_runu2");
-        up3 = setup("/player/warrior_runu3");
-        up4 = setup("/player/warrior_runu4");
-        up5 = setup("/player/warrior_runu5");
-        up6 = setup("/player/warrior_runu6");
-        down1 = setup("/player/warrior_rund1");
-        down2 = setup("/player/warrior_rund2");
-        down3 = setup("/player/warrior_rund3");
-        down4 = setup("/player/warrior_rund4");
-        down5 = setup("/player/warrior_rund5");
-        down6 = setup("/player/warrior_rund6");
-        left1 = setup("/player/warrior_runl1");
-        left2 = setup("/player/warrior_runl2");
-        left3 = setup("/player/warrior_runl3");
-        left4 = setup("/player/warrior_runl4");
-        left5 = setup("/player/warrior_runl5");
-        left6 = setup("/player/warrior_runl6");
-        right1 = setup("/player/warrior_runr1");
-        right2 = setup("/player/warrior_runr2");
-        right3 = setup("/player/warrior_runr3");
-        right4 = setup("/player/warrior_runr4");
-        right5 = setup("/player/warrior_runr5");
-        right6 = setup("/player/warrior_runr6");
-        idle1 = setup("/player/idle/Warrior_idle1");
-        idle2 = setup("/player/idle/Warrior_idle2");
-        idle3 = setup("/player/idle/Warrior_idle3");
-        idle4 = setup("/player/idle/Warrior_idle4");
-        idle5 = setup("/player/idle/Warrior_idle1");
-        idle6 = setup("/player/idle/Warrior_idle1");
+        up1 = setup("/player/warrior_runu1", gp.tileSize * 2, gp.tileSize * 2);
+        up2 = setup("/player/warrior_runu2", gp.tileSize * 2, gp.tileSize * 2);
+        up3 = setup("/player/warrior_runu3", gp.tileSize * 2, gp.tileSize * 2);
+        up4 = setup("/player/warrior_runu4", gp.tileSize * 2, gp.tileSize * 2);
+        up5 = setup("/player/warrior_runu5", gp.tileSize * 2, gp.tileSize * 2);
+        up6 = setup("/player/warrior_runu6", gp.tileSize * 2, gp.tileSize * 2);
 
+        down1 = setup("/player/warrior_rund1", gp.tileSize * 2, gp.tileSize * 2);
+        down2 = setup("/player/warrior_rund2", gp.tileSize * 2, gp.tileSize * 2);
+        down3 = setup("/player/warrior_rund3", gp.tileSize * 2, gp.tileSize * 2);
+        down4 = setup("/player/warrior_rund4", gp.tileSize * 2, gp.tileSize * 2);
+        down5 = setup("/player/warrior_rund5", gp.tileSize * 2, gp.tileSize * 2);
+        down6 = setup("/player/warrior_rund6", gp.tileSize * 2, gp.tileSize * 2);
+
+        left1 = setup("/player/warrior_runl1", gp.tileSize * 2, gp.tileSize * 2);
+        left2 = setup("/player/warrior_runl2", gp.tileSize * 2, gp.tileSize * 2);
+        left3 = setup("/player/warrior_runl3", gp.tileSize * 2, gp.tileSize * 2);
+        left4 = setup("/player/warrior_runl4", gp.tileSize * 2, gp.tileSize * 2);
+        left5 = setup("/player/warrior_runl5", gp.tileSize * 2, gp.tileSize * 2);
+        left6 = setup("/player/warrior_runl6", gp.tileSize * 2, gp.tileSize * 2);
+
+        right1 = setup("/player/warrior_runr1", gp.tileSize * 2, gp.tileSize * 2);
+        right2 = setup("/player/warrior_runr2", gp.tileSize * 2, gp.tileSize * 2);
+        right3 = setup("/player/warrior_runr3", gp.tileSize * 2, gp.tileSize * 2);
+        right4 = setup("/player/warrior_runr4", gp.tileSize * 2, gp.tileSize * 2);
+        right5 = setup("/player/warrior_runr5", gp.tileSize * 2, gp.tileSize * 2);
+        right6 = setup("/player/warrior_runr6", gp.tileSize * 2, gp.tileSize * 2);
+
+        idle1 = setup("/player/idle/Warrior_idle1", gp.tileSize * 2, gp.tileSize * 2);
+        idle2 = setup("/player/idle/Warrior_idle2", gp.tileSize * 2, gp.tileSize * 2);
+        idle3 = setup("/player/idle/Warrior_idle3", gp.tileSize * 2, gp.tileSize * 2);
+        idle4 = setup("/player/idle/Warrior_idle4", gp.tileSize * 2, gp.tileSize * 2);
+        idle5 = setup("/player/idle/Warrior_idle1", gp.tileSize * 2, gp.tileSize * 2);
+        idle6 = setup("/player/idle/Warrior_idle1", gp.tileSize * 2, gp.tileSize * 2);
     }
+    public void getPlayerAttackImage() {
+        attackUp1 = setup("/player/attack/upa/u1", gp.tileSize * 2, gp.tileSize * 2);
+        attackUp2 = setup("/player/attack/upa/u2", gp.tileSize * 2, gp.tileSize * 2);
+        attackUp3 = setup("/player/attack/upa/u3", gp.tileSize * 2, gp.tileSize * 2);
+        attackUp4 = setup("/player/attack/upa/u4", gp.tileSize * 2, gp.tileSize * 2);
+        attackUp5 = setup("/player/attack/upa/u5", gp.tileSize * 2, gp.tileSize * 2);
+        attackUp6 = setup("/player/attack/upa/u6", gp.tileSize * 2, gp.tileSize * 2);
 
+        attackRight1 = setup("/player/attack/righta/r1", gp.tileSize * 2, gp.tileSize * 2);
+        attackRight2 = setup("/player/attack/righta/r2", gp.tileSize * 2, gp.tileSize * 2);
+        attackRight3 = setup("/player/attack/righta/r3", gp.tileSize * 2, gp.tileSize * 2);
+        attackRight4 = setup("/player/attack/righta/r4", gp.tileSize * 2, gp.tileSize * 2);
+        attackRight5 = setup("/player/attack/righta/r5", gp.tileSize * 2, gp.tileSize * 2);
+        attackRight6 = setup("/player/attack/righta/r6", gp.tileSize * 2, gp.tileSize * 2);
+
+        attackLeft1 = setup("/player/attack/lefta/l1", gp.tileSize * 2, gp.tileSize * 2);
+        attackLeft2 = setup("/player/attack/lefta/l2", gp.tileSize * 2, gp.tileSize * 2);
+        attackLeft3 = setup("/player/attack/lefta/l3", gp.tileSize * 2, gp.tileSize * 2);
+        attackLeft4 = setup("/player/attack/lefta/l4", gp.tileSize * 2, gp.tileSize * 2);
+        attackLeft5 = setup("/player/attack/lefta/l5", gp.tileSize * 2, gp.tileSize * 2);
+        attackLeft6 = setup("/player/attack/lefta/l6", gp.tileSize * 2, gp.tileSize * 2);
+
+        attackDown1 = setup("/player/attack/downa/d1", gp.tileSize * 2, gp.tileSize * 2);
+        attackDown2 = setup("/player/attack/downa/d2", gp.tileSize * 2, gp.tileSize * 2);
+        attackDown3 = setup("/player/attack/downa/d3", gp.tileSize * 2, gp.tileSize * 2);
+        attackDown4 = setup("/player/attack/downa/d4", gp.tileSize * 2, gp.tileSize * 2);
+        attackDown5 = setup("/player/attack/downa/d5", gp.tileSize * 2, gp.tileSize * 2);
+        attackDown6 = setup("/player/attack/downa/d6", gp.tileSize * 2, gp.tileSize * 2);
+    }
 
     public void update() {
         //idle state
-        if (!(keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed)) {
+        if(attacking){
+            attacking();
+        }
+        else if (!(keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed)) {
             direction = "idle";
             spriteCounter++;
             //update() gets called 60 times per second
@@ -203,61 +238,126 @@ public class Player extends Entity {
         BufferedImage image = null;
         switch (direction) {
             case "idle":
-                image = switch (spriteNum) {
-                    case 1 -> idle1;
-                    case 2 -> idle2;
-                    case 3 -> idle3;
-                    case 4 -> idle4;
-                    case 5 -> idle5;
-                    case 6 -> idle6;
-                    default -> image;
-                };
+                if (!attacking) {
+                    image = switch (spriteNum) {
+                        case 1 -> idle1;
+                        case 2 -> idle2;
+                        case 3 -> idle3;
+                        case 4 -> idle4;
+                        case 5 -> idle5;
+                        case 6 -> idle6;
+                        default -> image;
+                    };
+                } else {
+                    image = switch (spriteNum) {
+                        case 1 -> attackRight1;
+                        case 2 -> attackRight2;
+                        case 3 -> attackRight3;
+                        case 4 -> attackRight4;
+                        case 5 -> attackRight5;
+                        case 6 -> attackRight6;
+                        default -> image;
+                    };
+                }
                 break;
+
             case "up":
-                image = switch (spriteNum) {
-                    case 1 -> up1;
-                    case 2 -> up2;
-                    case 3 -> up3;
-                    case 4 -> up4;
-                    case 5 -> up5;
-                    case 6 -> up6;
-                    default -> image;
-                };
+                if (!attacking) {
+                    image = switch (spriteNum) {
+                        case 1 -> up1;
+                        case 2 -> up2;
+                        case 3 -> up3;
+                        case 4 -> up4;
+                        case 5 -> up5;
+                        case 6 -> up6;
+                        default -> image;
+                    };
+                } else {
+                    image = switch (spriteNum) {
+                        case 1 -> attackUp1;
+                        case 2 -> attackUp2;
+                        case 3 -> attackUp3;
+                        case 4 -> attackUp4;
+                        case 5 -> attackUp5;
+                        case 6 -> attackUp6;
+                        default -> image;
+                    };
+                }
                 break;
+
             case "down":
-                image = switch (spriteNum) {
-                    case 1 -> down1;
-                    case 2 -> down2;
-                    case 3 -> down3;
-                    case 4 -> down4;
-                    case 5 -> down5;
-                    case 6 -> down6;
-                    default -> image;
-                };
+                if (!attacking) {
+                    image = switch (spriteNum) {
+                        case 1 -> down1;
+                        case 2 -> down2;
+                        case 3 -> down3;
+                        case 4 -> down4;
+                        case 5 -> down5;
+                        case 6 -> down6;
+                        default -> image;
+                    };
+                } else {
+                    image = switch (spriteNum) {
+                        case 1 -> attackDown1;
+                        case 2 -> attackDown2;
+                        case 3 -> attackDown3;
+                        case 4 -> attackDown4;
+                        case 5 -> attackDown5;
+                        case 6 -> attackDown6;
+                        default -> image;
+                    };
+                }
                 break;
+
             case "left":
-                image = switch (spriteNum) {
-                    case 1 -> left1;
-                    case 2 -> left2;
-                    case 3 -> left3;
-                    case 4 -> left4;
-                    case 5 -> left5;
-                    case 6 -> left6;
-                    default -> image;
-                };
+                if (!attacking) {
+                    image = switch (spriteNum) {
+                        case 1 -> left1;
+                        case 2 -> left2;
+                        case 3 -> left3;
+                        case 4 -> left4;
+                        case 5 -> left5;
+                        case 6 -> left6;
+                        default -> image;
+                    };
+                } else {
+                    image = switch (spriteNum) {
+                        case 1 -> attackLeft1;
+                        case 2 -> attackLeft2;
+                        case 3 -> attackLeft3;
+                        case 4 -> attackLeft4;
+                        case 5 -> attackLeft5;
+                        case 6 -> attackLeft6;
+                        default -> image;
+                    };
+                }
                 break;
+
             case "right":
-                image = switch (spriteNum) {
-                    case 1 -> right1;
-                    case 2 -> right2;
-                    case 3 -> right3;
-                    case 4 -> right4;
-                    case 5 -> right5;
-                    case 6 -> right6;
-                    default -> image;
-                };
+                if (!attacking) {
+                    image = switch (spriteNum) {
+                        case 1 -> right1;
+                        case 2 -> right2;
+                        case 3 -> right3;
+                        case 4 -> right4;
+                        case 5 -> right5;
+                        case 6 -> right6;
+                        default -> image;
+                    };
+                } else {
+                    image = switch (spriteNum) {
+                        case 1 -> attackRight1;
+                        case 2 -> attackRight2;
+                        case 3 -> attackRight3;
+                        case 4 -> attackRight4;
+                        case 5 -> attackRight5;
+                        case 6 -> attackRight6;
+                        default -> image;
+                    };
+                }
                 break;
         }
+
         g2.drawImage(image, screenX, screenY, null);
 //        // collision trouble shoot
         g2.setColor(Color.red);
@@ -265,19 +365,32 @@ public class Player extends Entity {
 
 
     }
-    @Override
-    public BufferedImage setup(String imagePath) {
-        UltilityTool uTool = new UltilityTool();
-        BufferedImage image = null;
-        try {
-            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(imagePath + ".png")));
-            image = uTool.scaleImage(image, gp.tileSize * 2, gp.tileSize * 2);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return image;
+    public void attacking(){
+    spriteCounter++;
+    if(spriteCounter<=3){
+        spriteNum = 1;
     }
-
+    if(spriteCounter>3&& spriteCounter<=8){
+        spriteNum = 2;
+    }
+    if(spriteCounter>12&& spriteCounter<=15){
+        spriteNum = 3;
+    }
+    if(spriteCounter>15&& spriteCounter<=22){
+        spriteNum = 4;
+    }
+    if(spriteCounter>22&& spriteCounter<=28){
+        spriteNum = 5;
+    }
+    if(spriteCounter>28&& spriteCounter<=30){
+        spriteNum = 6;
+    }
+    if(spriteCounter>30){
+        spriteNum = 1;
+        spriteCounter = 0 ;
+        attacking = false;
+    }
+}
     public void pickUpObject(int i) {
         if (i != 999) {
             //if i not equal to object index
@@ -333,16 +446,21 @@ public class Player extends Entity {
                 invincible = true;
             }
         }
+        if(gp.keyH.kPressed){
+            attacking = true;
+        }
     }
     public void interactNPC(int i){
         if(i!=999){
-
             System.out.println("Hitting an npc");
             if(gp.keyH.fPressed){
                 gp.gameState=gp.dialogueState;
                 gp.npc[i].speak();
             }
             gp.keyH.fPressed = false;
+        }
+        if(gp.keyH.kPressed){
+            attacking = true;
         }
     }
     public void interactKing(int i){

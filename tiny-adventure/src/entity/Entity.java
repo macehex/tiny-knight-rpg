@@ -13,6 +13,11 @@ public class Entity {
     // blueprint for all chars, monsters, objects
     GamePanel gp;
     public BufferedImage image, image2,image3,image4,image5,image6;
+    public BufferedImage attackUp1, attackUp2, attackUp3, attackUp4, attackUp5, attackUp6,
+                            attackDown1, attackDown2, attackDown3, attackDown4, attackDown5, attackDown6;
+    public BufferedImage attackRight1, attackRight2, attackRight3, attackRight4, attackRight5, attackRight6;
+    public BufferedImage attackLeft1, attackLeft2, attackLeft3, attackLeft4, attackLeft5, attackLeft6;
+
     public String name;
     public boolean collision = false ;
 
@@ -30,8 +35,9 @@ public class Entity {
     public int spriteNum = 1;
 
     public int solidAreaDefaultX, solidAreaDefaultY;
-    // hit box
+    // STATE hit box
     public boolean collisionOn = false;
+    boolean attacking = false;
     //default entity hitbox
     public Rectangle solidArea = new Rectangle(0, 0, 32, 32);
 
@@ -188,6 +194,18 @@ public class Entity {
             g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
         }
     }
+    public BufferedImage setup(String imagePath, int width, int height) {
+        UltilityTool uTool = new UltilityTool();
+        BufferedImage image = null;
+        try {
+            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(imagePath + ".png")));
+            image = uTool.scaleImage(image, width, height);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return image;
+    }
     public BufferedImage setup(String imagePath) {
         UltilityTool uTool = new UltilityTool();
         BufferedImage image = null;
@@ -200,5 +218,6 @@ public class Entity {
         }
         return image;
     }
+
 
 }

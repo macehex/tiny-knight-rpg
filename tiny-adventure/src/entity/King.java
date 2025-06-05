@@ -12,12 +12,12 @@ public class King extends Entity{
         }
         public void getKingImage() {
 
-            idle1 = setup("/king/King_idle1");
-            idle2 = setup("/king/King_idle2");
-            idle3 = setup("/king/King_idle3");
-            idle4 = setup("/king/King_idle1");
-            idle5 = setup("/king/King_idle2");
-            idle6 = setup("/king/King_idle3");
+            idle1 = setup("/king/King_idle1", gp.tileSize, gp.tileSize);
+            idle2 = setup("/king/King_idle2", gp.tileSize, gp.tileSize);
+            idle3 = setup("/king/King_idle3", gp.tileSize, gp.tileSize);
+            idle4 = setup("/king/King_idle1", gp.tileSize, gp.tileSize);
+            idle5 = setup("/king/King_idle2", gp.tileSize, gp.tileSize);
+            idle6 = setup("/king/King_idle3", gp.tileSize, gp.tileSize);
 
         }
 

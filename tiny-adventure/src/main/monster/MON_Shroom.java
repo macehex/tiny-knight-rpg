@@ -7,9 +7,11 @@ import java.awt.*;
 import java.util.Random;
 
 public class MON_Shroom extends Entity {
+    GamePanel gp;
     public MON_Shroom(GamePanel gp){
 
         super(gp);
+        this.gp = gp;
         type = 2; // DIFFERENT for each monster
         name = "shroom";
         speed = 1;
@@ -27,7 +29,6 @@ public class MON_Shroom extends Entity {
         getImage();
     }
     public void getImage() {
-
         up1 = setup("/enemies/shroom/idle/shroom1");
         up2 = setup("/enemies/shroom/idle/shroom2");
         up3 = setup("/enemies/shroom/idle/shroom3");
@@ -62,6 +63,7 @@ public class MON_Shroom extends Entity {
         idle4 = setup("/enemies/shroom/idle/shroom4");
         idle5 = setup("/enemies/shroom/idle/shroom5");
         idle6 = setup("/enemies/shroom/idle/shroom6");
+
     }
     public void setAction() {
         //set NPC behavior & AI

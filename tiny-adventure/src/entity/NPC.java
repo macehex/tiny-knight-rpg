@@ -17,44 +17,45 @@ public class NPC extends Entity {
         getGoblinImage();
         setDialogue();
     }
-
     public void getGoblinImage() {
 
-        up1 = setup("/npc/Torch_Red_idle1");
-        up2 = setup("/npc/Torch_Red_idle2");
-        up3 = setup("/npc/Torch_Red_idle3");
-        up4 = setup("/npc/Torch_Red_idle4");
-        up5 = setup("/npc/Torch_Red_idle5");
-        up6 = setup("/npc/Torch_Red_idle6");
+        up1 = setup("/npc/Torch_Red_idle1", gp.tileSize * 2, gp.tileSize * 2);
+        up2 = setup("/npc/Torch_Red_idle2", gp.tileSize * 2, gp.tileSize * 2);
+        up3 = setup("/npc/Torch_Red_idle3", gp.tileSize * 2, gp.tileSize * 2);
+        up4 = setup("/npc/Torch_Red_idle4", gp.tileSize * 2, gp.tileSize * 2);
+        up5 = setup("/npc/Torch_Red_idle5", gp.tileSize * 2, gp.tileSize * 2);
+        up6 = setup("/npc/Torch_Red_idle6", gp.tileSize * 2, gp.tileSize * 2);
 
-        down1 = setup("/npc/Torch_Red_idle1");
-        down2 = setup("/npc/Torch_Red_idle2");
-        down3 = setup("/npc/Torch_Red_idle3");
-        down4 = setup("/npc/Torch_Red_idle4");
-        down5 = setup("/npc/Torch_Red_idle5");
-        down6 = setup("/npc/Torch_Red_idle6");
+        down1 = setup("/npc/Torch_Red_idle1", gp.tileSize * 2, gp.tileSize * 2);
+        down2 = setup("/npc/Torch_Red_idle2", gp.tileSize * 2, gp.tileSize * 2);
+        down3 = setup("/npc/Torch_Red_idle3", gp.tileSize * 2, gp.tileSize * 2);
+        down4 = setup("/npc/Torch_Red_idle4", gp.tileSize * 2, gp.tileSize * 2);
+        down5 = setup("/npc/Torch_Red_idle5", gp.tileSize * 2, gp.tileSize * 2);
+        down6 = setup("/npc/Torch_Red_idle6", gp.tileSize * 2, gp.tileSize * 2);
 
-        left1 = setup("/npc/Torch_Red_idle1");
-        left2 = setup("/npc/Torch_Red_idle2");
-        left3 = setup("/npc/Torch_Red_idle3");
-        left4 = setup("/npc/Torch_Red_idle4");
-        left5 = setup("/npc/Torch_Red_idle5");
-        left6 = setup("/npc/Torch_Red_idle6");
+        left1 = setup("/npc/Torch_Red_idle1", gp.tileSize * 2, gp.tileSize * 2);
+        left2 = setup("/npc/Torch_Red_idle2", gp.tileSize * 2, gp.tileSize * 2);
+        left3 = setup("/npc/Torch_Red_idle3", gp.tileSize * 2, gp.tileSize * 2);
+        left4 = setup("/npc/Torch_Red_idle4", gp.tileSize * 2, gp.tileSize * 2);
+        left5 = setup("/npc/Torch_Red_idle5", gp.tileSize * 2, gp.tileSize * 2);
+        left6 = setup("/npc/Torch_Red_idle6", gp.tileSize * 2, gp.tileSize * 2);
 
-        right1 = setup("/npc/Torch_Red_runr1");
-        right2 = setup("/npc/Torch_Red_runr2");
-        right3 = setup("/npc/Torch_Red_runr3");
-        right4 = setup("/npc/Torch_Red_runr4");
-        right5 = setup("/npc/Torch_Red_runr5");
-        right6 = setup("/npc/Torch_Red_runr6");
+        right1 = setup("/npc/Torch_Red_runr1", gp.tileSize * 2, gp.tileSize * 2);
+        right2 = setup("/npc/Torch_Red_runr2", gp.tileSize * 2, gp.tileSize * 2);
+        right3 = setup("/npc/Torch_Red_runr3", gp.tileSize * 2, gp.tileSize * 2);
+        right4 = setup("/npc/Torch_Red_runr4", gp.tileSize * 2, gp.tileSize * 2);
+        right5 = setup("/npc/Torch_Red_runr5", gp.tileSize * 2, gp.tileSize * 2);
+        right6 = setup("/npc/Torch_Red_runr6", gp.tileSize * 2, gp.tileSize * 2);
 
-        idle1 = setup("/npc/Torch_Red_idle1");
-        idle2 = setup("/npc/Torch_Red_idle2");
-        idle3 = setup("/npc/Torch_Red_idle3");
-        idle4 = setup("/npc/Torch_Red_idle4");
-        idle5 = setup("/npc/Torch_Red_idle5");
-        idle6 = setup("/npc/Torch_Red_idle6");
+        idle1 = setup("/npc/Torch_Red_idle1", gp.tileSize * 2, gp.tileSize * 2);
+        idle2 = setup("/npc/Torch_Red_idle2", gp.tileSize * 2, gp.tileSize * 2);
+        idle3 = setup("/npc/Torch_Red_idle3", gp.tileSize * 2, gp.tileSize * 2);
+        idle4 = setup("/npc/Torch_Red_idle4", gp.tileSize * 2, gp.tileSize * 2);
+        idle5 = setup("/npc/Torch_Red_idle5", gp.tileSize * 2, gp.tileSize * 2);
+        idle6 = setup("/npc/Torch_Red_idle6", gp.tileSize * 2, gp.tileSize * 2);
     }
+
+
     public void setDialogue(){
         dialogues[0] = "Greeting young knight. \nI'm the king of this beautiful land";
         dialogues[1]="and we welcome your arrival";
@@ -91,18 +92,7 @@ public class NPC extends Entity {
         }
 
     }
-    @Override
-    public BufferedImage setup(String imagePath) {
-        UltilityTool uTool = new UltilityTool();
-        BufferedImage image = null;
-        try {
-            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(imagePath + ".png")));
-            image = uTool.scaleImage(image, gp.tileSize * 2, gp.tileSize * 2);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return image;
-    }
+
 
     // ENTITY already hava an update function!
     public void speak(){
