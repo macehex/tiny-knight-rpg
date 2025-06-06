@@ -17,7 +17,6 @@ public class OBJ_Door extends Entity {
             solidArea.y = 0;
             solidArea.width = gp.tileSize;
             solidArea.height = gp.tileSize;
-
     }
 
 }

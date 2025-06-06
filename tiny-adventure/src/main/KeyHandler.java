@@ -6,7 +6,8 @@ import main.GamePanel;
 
 public class KeyHandler implements KeyListener {
     public boolean upPressed, downPressed, leftPressed, rightPressed, dashPressed,
-            enterPressed, dialoguePressed, fPressed;
+            enterPressed, dialoguePressed, fPressed, kPressed;
+    // K is for attack
     public boolean checkDrawTime = false;
 
     GamePanel gp;
@@ -28,15 +29,18 @@ public class KeyHandler implements KeyListener {
                 case KeyEvent.VK_W:
                     upPressed = true;
                     break;
-                    case KeyEvent.VK_A:
+                case KeyEvent.VK_A:
                         leftPressed = true;
                         break;
-                        case KeyEvent.VK_S:
+                case KeyEvent.VK_S:
                         downPressed = true;
                         break;
-                    case KeyEvent.VK_D:
+                case KeyEvent.VK_D:
                         rightPressed = true;
                         break;
+                case KeyEvent.VK_K:
+                    kPressed = true;
+                    break;
                 case KeyEvent.VK_F:
                     fPressed = true;
                     break;
@@ -102,25 +106,16 @@ public class KeyHandler implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         int code = e.getKeyCode(); //return key number that's pressed
-        if(code == KeyEvent.VK_W){
-            upPressed = false;
+        switch (code) {
+            case KeyEvent.VK_W -> upPressed = false;
+            case KeyEvent.VK_A -> leftPressed = false;
+            case KeyEvent.VK_S -> downPressed = false;
+            case KeyEvent.VK_D -> rightPressed = false;
+            case KeyEvent.VK_K -> kPressed = false;
+            case KeyEvent.VK_O -> checkDrawTime = false;
+//  case KeyEvent.VK_SHIFT -> dashPressed = false; // Uncomment if dashPressed is used
         }
-        if(code == KeyEvent.VK_A){
-            leftPressed = false;
 
-        }
-        if(code == KeyEvent.VK_S){
-            downPressed = false;
-        }
-        if(code == KeyEvent.VK_D){
-            rightPressed = false;
-        }
-//        if(code == keyEvent.SHIFT){
-//            dashPressed = false;
-//        }
-        if(code == KeyEvent.VK_O){
-            checkDrawTime = false;
-        }
 
     }
 }

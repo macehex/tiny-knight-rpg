@@ -15,10 +15,10 @@ public class OBJ_Heart extends Entity {
         int heart_sizeX = bar_width/gp.player.maxLife+4;
         int heart_sizeY = gp.tileSize/3+4;
         name = "Heart";
-        image = setup("/player/heart/heart_empty");
-        image2 = setup("/player/heart/heart_paneof_five");
-        image3 = setup("/player/heart/bar");
-        image4 =setup("/player/heart/EMBLEM");
+        image = setup("/player/heart/heart_empty", heart_sizeX, heart_sizeY);
+        image2 = setup("/player/heart/heart_paneof_five", heart_sizeX, heart_sizeY);
+        image3 = setup("/player/heart/bar", bar_width, bar_height);
+        image4 =setup("/player/heart/EMBLEM", gp.tileSize, gp.tileSize);
     }
 
 }
