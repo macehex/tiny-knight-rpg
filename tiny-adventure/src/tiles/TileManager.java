@@ -59,7 +59,6 @@ public class TileManager {
             e.printStackTrace();
         }
     }
-
     public void loadMap(String mapPath) {
         try {
             InputStream is = getClass().getResourceAsStream(mapPath);
