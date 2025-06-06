@@ -28,7 +28,7 @@ public class Entity {
     int dyingCounter = 0;
     public int worldX, worldY; // game camera
     public int speed;
-
+    int hpBarCounter = 0;
     public BufferedImage up1, up2, up3, up4, up5, up6,
             down1, down2, down3, down4, down5, down6,
             left1, left2, left3, left4, left5, left6,
@@ -57,11 +57,15 @@ public class Entity {
     public int life;
     public boolean alive = true;
     public boolean dying = false;
+    boolean hpBarOn = false;
     //different entity: npc
     public Entity(GamePanel gp) {
         this.gp = gp;
     }
     public void setAction() {
+
+    }
+    public void damageReaction(){
 
     }
     public void speak(){
@@ -80,6 +84,7 @@ public class Entity {
         boolean contactPlayer = gp.cChecker.checkPlayer(this);
         if(this.type ==2 && contactPlayer&&!gp.player.invincible){
             // damage
+            gp.playSoundEffect(8);
             gp.player.life -= 1;
             gp.player.invincible = true;
         }
@@ -201,7 +206,7 @@ public class Entity {
                     break;
             }
             // Monster health bar
-            if(type ==2 ){
+            if(type ==2 &&hpBarOn){
 
                 double oneScale = ((double)gp.tileSize/maxLife);
                 double hpBarValue = oneScale*life;
@@ -210,11 +215,18 @@ public class Entity {
                 g2.fillRoundRect(screenX-1,screenY-gp.tileSize/5-1,gp.tileSize+2, gp.tileSize/5+2,2,2);
                 g2.setColor(new Color(219, 92, 92));
                 g2.fillRoundRect(screenX, screenY- gp.tileSize/5, (int)hpBarValue, gp.tileSize/5,1,1);
+                hpBarCounter++;
+                if(hpBarCounter>480){
+                    hpBarCounter = 0;
+                    hpBarOn = false;
+                }
             }
 
 
             //make transparent
             if(invincible){
+                hpBarOn = true;
+                hpBarCounter = 0 ;
                 g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
             }
 //        // collision trouble shoot

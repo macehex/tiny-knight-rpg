@@ -37,6 +37,7 @@ public class TileManager {
         setup(4, "Outdoors_22", false);
         setup(5, "yellow_ground", false);
 
+
 //            tile[1] = new Tile();
 //            tile[1].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(("/tiles/water.png"))));
 //            tile[1].collision =true;

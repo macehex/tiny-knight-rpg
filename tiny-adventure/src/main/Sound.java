@@ -14,13 +14,17 @@ public class Sound {
 //        soundURL[3]= getClass().getResource("/effects/main_door_opening_closing.wav");
 //        soundURL[4]= getClass().getResource("/effects/pick_up_potion.wav");
 //        soundURL[5]= getClass().getResource("/effects/pick_up_sfx.wav");
-        soundURL[6]= getClass().getResource("/effects/music/uther_lust.wav");
         soundURL[0]=getClass().getResource("/effects/pick.wav");
         soundURL[1]=soundURL[0];
         soundURL[2]=soundURL[0];
         soundURL[3]=soundURL[0];
         soundURL[4]=soundURL[0];
         soundURL[5]=soundURL[0];
+
+        soundURL[6]= getClass().getResource("/effects/music/uther_lust.wav");
+        soundURL[7]=getClass().getResource("/effects/battle/sword_swing.wav");
+        soundURL[8]=getClass().getResource("/effects/battle/playerhit_soft.wav");
+        soundURL[9]=getClass().getResource("/effects/battle/mushroom_hit.wav");
     }
     public void setFile(int i){
         try{

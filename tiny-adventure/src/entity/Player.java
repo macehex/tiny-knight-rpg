@@ -452,6 +452,7 @@ public class Player extends Entity {
         if(i!= 999){
             // resume  for 2 sec
             if(!invincible&&!gp.monster[i].dying&&gp.monster[i].alive){
+                gp.playSoundEffect(8);
                 life -= 1;
                 invincible = true;
             }
@@ -470,6 +471,7 @@ public class Player extends Entity {
             gp.keyH.fPressed = false;
         }
         if(gp.keyH.kPressed){
+            gp.playSoundEffect(7);
             attacking = true;
         }
     }
@@ -506,8 +508,10 @@ public class Player extends Entity {
         if(i != 999){
             System.out.println("Attack dealt!");
             if(!gp.monster[i].invincible){
+                gp.playSoundEffect(9);
                 gp.monster[i].life -=1;
                 gp.monster[i].invincible = true;
+                gp.monster[i].damageReaction();
                 if(gp.monster[i].life<=0){
                     gp.monster[i].dying= true;
                 }
