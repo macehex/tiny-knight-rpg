@@ -19,6 +19,8 @@ public class Main {
 
         gamePanel.setupGame();
 
-        gamePanel.startGameThread(); //include game loop
+        gamePanel.startGameThread();
+
+        //include game loop
     }
 }

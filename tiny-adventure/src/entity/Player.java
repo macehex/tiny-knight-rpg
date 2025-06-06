@@ -451,7 +451,7 @@ public class Player extends Entity {
     public void contactMonster(int i){
         if(i!= 999){
             // resume  for 2 sec
-            if(!invincible){
+            if(!invincible&&!gp.monster[i].dying&&gp.monster[i].alive){
                 life -= 1;
                 invincible = true;
             }
@@ -487,13 +487,12 @@ public class Player extends Entity {
         // Adjusting the hitbox to the attack area
         switch (direction){
             //because when idle the dedault attack is right
-            case "up": worldY -= attackArea.height; break;
-            case "down": worldY += attackArea.height; break;
-            case"right": worldX -= attackArea.width; break;
-            case "left": worldX += attackArea.width; break;
+            case "up": worldY -= attackArea.height;solidArea.height = attackArea.height; break;
+            case "down": worldY += attackArea.height; solidArea.height = attackArea.height;break;
+            case"right": worldX -= attackArea.width;solidArea.height = attackArea.height*2; break;
+            case "left": worldX += attackArea.width; solidArea.height = attackArea.height*2; break;
         }
         solidArea.width = attackArea.width;
-        solidArea.height = attackArea.height;
         // check monster collision with the updated worldX, Y and solidArea
         int monsterIndex= gp.cChecker.checkEntity(this, gp.monster);
         damageMonster(monsterIndex);
