@@ -22,28 +22,30 @@ public class TileManager {
     GamePanel gp;
     public Tile[] tile;
     public int[][] mapTileNum;
-
+    int tileCount = 224;
     public TileManager(GamePanel gp) {
         this.gp = gp;
-        tile = new Tile[20]; // types of tiles
+        tile = new Tile[tileCount]; // types of tiles
         mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];  // the array thats the axiom of .txt array
         getTitleImage();
-        loadMap("/maps/maptesttxt.txt"); //load your map here
+        loadMap("/maps/map2/map2_new.txt"); //load your map here
     }
 
     public void getTitleImage() {
-        // name here
-        setup(0, "tile222", false);
-        setup(1, "tile027", true);
-        setup(2, "tile027", true);
-        setup(3, "tile222", false);
-        setup(4, "tile222", false);
-        setup(5, "tile222", false);
-
-
-
+        // Loop from 0 to 224 (inclusive)
+        boolean tileCollision = false;
+        for (int i = 0; i < tileCount; i++) {
+            // Format the tile number with leading zeros (e.g., 0 becomes "000", 27 becomes "027")
+            String tileName = String.format("tile%03d", i);
+            // Call setup with the current index, formatted tile name, and false
+            if(i==0){
+                tileCollision = true;
+            }else{
+                tileCollision = false;
+            }
+            setup(i, tileName, tileCollision);
+        }
     }
-
     public void setup(int index, String imageName, boolean collision) {
         UltilityTool uTool = new UltilityTool();
         try {
@@ -68,7 +70,7 @@ public class TileManager {
             while (col < gp.maxWorldCol && row < gp.maxWorldRow) {
                 String line = br.readLine();  // read a single line
                 while (col < gp.maxWorldCol) {
-                    String numbers[] = line.split(" "); //numbers is the array of one line
+                    String numbers[] = line.split(","); //numbers is the array of one line
 
                     int num = Integer.parseInt(numbers[col]);
                     mapTileNum[col][row] = num;
