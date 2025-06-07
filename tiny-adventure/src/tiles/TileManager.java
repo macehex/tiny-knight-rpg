@@ -1,11 +1,12 @@
 package tiles;
 
-import java.awt.image.BufferedImage;
+//import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import javafx.scene.image.Image;
 import main.GamePanel;
 import main.UI;
 import main.UltilityTool;
@@ -14,6 +15,8 @@ import java.awt.*;
 import java.io.InputStreamReader;
 import java.io.InputStream;
 import java.util.Objects;
+
+import javax.imageio.ImageIO;
 
 public class TileManager {
     GamePanel gp;
@@ -30,19 +33,12 @@ public class TileManager {
 
     public void getTitleImage() {
         // name here
-        setup(0, "yellow_ground", false);
-        setup(1, "water", true);
-        setup(2, "water", true);
-        setup(3, "yellow_ground", false);
-        setup(4, "Outdoors_22", false);
-        setup(5, "yellow_ground", false);
-
-
-//            tile[1] = new Tile();
-//            tile[1].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(("/tiles/water.png"))));
-//            tile[1].collision =true;
-//            tile[2] = new Tile();
-//            tile[2].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(("/tiles/water.png"))));
+        setup(0, "tile222", false);
+        setup(1, "tile027", true);
+        setup(2, "tile027", true);
+        setup(3, "tile222", false);
+        setup(4, "tile222", false);
+        setup(5, "tile222", false);
 
 
 
@@ -52,7 +48,9 @@ public class TileManager {
         UltilityTool uTool = new UltilityTool();
         try {
             tile[index] = new Tile();
-            tile[index].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(("/tiles/" + imageName + ".png"))));
+
+            tile[index].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(("/tilesmap2jpg/" + imageName + ".jpg"))));
+
             tile[index].image = uTool.scaleImage(tile[index].image, gp.tileSize, gp.tileSize);
             tile[index].collision = collision;
         } catch (IOException e) {
