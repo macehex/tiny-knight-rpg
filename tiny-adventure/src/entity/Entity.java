@@ -204,8 +204,7 @@ public class Entity {
                         default -> image;
                     };
                     break;
-            }
-            // Monster health bar
+            }            // Monster health bar
             if(type ==2 &&hpBarOn){
 
                 double oneScale = ((double)gp.tileSize/maxLife);
@@ -221,47 +220,60 @@ public class Entity {
                     hpBarOn = false;
                 }
             }
-
-
+          
+          }
             //make transparent
             if(invincible){
                 hpBarOn = true;
                 hpBarCounter = 0 ;
                 g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
             }
+            g2.drawImage(image, screenX , screenY , gp.tileSize, gp.tileSize, null);
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+
 //        // collision trouble shoot
             g2.setColor(Color.red);
             g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
             if(dying){
-                dyingAnimation(g2,screenX,screenY);
-
-            }else{
-                g2.drawImage(image, screenX , screenY , gp.tileSize, gp.tileSize, null);
-                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+                dyingAnimation(g2);
             }
 
         }
     }
-    public void dyingAnimation(Graphics2D g2, int screenX, int screenY){
+    public void dyingAnimation(Graphics2D g2){
         dyingCounter++;
-
-        int frameDuration = 10; // Adjust to control animation speed
-
-        BufferedImage[] deathFrames = {
-                dead1, dead2, dead3, dead4, dead5, dead6, dead7,
-                dead8, dead9, dead10, dead11, dead12, dead13, dead14
-        };
-
-        int frameIndex = dyingCounter / frameDuration;
-
-        if (frameIndex < deathFrames.length) {
-            image = deathFrames[frameIndex];
-        } else {
+        if (dyingCounter >= 1 && dyingCounter <= 3) {
+            image = dead1;
+        } else if (dyingCounter >= 4 && dyingCounter <= 6) {
+            image = dead2;
+        } else if (dyingCounter >= 7 && dyingCounter <= 9) {
+            image = dead3;
+        } else if (dyingCounter >= 10 && dyingCounter <= 12) {
+            image = dead4;
+        } else if (dyingCounter >= 13 && dyingCounter <= 15) {
+            image = dead5;
+        } else if (dyingCounter >= 16 && dyingCounter <= 18) {
+            image = dead6;
+        } else if (dyingCounter >= 19 && dyingCounter <= 21) {
+            image = dead7;
+        } else if (dyingCounter >= 22 && dyingCounter <= 24) {
+            image = dead8;
+        } else if (dyingCounter >= 25 && dyingCounter <= 27) {
+            image = dead9;
+        } else if (dyingCounter >= 28 && dyingCounter <= 30) {
+            image = dead10;
+        } else if (dyingCounter >= 31 && dyingCounter <= 33) {
+            image = dead11;
+        } else if (dyingCounter >= 34 && dyingCounter <= 36) {
+            image = dead12;
+        } else if (dyingCounter >= 37 && dyingCounter <= 39) {
+            image = dead13;
+        } else if (dyingCounter >= 40 && dyingCounter <= 42) {
+            image = dead14;
+        } else if (dyingCounter > 42) {
             dying = false;
             alive = false;
         }
-        g2.drawImage(image, screenX , screenY , gp.tileSize, gp.tileSize, null);
-
     }
     public BufferedImage setup(String imagePath, int width, int height) {
         UltilityTool uTool = new UltilityTool();
@@ -289,19 +301,20 @@ public class Entity {
     }
 
     public void getDyingImages() {
-        dead1 = setup("/effects/dead/Dead1", gp.tileSize * 2, gp.tileSize * 2);
-        dead2 = setup("/effects/dead/Dead2", gp.tileSize * 2, gp.tileSize * 2);
-        dead3 = setup("/effects/dead/Dead3", gp.tileSize * 2, gp.tileSize * 2);
-        dead4 = setup("/effects/dead/Dead4", gp.tileSize * 2, gp.tileSize * 2);
-        dead5 = setup("/effects/dead/Dead5", gp.tileSize * 2, gp.tileSize * 2);
-        dead6 = setup("/effects/dead/Dead6", gp.tileSize * 2, gp.tileSize * 2);
-        dead7 = setup("/effects/dead/Dead7", gp.tileSize * 2, gp.tileSize * 2);
-        dead8 = setup("/effects/dead/Dead8", gp.tileSize * 2, gp.tileSize * 2);
-        dead9 = setup("/effects/dead/Dead9", gp.tileSize * 2, gp.tileSize * 2);
-        dead10 = setup("/effects/dead/Dead10", gp.tileSize * 2, gp.tileSize * 2);
-        dead11 = setup("/effects/dead/Dead11", gp.tileSize * 2, gp.tileSize * 2);
-        dead12 = setup("/effects/dead/Dead12", gp.tileSize * 2, gp.tileSize * 2);
-        dead13 = setup("/effects/dead/Dead13", gp.tileSize * 2, gp.tileSize * 2);
-        dead14 = setup("/effects/dead/Dead14", gp.tileSize * 2, gp.tileSize * 2);
+        dead1 = setup("/effects/dead/Dead1");
+        dead2 = setup("/effects/dead/Dead2");
+        dead3 = setup("/effects/dead/Dead3");
+        dead4 = setup("/effects/dead/Dead4");
+        dead5 = setup("/effects/dead/Dead5");
+        dead6 = setup("/effects/dead/Dead6");
+        dead7 = setup("/effects/dead/Dead7");
+        dead8 = setup("/effects/dead/Dead8");
+        dead9 = setup("/effects/dead/Dead9");
+        dead10 = setup("/effects/dead/Dead10");
+        dead11 = setup("/effects/dead/Dead11");
+        dead12 = setup("/effects/dead/Dead12");
+        dead13 = setup("/effects/dead/Dead13");
+        dead14 = setup("/effects/dead/Dead14");
+
     }
 }
