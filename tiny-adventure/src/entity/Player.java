@@ -235,6 +235,9 @@ public class Player extends Entity {
                 invincibleCounter = 0;
             }
         }
+        if (life<=0){
+            gp.gameState = gp.gameOverState;
+        }
     }
 
     public void draw(Graphics2D g2) {
@@ -447,6 +450,7 @@ public class Player extends Entity {
 
             }
         }
+
     }
     public void contactMonster(int i){
         if(i!= 999){

@@ -75,7 +75,43 @@ public class UI {
             y += 40;
         }
     }
+    public void drawGameOverScreen(){
+        g2.setColor(new Color(0,0,0,150));
+        g2.fillRect (0, 0, gp.screenWidth, gp.screenHeight);
 
+        int x;
+        int y;
+        String text;
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 80f));
+
+        text = "Game Over";
+//Shadow
+        g2.setColor(Color.black);
+        x = getXforCenteredText (text);
+        y = gp.tileSize*4;
+        g2.drawString (text, x, y) ;
+// Main
+        g2.setColor(Color.white);
+        g2.drawString(text, x-4, y-4);
+        // Retry
+        g2.setFont(g2.getFont().deriveFont(25f));
+        text = "Retry";
+        x = getXforCenteredText (text) ;
+        y += gp.tileSize*4;
+        g2.drawString (text, x, y) ;
+        if(commandNum==0){
+            g2.drawString(">",x-arrowOffset,y);
+        }
+// Back to the title screen
+        text = "Exit to menu";
+        x = getXforCenteredText (text) ;
+        y += gp.tileSize*2;
+        g2.drawString (text, x, y);
+        if(commandNum==1){
+            g2.drawString(">",x-arrowOffset,y);
+        }
+
+    }
     public void drawSubWindow(int x, int y, int width, int height) {
         Color c = new Color(87, 72, 82, 240);
         g2.setColor(c);
@@ -100,10 +136,8 @@ public class UI {
         g2.setColor(Color.white);
         switch (gp.gameState) {
             //TITLE state
-            case 0:
-                drawTitleScreen(g2);
-                break;
-            case 1:
+            case 0 ->                drawTitleScreen(g2);
+            case 1->{
                 // ìf playState
                 // display playing ui
                 // set font
@@ -113,20 +147,23 @@ public class UI {
 //                    g2.drawImage(keyImage, gp.tileSize / 4, gp.tileSize / 4, gp.tileSize * 1, gp.tileSize * 1, null);
 //                    g2.drawString("x " + gp.player.hasKey, 60, 45);
                 drawPlayerLife();
-                break;
-            case 2:
+
+            }
+            case 2 ->
+            {
                 //if pausing state
                 drawPlayerLife();
                 drawPauseScreen();
-                break;
+
+            }
             //DIALOGUE state
-            case 3:
+            case 3 ->{
                 //ìf dialogue state
                 drawPlayerLife();
                 drawDialogueScreen();
-                break;
-            case 5:
-                drawOptionsScreen();
+            }
+            case 5 ->drawOptionsScreen();
+            case 6->drawGameOverScreen();
         }
 
     }
