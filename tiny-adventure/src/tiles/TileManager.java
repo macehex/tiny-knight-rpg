@@ -22,11 +22,12 @@ public class TileManager {
     GamePanel gp;
     public Tile[] tile;
     public int[][] mapTileNum;
-    int tileCount = 224;
+    int tileCount = 220;
+    int extraTileCount = 10;
     String mapString;
     public TileManager(GamePanel gp) {
         this.gp = gp;
-        tile = new Tile[tileCount]; // types of tiles
+        tile = new Tile[tileCount+extraTileCount]; // types of tiles
         mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];  // the array thats the axiom of .txt array
         getTitleImage();
 
@@ -40,13 +41,15 @@ public class TileManager {
             // Format the tile number with leading zeros (e.g., 0 becomes "000", 27 becomes "027")
             String tileName = String.format("tile%03d", i);
             // Call setup with the current index, formatted tile name, and false
-            if(i == 0){
-                tileCollision = true;
-            }else{
-                tileCollision = false;
-            }
+//            if(i == 0){
+//                tileCollision = true;
+//            }else{
+//                tileCollision = false;
+//            }
             setup(i, tileName, tileCollision);
         }
+        // adding extratiles
+            setup(220, "extra/tile_portal", false);        //portaltile
     }
     public void setup(int index, String imageName, boolean collision) {
         UltilityTool uTool = new UltilityTool();
