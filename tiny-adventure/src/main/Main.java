@@ -8,6 +8,7 @@ public class Main {
         window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
+
         window.setTitle("tiny knight");
         window.setUndecorated(true);
         GamePanel gamePanel = new GamePanel(); //add game panel

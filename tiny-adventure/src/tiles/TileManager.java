@@ -21,18 +21,21 @@ import javax.imageio.ImageIO;
 public class TileManager {
     GamePanel gp;
     public Tile[] tile;
-    public int[][] mapTileNum;
-    int tileCount = 220;
+    public int[][][] mapTileNum;
+//    int tileCount = 220;
+int tileCount = 220;
     int extraTileCount = 10;
     String mapString;
     public TileManager(GamePanel gp) {
         this.gp = gp;
         tile = new Tile[tileCount+extraTileCount]; // types of tiles
-        mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];  // the array thats the axiom of .txt array
+        mapTileNum = new int[gp.maxMap][gp.maxWorldCol][gp.maxWorldRow];  // the array thats the axiom of .txt array
         getTitleImage();
 
+//        mapString = "/maps/map2/map2.txt";
         mapString = "/maps/map2/map2.txt";
-        loadMap(mapString); //load your map here
+        loadMap(mapString,0); //load your map here
+        loadMap("/map/map1/map2.txt",1);
     }
     public void getTitleImage() {
         // Loop from 0 to 224 (inclusive)
@@ -41,11 +44,11 @@ public class TileManager {
             // Format the tile number with leading zeros (e.g., 0 becomes "000", 27 becomes "027")
             String tileName = String.format("tile%03d", i);
             // Call setup with the current index, formatted tile name, and false
-//            if(i == 0){
-//                tileCollision = true;
-//            }else{
-//                tileCollision = false;
-//            }
+            if(i == 0){
+                tileCollision = true;
+            }else{
+                tileCollision = false;
+            }
             setup(i, tileName, tileCollision);
         }
         // adding extratiles
@@ -64,7 +67,7 @@ public class TileManager {
             e.printStackTrace();
         }
     }
-    public void loadMap(String mapPath) {
+    public void loadMap(String mapPath, int map) {
         try {
             InputStream is = getClass().getResourceAsStream(mapPath);
             BufferedReader br = new BufferedReader(new InputStreamReader(is)); //read the content of .txt files
@@ -78,7 +81,7 @@ public class TileManager {
                     String numbers[] = line.split(","); //numbers is the array of one line
 
                     int num = Integer.parseInt(numbers[col]);
-                    mapTileNum[col][row] = num;
+                    mapTileNum[map][col][row] = num;
                     col++;
                 }
                 if (col == gp.maxWorldCol) {
@@ -97,7 +100,7 @@ public class TileManager {
         int worldRow = 0;
 
         while (worldCol < gp.maxWorldCol && worldRow < gp.maxWorldRow) {
-            int tileNum = mapTileNum[worldCol][worldRow];
+            int tileNum = mapTileNum[gp.currentMap][worldCol][worldRow];
 
             int worldX = worldCol * gp.tileSize;
             int worldY = worldRow * gp.tileSize;

@@ -38,7 +38,13 @@ public class KeyHandler implements KeyListener {
                     case KeyEvent.VK_K -> kPressed = true;
                     case KeyEvent.VK_F -> fPressed = true;
                     case KeyEvent.VK_O -> checkDrawTime = true;
-                    case KeyEvent.VK_R -> gp.tileM.loadMap("/maps/map2/map2.txt");
+                    case KeyEvent.VK_R ->
+                            {
+                                switch (gp.currentMap){
+                                    case 0 -> gp.tileM.loadMap("/maps/map2/map2.txt",0);
+                                    case 1 -> gp.tileM.loadMap("/map/map2/testroom.txt",1);
+                                }
+                            }
                     case KeyEvent.VK_F1 -> gp.gameState = gp.pauseState;
                     case KeyEvent.VK_ESCAPE -> gp.gameState = gp.optionsState;
                 }

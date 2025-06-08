@@ -44,8 +44,8 @@ public class Player extends Entity {
 
     public void setDefaultValues() {
         // PLACEHOLDER
-        worldX = gp.tileSize * 10; //CHANGE LATER ASAP
-        worldY = gp.tileSize * 7;
+        worldX = gp.tileSize * 25; //CHANGE LATER ASAP
+        worldY = gp.tileSize * 11;
         speed = 4;
         direction = "idle";
         // PLAYER STATUS
@@ -407,7 +407,7 @@ public class Player extends Entity {
     public void pickUpObject(int i) {
         if (i != 999) {
             //if i not equal to object index
-            String objectName = gp.obj[i].name;
+            String objectName = gp.obj[gp.currentMap][i].name;
             switch (objectName) {
                 case "Key":
                     gp.playSoundEffect(5);
@@ -455,7 +455,7 @@ public class Player extends Entity {
     public void contactMonster(int i){
         if(i!= 999){
             // resume  for 2 sec
-            if(!invincible&&!gp.monster[i].dying&&gp.monster[i].alive){
+            if(!invincible&&!gp.monster[gp.currentMap][i].dying&&gp.monster[gp.currentMap][i].alive){
                 gp.playSoundEffect(8);
                 life -= 1;
                 invincible = true;
@@ -470,7 +470,7 @@ public class Player extends Entity {
             System.out.println("Hitting an npc");
             if(gp.keyH.fPressed){
                 gp.gameState=gp.dialogueState;
-                gp.npc[i].speak();
+                gp.npc[gp.currentMap][i].speak();
             }
             gp.keyH.fPressed = false;
         }
@@ -511,13 +511,13 @@ public class Player extends Entity {
     public void damageMonster(int i ){
         if(i != 999){
             System.out.println("Attack dealt!");
-            if(!gp.monster[i].invincible){
+            if(!gp.monster[gp.currentMap][i].invincible){
                 gp.playSoundEffect(9);
-                gp.monster[i].life -=1;
-                gp.monster[i].invincible = true;
-                gp.monster[i].damageReaction();
-                if(gp.monster[i].life<=0){
-                    gp.monster[i].dying= true;
+                gp.monster[gp.currentMap][i].life -=1;
+                gp.monster[gp.currentMap][i].invincible = true;
+                gp.monster[gp.currentMap][i].damageReaction();
+                if(gp.monster[gp.currentMap][i].life<=0){
+                    gp.monster[gp.currentMap][i].dying= true;
                 }
             }
         }else{
