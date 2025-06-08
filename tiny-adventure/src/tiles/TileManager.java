@@ -22,27 +22,28 @@ public class TileManager {
     GamePanel gp;
     public Tile[] tile;
     public int[][] mapTileNum;
-    int tileCount = 224;
+    int tileCount = 1680;
     public TileManager(GamePanel gp) {
         this.gp = gp;
         tile = new Tile[tileCount]; // types of tiles
         mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];  // the array thats the axiom of .txt array
         getTitleImage();
-        loadMap("/maps/map2/map2_new.txt"); //load your map here
+        loadMap("/maps/map1/map1.txt"); //load your map here
     }
 
     public void getTitleImage() {
         // Loop from 0 to 224 (inclusive)
         boolean tileCollision = false;
-        for (int i = 0; i < tileCount; i++) {
+        setup(0,"tileBlank",true);
+        for (int i = 1; i < tileCount; i++) {
             // Format the tile number with leading zeros (e.g., 0 becomes "000", 27 becomes "027")
-            String tileName = String.format("tile%03d", i);
+            String tileName = String.format("tile%03d", i-1);
             // Call setup with the current index, formatted tile name, and false
-            if(i==0){
-                tileCollision = true;
-            }else{
-                tileCollision = false;
-            }
+//            if(i==0){
+//                tileCollision = true;
+//            }else{
+//                tileCollision = false;
+//            }
             setup(i, tileName, tileCollision);
         }
     }
@@ -51,7 +52,7 @@ public class TileManager {
         try {
             tile[index] = new Tile();
 
-            tile[index].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(("/tilesmap2jpg/" + imageName + ".jpg"))));
+            tile[index].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(("/tilesmap1jpg/" + imageName + ".jpg"))));
 
             tile[index].image = uTool.scaleImage(tile[index].image, gp.tileSize, gp.tileSize);
             tile[index].collision = collision;
