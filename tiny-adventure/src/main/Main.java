@@ -13,6 +13,7 @@ public class Main {
         GamePanel gamePanel = new GamePanel(); //add game panel
         window.add(gamePanel);
 
+        GamePanel.config.loadConfig();
         window.pack();
 
         window.setLocationRelativeTo(null); //display window at center

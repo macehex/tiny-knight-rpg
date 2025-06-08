@@ -72,12 +72,17 @@ public class GamePanel extends JPanel implements Runnable {
     public final int pauseState = 2;
     public final int dialogueState = 3;
     public final int optionsState = 5;
+
+    //Config
+    static Config config ;
+
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true); //
         this.addKeyListener(keyH);
         this.setFocusable(true);
+        config = new Config(this);
     }
 
     public void setupGame() {
