@@ -44,12 +44,18 @@ public class KeyHandler implements KeyListener {
                 case KeyEvent.VK_F:
                     fPressed = true;
                     break;
+                    //Debugging
                 case KeyEvent.VK_O:
                     checkDrawTime = true;
                     break;
-                case KeyEvent.VK_ESCAPE:
+                case KeyEvent.VK_R:
+                    gp.tileM.loadMap("/maps/map2/map2.txt");
+                    break;
+                case KeyEvent.VK_F1:
                     gp.gameState=gp.pauseState;
                     break;
+                case KeyEvent.VK_ESCAPE:
+                    gp.gameState=gp.optionsState;
                 }
             }
             else if(gp.gameState==gp.dialogueState){
@@ -59,8 +65,11 @@ public class KeyHandler implements KeyListener {
                         break;
                     }
                 }
+            else if(gp.gameState==gp.optionsState){
+                optionsState(code);
+        }
             else if(gp.gameState==gp.pauseState) {
-                if (code == KeyEvent.VK_ESCAPE) {
+                if (code == KeyEvent.VK_F1) {
                     gp.gameState = gp.playState;
                 }
             }
@@ -116,6 +125,36 @@ public class KeyHandler implements KeyListener {
 //  case KeyEvent.VK_SHIFT -> dashPressed = false; // Uncomment if dashPressed is used
         }
 
+
+    }
+    public void optionsState(int code){
+            int maxCommandNum = 0;
+            switch (gp.ui.subState){
+                case 0 -> maxCommandNum=5;
+//                case 1 -> maxCommandNum=5;
+//                case 2 -> maxCommandNum=5;
+//                case 3 -> maxCommandNum=5;
+
+            }
+        switch (code){
+            case KeyEvent.VK_ESCAPE -> gp.gameState = gp.playState;
+            case KeyEvent.VK_ENTER -> enterPressed = true;
+            case KeyEvent.VK_W -> {
+                gp.ui.commandNum--;
+                gp.playSoundEffect(9);
+                if(gp.ui.commandNum < 0){
+                    gp.ui.commandNum = maxCommandNum;
+                }
+            }
+            case KeyEvent.VK_S -> {
+                gp.ui.commandNum++;
+                gp.playSoundEffect(9);
+                if(gp.ui.commandNum >maxCommandNum){
+                    gp.ui.commandNum = 0;
+                }
+            }
+
+        }
 
     }
 }

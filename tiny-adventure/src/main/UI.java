@@ -25,10 +25,12 @@ public class UI {
     // title
     public int commandNum = 0;
     public boolean gameFinished = false ;
+    UltilityTool utool = new UltilityTool();
 
     // gameState = playState UI
     BufferedImage heart_full, heart_half, heart_blank,heart_background, emblem;
-
+    // gameState = optionsState
+    int subState = 0 ;
     public UI(GamePanel gp) {
         this.gp = gp;
         Pixeloid_40 = new Font("Pixeloid Sans", Font.PLAIN, 40);
@@ -78,6 +80,7 @@ public class UI {
         g2.setColor(c);
         g2.setStroke(new BasicStroke(5));
         g2.drawRoundRect(x+5,y+5,width-10,height-10,25,25);
+        System.out.println("subwindow drawn");
     }
     // notification
     public void showMessage(String text){
@@ -89,13 +92,11 @@ public class UI {
 
         g2.setFont(Pixeloid_80);
         g2.setColor(Color.white);
-        //TITLE state
-        if(gp.gameState==gp.titleState){
-            drawTitleScreen(g2);
-        }
-        // PLAY state
-
         switch(gp.gameState){
+        //TITLE state
+            case 0:
+                drawTitleScreen(g2);
+                break;
             case 1:
                     // ìf playState
                     // display playing ui
@@ -112,12 +113,14 @@ public class UI {
                     drawPlayerLife();
                     drawPauseScreen();
                     break;
-                //DIALOGUE state
-                case 3:
+                    //DIALOGUE state
+            case 3:
                     //ìf dialogue state
                     drawPlayerLife();
                     drawDialogueScreen();
                     break;
+            case 5:
+                drawOptionsScreen();
             }
 
     }
@@ -143,7 +146,103 @@ public class UI {
         }
 
     }
+    public void drawOptionsScreen(){
+        g2.setColor(Color.WHITE);
+        g2.setFont(g2.getFont().deriveFont(20F));
 
+        // Create sub windows
+        int frameX = gp.tileSize*6;
+        int frameY = gp.tileSize;
+        int frameWidth = gp.tileSize*8;
+        int frameHeight = gp.tileSize*10;
+        drawSubWindow(frameX,frameY,frameWidth,frameHeight);
+        switch (subState){
+            case 0 -> optionTop(frameX,frameY);
+//            case 1 ->
+        }
+        gp.keyH.enterPressed=false;
+    }
+    public void optionTop(int frameX, int frameY){
+        int textX;
+        int textY;
+        int arrowOffset = gp.tileSize/2;
+        // TITLE
+        String text = "Options";
+
+        textX = getXforCenteredText(text);
+        textY = frameY + gp.tileSize;
+        g2.drawString(text,textX,textY);
+        //FULLSCREEN ON?OFF
+        textX = frameX + gp.tileSize;
+        textY += gp.tileSize;
+        g2.drawString("FullScreen",textX,textY);
+        if(commandNum==0){
+            g2.drawString(">",textX-arrowOffset,textY);
+            if(gp.keyH.enterPressed){
+                if(!gp.fullScreenOn){
+                    gp.fullScreenOn=true;
+                    gp.setFullScreen();
+                }
+                else{
+                    gp.fullScreenOn = false;
+                    gp.setSmallScreen();
+                }
+
+            }
+        }
+        //MUSIC
+        textX = frameX + gp.tileSize;
+        textY += gp.tileSize;
+        g2.drawString("Music",textX,textY);
+        if(commandNum==1){
+            g2.drawString(">",textX-arrowOffset,textY);
+        }
+        // SOUND
+        textX = frameX + gp.tileSize;
+        textY += gp.tileSize;
+        g2.drawString("Sound Effects",textX,textY);
+        if(commandNum==2){
+            g2.drawString(">",textX-arrowOffset,textY);
+        }
+        // CONTROL
+        textX = frameX + gp.tileSize;
+        textY += gp.tileSize;
+        g2.drawString("Control",textX,textY);
+        if(commandNum==3){
+            g2.drawString(">",textX-arrowOffset,textY);
+        }
+        //End game
+        textX = frameX + gp.tileSize;
+        textY += gp.tileSize;
+        g2.drawString("End Game", textX, textY);
+        if(commandNum==4){
+            g2.drawString(">",textX-arrowOffset,textY);
+        }
+        //Back
+        textX = frameX + gp.tileSize;
+        textY += gp.tileSize*2;
+        g2.drawString("Back",textX,textY);
+        if(commandNum==5){
+            g2.drawString("> ",textX-arrowOffset,textY);
+        }
+
+        //FULLSCREEN checkbox
+        textX = frameX + (int)(gp.tileSize*4.5);
+        textY = frameY + gp.tileSize*2 - 20;
+        g2.setStroke(new BasicStroke(3));
+        g2.drawRect(textX,textY,20,20);
+        if(gp.fullScreenOn){
+            g2.fillRect(textX,textY,20,20);
+        }
+        //MUSIC
+        textY += gp.tileSize;
+        g2.drawRect(textX,textY,gp.tileSize*3,20);
+
+        //Sound effect
+        textY += gp.tileSize;
+        g2.drawRect(textX,textY,gp.tileSize*3,20);
+
+    }
     public void drawTitleScreen(Graphics2D g2){
 
         try{
@@ -154,8 +253,10 @@ public class UI {
         }
         g2.setColor(Color.black);
         g2.setFont(g2.getFont().deriveFont(Font.BOLD,20F));
+        titleScreenImage = utool.scaleImage(titleScreenImage,gp.screenWidth, gp.screenHeight);
         g2.drawImage(titleScreenImage, 0, 0,null);
-        int button_x = gp.screenWidth/2-gp.screenWidth/7;
+
+        int button_x = gp.screenWidth/2- gp.screenHeight/5+gp.screenWidth/(640);
         int button_y = gp.screenHeight/2;
         int space = gp.screenHeight/4 - gp.screenHeight/7;
 
