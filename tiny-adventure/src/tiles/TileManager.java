@@ -1,12 +1,10 @@
 package tiles;
 
-//import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import javafx.scene.image.Image;
 import main.GamePanel;
 import main.UI;
 import main.UltilityTool;
@@ -35,7 +33,7 @@ int tileCount = 220;
 //        mapString = "/maps/map2/map2.txt";
         mapString = "/maps/map2/map2.txt";
         loadMap(mapString,0); //load your map here
-        loadMap("/map/map1/map2.txt",1);
+        loadMap("/map/map2/map2.txt",1);
     }
     public void getTitleImage() {
         // Loop from 0 to 224 (inclusive)
@@ -44,11 +42,11 @@ int tileCount = 220;
             // Format the tile number with leading zeros (e.g., 0 becomes "000", 27 becomes "027")
             String tileName = String.format("tile%03d", i);
             // Call setup with the current index, formatted tile name, and false
-            if(i == 0){
-                tileCollision = true;
-            }else{
-                tileCollision = false;
-            }
+//            if(i == 0){
+//                tileCollision = true;
+//            }else{
+//                tileCollision = false;
+//            }
             setup(i, tileName, tileCollision);
         }
         // adding extratiles
@@ -59,11 +57,24 @@ int tileCount = 220;
         try {
             tile[index] = new Tile();
 
-            tile[index].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(("/tilesmap2jpg/" + imageName + ".jpg"))));
+//            tile[index].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(("/tilesmap2jpg/" + imageName + ".jpg"))));
+//
+//
+//
+//            tile[index].image = uTool.scaleImage(tile[index].image, gp.tileSize, gp.tileSize);
+//            tile[index].collision = collision;
+           //replace with this block for error logging
+            InputStream is = getClass().getResourceAsStream("/tilesmap2jpg/" + imageName + ".jpg");
+            if (is == null) {
+                System.out.println("Image not found: " + imageName + ".jpg");
+            } else {
 
-            tile[index].image = uTool.scaleImage(tile[index].image, gp.tileSize, gp.tileSize);
-            tile[index].collision = collision;
-        } catch (IOException e) {
+                tile[index].image = ImageIO.read(is);
+                tile[index].image = uTool.scaleImage(tile[index].image, gp.tileSize, gp.tileSize);
+                tile[index].collision = collision;
+            }
+        } catch (IOException | NullPointerException e) {
+            System.out.println("Failed to load tile image: " + imageName + ".jpg");
             e.printStackTrace();
         }
     }

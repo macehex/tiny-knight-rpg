@@ -2,7 +2,6 @@ package main;
 
 import entity.Entity;
 
-import javax.crypto.EncryptedPrivateKeyInfo;
 
 public class CollisionChecker {
     GamePanel gp;
@@ -34,7 +33,7 @@ public class CollisionChecker {
                 }
                 break;
             case "down":
-                entityBottomRow = ((entityBottomWorldY + entity.speed + 10) / gp.tileSize);
+                entityBottomRow = ((entityBottomWorldY + entity.speed ) / gp.tileSize);
                 tileNum1 = gp.tileM.mapTileNum[gp.currentMap][entityLeftCol][entityBottomRow];
                 tileNum2 = gp.tileM.mapTileNum[gp.currentMap][entityRightCol][entityBottomRow];
                 if (gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {

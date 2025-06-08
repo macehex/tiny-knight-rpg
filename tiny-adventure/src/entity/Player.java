@@ -236,6 +236,7 @@ public class Player extends Entity {
             }
         }
         if (life<=0){
+            gp.playSoundEffect(11);
             gp.gameState = gp.gameOverState;
         }
     }
@@ -412,13 +413,13 @@ public class Player extends Entity {
                 case "Key":
                     gp.playSoundEffect(5);
                     hasKey++;
-                    gp.obj[i] = null; // delete touched object
+                    gp.obj[gp.currentMap][i] = null; // delete touched object
                     gp.ui.showMessage("Picked up key");
                     break;
                 case "Door":
                     if (hasKey > 0) {
                         gp.playSoundEffect(3);
-                        gp.obj[i] = null;
+                        gp.obj[gp.currentMap][i] = null;
                         hasKey--;
                         gp.ui.showMessage("Door opened");
                     } else {
@@ -434,7 +435,7 @@ public class Player extends Entity {
                 case "Speed Potion": //increase movement speed
                     gp.playSoundEffect(4);
                     speed += 1;
-                    gp.obj[i] = null;
+                    gp.obj[gp.currentMap][i] = null;
                     gp.ui.showMessage("Picked up speed potion");
                     break;
                 case "Health Potion 2":
@@ -444,7 +445,7 @@ public class Player extends Entity {
                     }else{
                         gp.player.life=gp.player.maxLife;
                     }
-                    gp.obj[i] = null;
+                    gp.obj[gp.currentMap][i] = null;
                     gp.ui.showMessage("Picked up health+2 potion");
                     break;
 

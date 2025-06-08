@@ -28,6 +28,9 @@ public class Sound {
         soundURL[7]=getClass().getResource("/effects/battle/sword_swing.wav");
         soundURL[8]=getClass().getResource("/effects/battle/playerhit_soft.wav");
         soundURL[9]=getClass().getResource("/effects/battle/mushroom_hit.wav");
+        soundURL[10]=getClass().getResource("/effects/ui/cursor.wav)");
+        soundURL[11]=getClass().getResource("/effects/game_over.wav");
+        soundURL[12] = getClass().getResource("/effects/teleport.wav");
     }
     public void setFile(int i){
         try{

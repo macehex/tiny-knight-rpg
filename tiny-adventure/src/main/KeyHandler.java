@@ -40,10 +40,11 @@ public class KeyHandler implements KeyListener {
                     case KeyEvent.VK_O -> checkDrawTime = true;
                     case KeyEvent.VK_R ->
                             {
-                                switch (gp.currentMap){
-                                    case 0 -> gp.tileM.loadMap("/maps/map2/map2.txt",0);
-                                    case 1 -> gp.tileM.loadMap("/map/map2/testroom.txt",1);
-                                }
+                                if (gp.currentMap==0) {
+                                     gp.tileM.loadMap("/maps/map2/map2.txt", 0);
+                                }else if(gp.currentMap==1) {
+                                    gp.tileM.loadMap("/map/map2/map2_second.txt",1);}
+
                             }
                     case KeyEvent.VK_F1 -> gp.gameState = gp.pauseState;
                     case KeyEvent.VK_ESCAPE -> gp.gameState = gp.optionsState;
@@ -64,11 +65,14 @@ public class KeyHandler implements KeyListener {
                 }
             }
             //GameOverSCreen
-            case 6 -> gameOverState(code);
+            case 6 -> {
+                gameOverState(code);
+            }
             // TITLE SCREEN
             case 0 -> {
                 switch (code) {
                     case KeyEvent.VK_W -> {
+
                         gp.ui.commandNum--;
                         if (gp.ui.commandNum < 0) gp.ui.commandNum = 3;
                     }
@@ -144,10 +148,10 @@ public class KeyHandler implements KeyListener {
                     if (gp.ui.commandNum == 1 && gp.music.volumeScale > 0) {
                         gp.music.volumeScale--;
                         gp.music.checkVolume();
-                        gp.playSoundEffect(9);
+                        gp.playSoundEffect(10);
                     } else if (gp.ui.commandNum == 2 && gp.sound_effect.volumeScale > 0) {
                         gp.sound_effect.volumeScale--;
-                        gp.playSoundEffect(9);
+                        gp.playSoundEffect(10);
                     }
                 }
             }
@@ -156,10 +160,10 @@ public class KeyHandler implements KeyListener {
                     if (gp.ui.commandNum == 1 && gp.music.volumeScale < 5) {
                         gp.music.volumeScale++;
                         gp.music.checkVolume();
-                        gp.playSoundEffect(9);
+                        gp.playSoundEffect(10);
                     } else if (gp.ui.commandNum == 2 && gp.sound_effect.volumeScale < 5) {
                         gp.sound_effect.volumeScale++;
-                        gp.playSoundEffect(9);
+                        gp.playSoundEffect(10);
                     }
                 }
             }
@@ -176,14 +180,14 @@ public class KeyHandler implements KeyListener {
                 if (gp.ui.commandNum < 0) {
                     gp.ui.commandNum = 1;
                 }
-                gp.playSoundEffect(9);
+                gp.playSoundEffect(10);
             }
             case KeyEvent.VK_S -> {
                 gp.ui.commandNum++;
                 if (gp.ui.commandNum > 1) {
                     gp.ui.commandNum = 0;
                 }
-                gp.playSoundEffect(9);
+                gp.playSoundEffect(10);
             }
             case KeyEvent.VK_ENTER -> {
                 if (gp.ui.commandNum == 0) {
