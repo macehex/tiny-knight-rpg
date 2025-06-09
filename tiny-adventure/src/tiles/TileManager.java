@@ -124,7 +124,7 @@ public class TileManager {
         }
         //DRAW path finding here
         if(drawPath){
-            g2.setColor(new Color(255,0,70));
+            g2.setColor(new Color(255,0,70,20));
             for(int i =0; i<gp.pFinder.pathList.size();i++){
                 int worldX = gp.pFinder.pathList.get(i).col * gp.tileSize;
                 int worldY = gp.pFinder.pathList.get(i).row  * gp.tileSize;

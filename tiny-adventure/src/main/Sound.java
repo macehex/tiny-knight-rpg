@@ -24,13 +24,15 @@ public class Sound {
         soundURL[4]=soundURL[0];
         soundURL[5]=soundURL[0];
 
-        soundURL[6]= getClass().getResource("/effects/music/uther_lust.wav");
+        soundURL[6]= getClass().getResource("/effects/music/chiptune-theme.wav");
         soundURL[7]=getClass().getResource("/effects/battle/sword_swing.wav");
         soundURL[8]=getClass().getResource("/effects/battle/playerhit_soft.wav");
         soundURL[9]=getClass().getResource("/effects/battle/mushroom_hit.wav");
-        soundURL[10]=getClass().getResource("/effects/ui/cursor.wav)");
+
+        soundURL[10] = getClass().getResource("/effects/ui/button_pressed.wav");
         soundURL[11]=getClass().getResource("/effects/game_over.wav");
         soundURL[12] = getClass().getResource("/effects/teleport.wav");
+        soundURL[13] = getClass().getResource("/effects/battle/scream.wav");
     }
     public void setFile(int i){
         try{

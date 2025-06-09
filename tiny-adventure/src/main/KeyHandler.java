@@ -72,15 +72,20 @@ public class KeyHandler implements KeyListener {
             case 0 -> {
                 switch (code) {
                     case KeyEvent.VK_W -> {
+                        gp.playSoundEffect(10);
 
                         gp.ui.commandNum--;
                         if (gp.ui.commandNum < 0) gp.ui.commandNum = 3;
                     }
                     case KeyEvent.VK_S -> {
+                        gp.playSoundEffect(10);
+
                         gp.ui.commandNum++;
                         if (gp.ui.commandNum > 3) gp.ui.commandNum = 0;
                     }
                     case KeyEvent.VK_ENTER -> {
+                        gp.playSoundEffect(10);
+
                         switch (gp.ui.commandNum) {
                             case 0 -> {
                                 gp.gameState = gp.playState;
@@ -131,14 +136,14 @@ public class KeyHandler implements KeyListener {
             case KeyEvent.VK_ENTER -> enterPressed = true;
             case KeyEvent.VK_W -> {
                 gp.ui.commandNum--;
-                gp.playSoundEffect(9);
+                gp.playSoundEffect(10);
                 if (gp.ui.commandNum < 0) {
                     gp.ui.commandNum = maxCommandNum;
                 }
             }
             case KeyEvent.VK_S -> {
                 gp.ui.commandNum++;
-                gp.playSoundEffect(9);
+                gp.playSoundEffect(10);
                 if (gp.ui.commandNum > maxCommandNum) {
                     gp.ui.commandNum = 0;
                 }
@@ -193,6 +198,7 @@ public class KeyHandler implements KeyListener {
                 if (gp.ui.commandNum == 0) {
                     gp.gameState = gp.playState;
                 } else if (gp.ui.commandNum == 1) {
+                    gp.stopMusic();
                     gp.gameState = gp.titleState;
                 }
 

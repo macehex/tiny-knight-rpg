@@ -91,10 +91,11 @@ public class UI {
         y = gp.tileSize*4;
         g2.drawString (text, x, y) ;
 // Main
-        g2.setColor(Color.white);
+        g2.setColor(Color.red);
         g2.drawString(text, x-4, y-4);
         // Retry
         g2.setFont(g2.getFont().deriveFont(25f));
+        g2.setColor(Color.white);
         text = "Retry";
         x = getXforCenteredText (text) ;
         y += gp.tileSize*4;
@@ -437,7 +438,9 @@ public class UI {
             g2.drawString(">",textX-arrowOffset,textY);
             if(gp.keyH.enterPressed){
                 subState  = 0 ;
+                gp.stopMusic();
                 gp.gameState = gp.titleState;
+
             }
         }
         //Cancel

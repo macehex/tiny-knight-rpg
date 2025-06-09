@@ -89,6 +89,7 @@ public class Player extends Entity {
         idle5 = setup("/player/idle/Warrior_idle1", gp.tileSize * 2, gp.tileSize * 2);
         idle6 = setup("/player/idle/Warrior_idle1", gp.tileSize * 2, gp.tileSize * 2);
     }
+
     public void getPlayerAttackImage() {
         attackUp1 = setup("/player/attack/upa/u1", gp.tileSize * 2, gp.tileSize * 2);
         attackUp2 = setup("/player/attack/upa/u2", gp.tileSize * 2, gp.tileSize * 2);
@@ -121,10 +122,9 @@ public class Player extends Entity {
 
     public void update() {
         //idle state
-        if(attacking){
+        if (attacking) {
             attacking();
-        }
-        else if (!(keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed)) {
+        } else if (!(keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed)) {
             direction = "idle";
             //CHECK NPC collision for idle case
             int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
@@ -228,14 +228,14 @@ public class Player extends Entity {
 
         }
         //outside of key statement
-        if(invincible){
+        if (invincible) {
             invincibleCounter++;
-            if(invincibleCounter > 100){
-                invincible =false;
+            if (invincibleCounter > 100) {
+                invincible = false;
                 invincibleCounter = 0;
             }
         }
-        if (life<=0){
+        if (life <= 0) {
             gp.playSoundEffect(11);
             gp.gameState = gp.gameOverState;
         }
@@ -373,38 +373,40 @@ public class Player extends Entity {
         g2.drawImage(image, screenX, screenY, null);
 //        // collision trouble shoot
         g2.setColor(Color.red);
-        g2.drawRect(screenX + solidArea.x,screenY + solidArea.y, solidArea.width, solidArea.height);
+        g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
 
 
     }
-    public void attacking(){
-    spriteCounter++;
-    if(spriteCounter<=3){
-        spriteNum = 1;
+
+    public void attacking() {
+        spriteCounter++;
+        if (spriteCounter <= 3) {
+            spriteNum = 1;
+        }
+        if (spriteCounter > 3 && spriteCounter <= 8) {
+            spriteNum = 2;
+        }
+        if (spriteCounter > 12 && spriteCounter <= 15) {
+            spriteNum = 3;
+        }
+        if (spriteCounter > 15 && spriteCounter <= 22) {
+            spriteNum = 4;
+            checkAttacking();
+        }
+        if (spriteCounter > 22 && spriteCounter <= 28) {
+            spriteNum = 5;
+            checkAttacking();
+        }
+        if (spriteCounter > 28 && spriteCounter <= 30) {
+            spriteNum = 6;
+        }
+        if (spriteCounter > 30) {
+            spriteNum = 1;
+            spriteCounter = 0;
+            attacking = false;
+        }
     }
-    if(spriteCounter>3&& spriteCounter<=8){
-        spriteNum = 2;
-    }
-    if(spriteCounter>12&& spriteCounter<=15){
-        spriteNum = 3;
-    }
-    if(spriteCounter>15&& spriteCounter<=22){
-        spriteNum = 4;
-        checkAttacking();
-    }
-    if(spriteCounter>22&& spriteCounter<=28){
-        spriteNum = 5;
-        checkAttacking();
-    }
-    if(spriteCounter>28&& spriteCounter<=30){
-        spriteNum = 6;
-    }
-    if(spriteCounter>30){
-        spriteNum = 1;
-        spriteCounter = 0 ;
-        attacking = false;
-    }
-}
+
     public void pickUpObject(int i) {
         if (i != 999) {
             //if i not equal to object index
@@ -440,10 +442,10 @@ public class Player extends Entity {
                     break;
                 case "Health Potion 2":
                     gp.playSoundEffect(4);
-                    if(gp.player.life<gp.player.maxLife+2){
-                        gp.player.life+=2;
-                    }else{
-                        gp.player.life=gp.player.maxLife;
+                    if (gp.player.life < gp.player.maxLife + 2) {
+                        gp.player.life += 2;
+                    } else {
+                        gp.player.life = gp.player.maxLife;
                     }
                     gp.obj[gp.currentMap][i] = null;
                     gp.ui.showMessage("Picked up health+2 potion");
@@ -453,55 +455,72 @@ public class Player extends Entity {
         }
 
     }
-    public void contactMonster(int i){
-        if(i!= 999){
+
+    public void contactMonster(int i) {
+        if (i != 999) {
             // resume  for 2 sec
-            if(!invincible&&!gp.monster[gp.currentMap][i].dying&&gp.monster[gp.currentMap][i].alive){
+            if (!invincible && !gp.monster[gp.currentMap][i].dying && gp.monster[gp.currentMap][i].alive) {
                 gp.playSoundEffect(8);
                 life -= 1;
                 invincible = true;
             }
         }
-        if(gp.keyH.kPressed){
+        if (gp.keyH.kPressed) {
             attacking = true;
         }
     }
-    public void interactNPC(int i){
-        if(i!=999){
+
+    public void interactNPC(int i) {
+        if (i != 999) {
             System.out.println("Hitting an npc");
-            if(gp.keyH.fPressed){
-                gp.gameState=gp.dialogueState;
+            if (gp.keyH.fPressed) {
+                gp.gameState = gp.dialogueState;
                 gp.npc[gp.currentMap][i].speak();
             }
             gp.keyH.fPressed = false;
         }
-        if(gp.keyH.kPressed){
+        if (gp.keyH.kPressed) {
             gp.playSoundEffect(7);
             attacking = true;
         }
     }
-    public void interactKing(int i){
-        gp.gameState=gp.dialogueState;
+
+    public void interactKing(int i) {
+        gp.gameState = gp.dialogueState;
     }
 
-    public void checkAttacking(){
-        //save current worldX and Y, solidArea
+
+    public void checkAttacking() {
         int currentWorldX = worldX;
         int currentWorldY = worldY;
         int solidAreaWidth = solidArea.width;
         int solidAreaHeight = solidArea.height;
 
-        // Adjusting the hitbox to the attack area
-        switch (direction){
-            //because when idle the dedault attack is right
-            case "up": worldY -= attackArea.height;solidArea.height = attackArea.height; break;
-            case "down": worldY += attackArea.height; solidArea.height = attackArea.height;break;
-            case"right": worldX -= attackArea.width;solidArea.height = attackArea.height*2; break;
-            case "left": worldX += attackArea.width; solidArea.height = attackArea.height*2; break;
+        switch (direction) {
+            case "up":
+                worldY -= attackArea.height;
+                solidArea.height = attackArea.height;
+                break;
+            case "down":
+                worldY += attackArea.height;
+                solidArea.height = attackArea.height;
+                break;
+            case "right":
+                worldX += attackArea.width; // should add for right
+                solidArea.width = attackArea.width;
+                break;
+            case "left":
+                worldX -= attackArea.width; // should subtract for left
+                solidArea.width = attackArea.width;
+                break;
         }
-        solidArea.width = attackArea.width;
-        // check monster collision with the updated worldX, Y and solidArea
-        int monsterIndex= gp.cChecker.checkEntity(this, gp.monster);
+        if (direction.equals("up") || direction.equals("down")) {
+            solidArea.width = attackArea.width;
+        } else {
+            solidArea.height = attackArea.height;
+        }
+
+        int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
         damageMonster(monsterIndex);
 
         worldX = currentWorldX;
@@ -509,19 +528,20 @@ public class Player extends Entity {
         solidArea.width = solidAreaWidth;
         solidArea.height = solidAreaHeight;
     }
-    public void damageMonster(int i ){
-        if(i != 999){
+
+    public void damageMonster(int i) {
+        if (i != 999) {
             System.out.println("Attack dealt!");
-            if(!gp.monster[gp.currentMap][i].invincible){
+            if (!gp.monster[gp.currentMap][i].invincible) {
                 gp.playSoundEffect(9);
-                gp.monster[gp.currentMap][i].life -=1;
+                gp.monster[gp.currentMap][i].life -= 1;
                 gp.monster[gp.currentMap][i].invincible = true;
                 gp.monster[gp.currentMap][i].damageReaction();
-                if(gp.monster[gp.currentMap][i].life<=0){
-                    gp.monster[gp.currentMap][i].dying= true;
+                if (gp.monster[gp.currentMap][i].life <= 0) {
+                    gp.monster[gp.currentMap][i].dying = true;
                 }
             }
-        }else{
+        } else {
             System.out.println("Missed attack!");
         }
     }

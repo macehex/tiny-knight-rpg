@@ -107,8 +107,7 @@ public class MON_Shroom extends Entity {
     @Override
     public void damageReaction() {
         actionLockCounter = 0;
-//        direction = gp.player.direction;
-        speed =2;
+         speed =2;
         onPath = true;
     }
     public void update(){
