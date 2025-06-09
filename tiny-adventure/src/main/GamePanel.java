@@ -1,5 +1,6 @@
 package main;
 
+import ai.PathFinder;
 import entity.Entity;
 import entity.Player;
 import tiles.TileManager;
@@ -47,7 +48,8 @@ public class GamePanel extends JPanel implements Runnable {
 
     //creating a game clock
     public KeyHandler keyH = new KeyHandler(this);
-
+    // System
+    public PathFinder pFinder = new PathFinder(this);
     // Sound
     Sound music = new Sound();
     Sound sound_effect = new Sound();

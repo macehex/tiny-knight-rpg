@@ -12,15 +12,15 @@ import java.util.Objects;
 public class Entity {
     // blueprint for all chars, monsters, objects
     GamePanel gp;
-    public BufferedImage image, image2,image3,image4,image5,image6;
-    public BufferedImage dead1, dead2, dead3, dead4, dead5, dead6,dead7,dead8,dead9,dead10,dead11,dead12,dead13,dead14;
+    public BufferedImage image, image2, image3, image4, image5, image6;
+    public BufferedImage dead1, dead2, dead3, dead4, dead5, dead6, dead7, dead8, dead9, dead10, dead11, dead12, dead13, dead14;
     public BufferedImage attackUp1, attackUp2, attackUp3, attackUp4, attackUp5, attackUp6,
-                            attackDown1, attackDown2, attackDown3, attackDown4, attackDown5, attackDown6;
+            attackDown1, attackDown2, attackDown3, attackDown4, attackDown5, attackDown6;
     public BufferedImage attackRight1, attackRight2, attackRight3, attackRight4, attackRight5, attackRight6;
     public BufferedImage attackLeft1, attackLeft2, attackLeft3, attackLeft4, attackLeft5, attackLeft6;
-    public Rectangle attackArea = new Rectangle(0,0,0,0);
+    public Rectangle attackArea = new Rectangle(0, 0, 0, 0);
     public String name;
-    public boolean collision = false ;
+    public boolean collision = false;
     public boolean invincible = false;
     //COUNTER
     int invincibleCounter = 0;
@@ -47,7 +47,7 @@ public class Entity {
 
     //NPC variables
     public int actionLockCounter = 0;
-    String[] dialogues = new String [20];
+    String[] dialogues = new String[20];
     int dialogueIndex = 0;
 
     //Character and monster  status
@@ -58,36 +58,31 @@ public class Entity {
     public boolean alive = true;
     public boolean dying = false;
     boolean hpBarOn = false;
+    // AI pathfinding
+
+    public boolean onPath = false;
+
     //different entity: npc
     public Entity(GamePanel gp) {
         this.gp = gp;
     }
+
     public void setAction() {
 
     }
-    public void damageReaction(){
+
+    public void damageReaction() {
 
     }
-    public void speak(){
+
+    public void speak() {
 
     }
+
     public void update() {
         // if subclass have same method -> subclass method have the priority
         setAction();
-        collisionOn = false;
-        gp.cChecker.checkTile(this); //passing "NPC" class (because npc has the priority )
-        gp.cChecker.checkObject(this, false);
-
-        gp.cChecker.checkEntity(this, gp.npc);
-        gp.cChecker.checkEntity(this, gp.monster);
-
-        boolean contactPlayer = gp.cChecker.checkPlayer(this);
-        if(this.type ==2 && contactPlayer&&!gp.player.invincible){
-            // damage
-            gp.playSoundEffect(8);
-            gp.player.life -= 1;
-            gp.player.invincible = true;
-        }
+        checkCollision();
         if (!collisionOn) {
             switch (direction) {
                 case "up":
@@ -129,10 +124,10 @@ public class Entity {
             }
             spriteCounter = 0;
         }
-        if(invincible){
+        if (invincible) {
             invincibleCounter++;
-            if(invincibleCounter > 30){
-                invincible =false;
+            if (invincibleCounter > 30) {
+                invincible = false;
                 invincibleCounter = 0;
             }
         }
@@ -206,17 +201,17 @@ public class Entity {
                     break;
             }
             // Monster health bar
-            if(type ==2 &&hpBarOn){
+            if (type == 2 && hpBarOn) {
 
-                double oneScale = ((double)gp.tileSize/maxLife);
-                double hpBarValue = oneScale*life;
+                double oneScale = ((double) gp.tileSize / maxLife);
+                double hpBarValue = oneScale * life;
 
-                g2.setColor(new Color(35,35,35));
-                g2.fillRoundRect(screenX-1,screenY-gp.tileSize/5-1,gp.tileSize+2, gp.tileSize/5+2,2,2);
+                g2.setColor(new Color(35, 35, 35));
+                g2.fillRoundRect(screenX - 1, screenY - gp.tileSize / 5 - 1, gp.tileSize + 2, gp.tileSize / 5 + 2, 2, 2);
                 g2.setColor(new Color(219, 92, 92));
-                g2.fillRoundRect(screenX, screenY- gp.tileSize/5, (int)hpBarValue, gp.tileSize/5,1,1);
+                g2.fillRoundRect(screenX, screenY - gp.tileSize / 5, (int) hpBarValue, gp.tileSize / 5, 1, 1);
                 hpBarCounter++;
-                if(hpBarCounter>480){
+                if (hpBarCounter > 480) {
                     hpBarCounter = 0;
                     hpBarOn = false;
                 }
@@ -224,25 +219,26 @@ public class Entity {
 
 
             //make transparent
-            if(invincible){
+            if (invincible) {
                 hpBarOn = true;
-                hpBarCounter = 0 ;
+                hpBarCounter = 0;
                 g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
             }
 //        // collision trouble shoot
             g2.setColor(Color.red);
             g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
-            if(dying){
-                dyingAnimation(g2,screenX,screenY);
+            if (dying) {
+                dyingAnimation(g2, screenX, screenY);
 
-            }else{
-                g2.drawImage(image, screenX , screenY , gp.tileSize, gp.tileSize, null);
+            } else {
+                g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
                 g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
             }
 
         }
     }
-    public void dyingAnimation(Graphics2D g2, int screenX, int screenY){
+
+    public void dyingAnimation(Graphics2D g2, int screenX, int screenY) {
         dyingCounter++;
 
         int frameDuration = 10; // Adjust to control animation speed
@@ -260,9 +256,10 @@ public class Entity {
             dying = false;
             alive = false;
         }
-        g2.drawImage(image, screenX , screenY , gp.tileSize, gp.tileSize, null);
+        g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
 
     }
+
     public BufferedImage setup(String imagePath, int width, int height) {
         UltilityTool uTool = new UltilityTool();
         BufferedImage image = null;
@@ -275,6 +272,7 @@ public class Entity {
         }
         return image;
     }
+
     public BufferedImage setup(String imagePath) {
         UltilityTool uTool = new UltilityTool();
         BufferedImage image = null;
@@ -303,5 +301,94 @@ public class Entity {
         dead12 = setup("/effects/dead/Dead12", gp.tileSize * 2, gp.tileSize * 2);
         dead13 = setup("/effects/dead/Dead13", gp.tileSize * 2, gp.tileSize * 2);
         dead14 = setup("/effects/dead/Dead14", gp.tileSize * 2, gp.tileSize * 2);
+    }
+
+    public void checkCollision() {
+        collisionOn = false;
+        gp.cChecker.checkTile(this); //passing "NPC" class (because npc has the priority )
+        gp.cChecker.checkObject(this, false);
+
+        gp.cChecker.checkEntity(this, gp.npc);
+        gp.cChecker.checkEntity(this, gp.monster);
+
+        boolean contactPlayer = gp.cChecker.checkPlayer(this);
+        if (this.type == 2 && contactPlayer && !gp.player.invincible) {
+            // damage
+            gp.playSoundEffect(8);
+            gp.player.life -= 1;
+            gp.player.invincible = true;
+        }
+    }
+    public void searchPath(int goalCol, int goalRow) {
+        int startCol = (worldX + solidArea.x) / gp.tileSize;
+        int startRow = (worldY + solidArea.y) / gp.tileSize;
+
+        gp.pFinder.setNodes(startCol, startRow, goalCol, goalRow);
+
+        if (gp.pFinder.search() == true) {
+            // NEXT WORLD X / Y
+            int nextX = gp.pFinder.pathList.get(0).col * gp.tileSize;
+            int nextY = gp.pFinder.pathList.get(0).row * gp.tileSize;
+
+            // ENTITY SOLID AREA POSITION
+            int enLeftX = worldX + solidArea.x;
+            int enRightX = worldX + solidArea.x + solidArea.width;
+            int enTopY = worldY + solidArea.y;
+            int enBottomY = worldY + solidArea.y + solidArea.height;
+
+            if (enTopY > nextY && enLeftX >= nextX && enRightX < nextX + gp.tileSize) {
+                direction = "up";
+            } else if (enTopY < nextY && enLeftX >= nextX && enRightX < nextX + gp.tileSize) {
+                direction = "down";
+            } else if (enTopY >= nextY && enBottomY < nextY + gp.tileSize) {
+                // LEFT OR RIGHT
+                if (enLeftX > nextX) {
+                    direction = "left";
+                }
+                if (enLeftX < nextX) {
+                    direction = "right";
+                }
+            } else if (enTopY > nextY && enLeftX > nextX) {
+                // UP OR LEFT
+                direction = "up";
+                checkCollision();
+
+                if (collisionOn == true) {
+                    direction = "left";
+                }
+            } else if (enTopY > nextY && enLeftX < nextX) {
+                // UP OR RIGHT
+                direction = "up";
+                checkCollision();
+
+                if (collisionOn == true) {
+                    direction = "right";
+                }
+            } else if (enTopY < nextY && enLeftX > nextX) {
+                // DOWN OR LEFT
+                direction = "down";
+                checkCollision();
+
+                if (collisionOn == true) {
+                    direction = "left";
+                }
+            } else if (enTopY < nextY && enLeftX < nextX) {
+                // DOWN OR RIGHT
+                direction = "down";
+                checkCollision();
+
+                if (collisionOn == true) {
+                    direction = "right";
+                }
+            }
+
+            // IF REACH ThE GOAL, STOP THE SEARCH
+            // int nextCol = gp.pFinder.pathList.get(0).col;
+            // int nextRow = gp.pFinder.pathList.get(0).row;
+
+            // if (nextCol == goalCol && nextRow == goalRow) {
+            // onPath = false;
+            // }
+        }
     }
 }

@@ -20,21 +20,24 @@ public class TileManager {
     GamePanel gp;
     public Tile[] tile;
     public int[][][] mapTileNum;
-//    int tileCount = 220;
-int tileCount = 220;
+    public boolean drawPath = true;
+    //    int tileCount = 220;
+    int tileCount = 220;
     int extraTileCount = 10;
     String mapString;
+
     public TileManager(GamePanel gp) {
         this.gp = gp;
-        tile = new Tile[tileCount+extraTileCount]; // types of tiles
+        tile = new Tile[tileCount + extraTileCount]; // types of tiles
         mapTileNum = new int[gp.maxMap][gp.maxWorldCol][gp.maxWorldRow];  // the array thats the axiom of .txt array
         getTitleImage();
 
 //        mapString = "/maps/map2/map2.txt";
         mapString = "/maps/map2/map2.txt";
-        loadMap(mapString,0); //load your map here
-        loadMap("/maps/map2/map2_second.txt",1);
+        loadMap(mapString, 0); //load your map here
+        loadMap("/maps/map2/map2_second.txt", 1);
     }
+
     public void getTitleImage() {
         // Loop from 0 to 224 (inclusive)
         boolean tileCollision = false;
@@ -50,8 +53,9 @@ int tileCount = 220;
             setup(i, tileName, tileCollision);
         }
         // adding extratiles
-            setup(220, "extra/tile_portal", false);        //portaltile
+        setup(220, "extra/tile_portal", false);        //portaltile
     }
+
     public void setup(int index, String imageName, boolean collision) {
         UltilityTool uTool = new UltilityTool();
         try {
@@ -63,7 +67,7 @@ int tileCount = 220;
 //
 //            tile[index].image = uTool.scaleImage(tile[index].image, gp.tileSize, gp.tileSize);
 //            tile[index].collision = collision;
-           //replace with this block for error logging
+            //replace with this block for error logging
             InputStream is = getClass().getResourceAsStream("/tilesmap2jpg/" + imageName + ".jpg");
             if (is == null) {
                 System.out.println("Image not found: " + imageName + ".jpg");
@@ -78,6 +82,7 @@ int tileCount = 220;
             e.printStackTrace();
         }
     }
+
     public void loadMap(String mapPath, int map) {
         try {
             InputStream is = getClass().getResourceAsStream(mapPath);
@@ -122,14 +127,26 @@ int tileCount = 220;
                     worldX - gp.tileSize < gp.player.worldX + gp.player.screenX &&
                     worldY + gp.tileSize > gp.player.worldY - gp.player.screenY &&
                     worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
-                g2.drawImage(tile[tileNum].image, screenX, screenY,null);
-                System.out.println("Drawing tile: " + tileNum + " at worldCol: " + worldCol + ", worldRow: " + worldRow);
+                g2.drawImage(tile[tileNum].image, screenX, screenY, null);
+//                System.out.println("Drawing tile: " + tileNum + " at worldCol: " + worldCol + ", worldRow: " + worldRow);
             }
             //draw tiles
             worldCol++;
             if (worldCol == gp.maxWorldCol) {
                 worldCol = 0;
                 worldRow++;
+            }
+        }
+        //DRAW path finding here
+        if(drawPath){
+            g2.setColor(new Color(255,0,70));
+            for(int i =0; i<gp.pFinder.pathList.size();i++){
+                int worldX = gp.pFinder.pathList.get(i).col * gp.tileSize;
+                int worldY = gp.pFinder.pathList.get(i).row  * gp.tileSize;
+                int screenX = worldX - gp.player.worldX + gp.player.screenX;
+                int screenY = worldY - gp.player.worldY + gp.player.screenY;
+
+                g2.fillRect(screenX,screenY,gp.tileSize,gp.tileSize);
             }
         }
     }
