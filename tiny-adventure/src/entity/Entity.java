@@ -4,6 +4,7 @@ import main.GamePanel;
 import main.UltilityTool;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -34,6 +35,7 @@ public class Entity {
             left1, left2, left3, left4, left5, left6,
             right1, right2, right3, right4, right5, right6,
             idle1, idle2, idle3, idle4, idle5, idle6;
+    public ImageIcon imageIcon;
     public String direction = "down";
 
     public int spriteNum = 1;
@@ -258,6 +260,15 @@ public class Entity {
         }
         g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
 
+    }
+
+    //Loading animated GIFS
+    public ImageIcon setupAnimatedGif(String imagePath, int width, int height) {
+        ImageIcon icon = new ImageIcon(getClass().getResource(imagePath + ".gif"));
+
+        // Optionally scale the image
+        Image scaled = icon.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+        return new ImageIcon(scaled);
     }
 
     public BufferedImage setup(String imagePath, int width, int height) {

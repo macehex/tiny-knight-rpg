@@ -23,10 +23,10 @@ public class AssetSetter {
         gp.obj[mapNum][2] = new OBJ_Door(gp);
         gp.obj[mapNum][2].worldX = 23 *gp.tileSize;
         gp.obj[mapNum][2].worldY = 25 * gp.tileSize;
-
+        // The chest on the floating block next to chest
         gp.obj[mapNum][3] = new OBJ_Chest(gp);
-        gp.obj[mapNum][3].worldX = 19 *gp.tileSize;
-        gp.obj[mapNum][3].worldY = 21 * gp.tileSize;
+        gp.obj[mapNum][3].worldX = 12 *gp.tileSize;
+        gp.obj[mapNum][3].worldY = 43 * gp.tileSize;
 
         gp.obj[mapNum][4] = new OBJ_Door(gp);
         gp.obj[mapNum][4].worldX = 27 *gp.tileSize;
@@ -40,6 +40,10 @@ public class AssetSetter {
         gp.obj[mapNum][6] = new OBJ_Potion_Heath_Two(gp);
         gp.obj[mapNum][6].worldX = 22 *gp.tileSize;
         gp.obj[mapNum][6].worldY = 26 * gp.tileSize;
+        // The portal next to floating block's chest
+        gp.obj[mapNum][7] = new OBJ_Portal(gp);
+        gp.obj[mapNum][7].worldX = 13 *gp.tileSize;
+        gp.obj[mapNum][7].worldY = 43 * gp.tileSize;
     }
     public void setNPC(){
         int mapNum = 0;

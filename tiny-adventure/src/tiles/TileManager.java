@@ -6,15 +6,11 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import main.GamePanel;
-import main.UI;
 import main.UltilityTool;
 
 import java.awt.*;
 import java.io.InputStreamReader;
 import java.io.InputStream;
-import java.util.Objects;
-
-import javax.imageio.ImageIO;
 
 public class TileManager {
     GamePanel gp;
@@ -23,12 +19,11 @@ public class TileManager {
     public boolean drawPath = true;
     //    int tileCount = 220;
     int tileCount = 220;
-    int extraTileCount = 10;
     String mapString;
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
-        tile = new Tile[tileCount + extraTileCount]; // types of tiles
+        tile = new Tile[tileCount]; // types of tiles
         mapTileNum = new int[gp.maxMap][gp.maxWorldCol][gp.maxWorldRow];  // the array thats the axiom of .txt array
         getTitleImage();
 
@@ -52,23 +47,13 @@ public class TileManager {
 //            }
             setup(i, tileName, tileCollision);
         }
-        // adding extratiles
-        setup(220, "extra/tile_portal", false);        //portaltile
     }
 
     public void setup(int index, String imageName, boolean collision) {
         UltilityTool uTool = new UltilityTool();
         try {
             tile[index] = new Tile();
-
-//            tile[index].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(("/tilesmap2jpg/" + imageName + ".jpg"))));
-//
-//
-//
-//            tile[index].image = uTool.scaleImage(tile[index].image, gp.tileSize, gp.tileSize);
-//            tile[index].collision = collision;
-            //replace with this block for error logging
-            InputStream is = getClass().getResourceAsStream("/tilesmap2jpg/" + imageName + ".jpg");
+            InputStream is = getClass().getResourceAsStream("/maps/tilesmap2jpg/" + imageName + ".jpg");
             if (is == null) {
                 System.out.println("Image not found: " + imageName + ".jpg");
             } else {
