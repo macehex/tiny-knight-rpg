@@ -33,7 +33,7 @@ int tileCount = 220;
 //        mapString = "/maps/map2/map2.txt";
         mapString = "/maps/map2/map2.txt";
         loadMap(mapString,0); //load your map here
-        loadMap("/map/map2/map2.txt",1);
+        loadMap("/maps/map2/map2_second.txt",1);
     }
     public void getTitleImage() {
         // Loop from 0 to 224 (inclusive)
@@ -123,6 +123,7 @@ int tileCount = 220;
                     worldY + gp.tileSize > gp.player.worldY - gp.player.screenY &&
                     worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
                 g2.drawImage(tile[tileNum].image, screenX, screenY,null);
+                System.out.println("Drawing tile: " + tileNum + " at worldCol: " + worldCol + ", worldRow: " + worldRow);
             }
             //draw tiles
             worldCol++;
