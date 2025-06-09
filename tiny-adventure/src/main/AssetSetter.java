@@ -1,7 +1,6 @@
 package main;
 
 import entity.NPC;
-import entity.King;
 import main.monster.MON_Shroom;
 import object.*;
 
@@ -12,59 +11,63 @@ public class AssetSetter {
 
     }
     public void setObject(){
+        int mapNum = 0;
+        //set stuffs at other map with mapNym = smth else
         // place coordinates of object
-        gp.obj[0] = new OBJ_Key(gp);
-        gp.obj[0].worldX = 22 *gp.tileSize;
-        gp.obj[0].worldY = 21 * gp.tileSize;
-        gp.obj[1] = new OBJ_Key(gp);
-        gp.obj[1].worldX = 19 *gp.tileSize;
-        gp.obj[1].worldY =  20 * gp.tileSize;
-        gp.obj[2] = new OBJ_Door(gp);
-        gp.obj[2].worldX = 23 *gp.tileSize;
-        gp.obj[2].worldY = 25 * gp.tileSize;
+        gp.obj[mapNum][0] = new OBJ_Key(gp);
+        gp.obj[mapNum][0].worldX = 22 *gp.tileSize;
+        gp.obj[mapNum][0].worldY = 21 * gp.tileSize;
+        gp.obj[mapNum][1] = new OBJ_Key(gp);
+        gp.obj[mapNum][1].worldX = 19 *gp.tileSize;
+        gp.obj[mapNum][1].worldY =  20 * gp.tileSize;
+        gp.obj[mapNum][2] = new OBJ_Door(gp);
+        gp.obj[mapNum][2].worldX = 23 *gp.tileSize;
+        gp.obj[mapNum][2].worldY = 25 * gp.tileSize;
+        // The chest on the floating block next to chest
+        gp.obj[mapNum][3] = new OBJ_Chest(gp);
+        gp.obj[mapNum][3].worldX = 12 *gp.tileSize;
+        gp.obj[mapNum][3].worldY = 43 * gp.tileSize;
 
-        gp.obj[3] = new OBJ_Chest(gp);
-        gp.obj[3].worldX = 19 *gp.tileSize;
-        gp.obj[3].worldY = 21 * gp.tileSize;
-
-        gp.obj[4] = new OBJ_Door(gp);
-        gp.obj[4].worldX = 27 *gp.tileSize;
-        gp.obj[4].worldY = 21 * gp.tileSize;
+        gp.obj[mapNum][4] = new OBJ_Door(gp);
+        gp.obj[mapNum][4].worldX = 27 *gp.tileSize;
+        gp.obj[mapNum][4].worldY = 21 * gp.tileSize;
 
 
-        gp.obj[5] = new OBJ_Potion_Speed(gp);
-        gp.obj[5].worldX = 20 *gp.tileSize;
-        gp.obj[5].worldY = 26 * gp.tileSize;
+        gp.obj[mapNum][5] = new OBJ_Potion_Speed(gp);
+        gp.obj[mapNum][5].worldX = 20 *gp.tileSize;
+        gp.obj[mapNum][5].worldY = 26 * gp.tileSize;
 
-        gp.obj[6] = new OBJ_Potion_Heath_Two(gp);
-        gp.obj[6].worldX = 22 *gp.tileSize;
-        gp.obj[6].worldY = 26 * gp.tileSize;
+        gp.obj[mapNum][6] = new OBJ_Potion_Heath_Two(gp);
+        gp.obj[mapNum][6].worldX = 22 *gp.tileSize;
+        gp.obj[mapNum][6].worldY = 26 * gp.tileSize;
+        // The portal next to floating block's chest
+        gp.obj[mapNum][7] = new OBJ_Portal(gp);
+        gp.obj[mapNum][7].worldX = 13 *gp.tileSize;
+        gp.obj[mapNum][7].worldY = 43 * gp.tileSize;
     }
     public void setNPC(){
-        gp.npc[0]= new NPC(gp);
-        gp.npc[0].worldX = gp.tileSize*27;
-        gp.npc[0].worldY =gp.tileSize*17;
+        int mapNum = 0;
+        gp.npc[mapNum][0]= new NPC(gp);
+        gp.npc[mapNum][0].worldX = gp.tileSize*27;
+        gp.npc[mapNum][0].worldY =gp.tileSize*17;
 
-        gp.npc[1]= new NPC(gp);
-        gp.npc[1].worldX = gp.tileSize*10;
-        gp.npc[1].worldY =gp.tileSize*10;
+        gp.npc[mapNum][1]= new NPC(gp);
+        gp.npc[mapNum][1].worldX = gp.tileSize*10;
+        gp.npc[mapNum][1].worldY =gp.tileSize*10;
+
     }
     public void setMonster(){
-        gp.monster[0] = new MON_Shroom(gp);
-        gp.monster[0].worldX = gp.tileSize*29;
-        gp.monster[0].worldY = gp.tileSize*6;
-        gp.monster[1] = new MON_Shroom(gp);
-        gp.monster[1].worldX = gp.tileSize*27;
-        gp.monster[1].worldY = gp.tileSize*8;
-        gp.monster[2] = new MON_Shroom(gp);
-        gp.monster[2].worldX = gp.tileSize*9;
-        gp.monster[2].worldY = gp.tileSize*9;
+        int mapNum = 0;
+
+        gp.monster[mapNum][0] = new MON_Shroom(gp);
+        gp.monster[mapNum][0].worldX = gp.tileSize*29;
+        gp.monster[mapNum][0].worldY = gp.tileSize*6;
+        gp.monster[mapNum][1] = new MON_Shroom(gp);
+        gp.monster[mapNum][1].worldX = gp.tileSize*27;
+        gp.monster[mapNum][1].worldY = gp.tileSize*8;
+        gp.monster[mapNum][2] = new MON_Shroom(gp);
+        gp.monster[mapNum][2].worldX = gp.tileSize*9;
+        gp.monster[mapNum][2].worldY = gp.tileSize*9;
 
     }
-    public void setKing(){
-        gp.king[0]= new King(gp);
-        gp.king[0].worldX = gp.tileSize*9;
-        gp.king[0].worldY =gp.tileSize*10;
-    }
-
 }

@@ -17,6 +17,7 @@ public class NPC extends Entity {
         getGoblinImage();
         setDialogue();
     }
+
     public void getGoblinImage() {
 
         up1 = setup("/npc/Torch_Red_idle1", gp.tileSize * 2, gp.tileSize * 2);
@@ -56,9 +57,9 @@ public class NPC extends Entity {
     }
 
 
-    public void setDialogue(){
+    public void setDialogue() {
         dialogues[0] = "Greeting young knight. \nI'm the king of this beautiful land";
-        dialogues[1]="and we welcome your arrival";
+        dialogues[1] = "and we welcome your arrival";
 
 //        dialogues[1] = "As you may have heard my dearest daughter has been kidnapped and locked away";
 //        dialogues[2] = "We don't know where she is now so I ask of you to bring her back safe and sounds";
@@ -69,45 +70,54 @@ public class NPC extends Entity {
 
     public void setAction() {
         //set NPC behavior & AI
-        actionLockCounter ++; //increment everytime setAction is called
-        if(actionLockCounter == 120){
-            //  the action direction stay the same for 120 seconds
-            //randomize npc state
-            Random random = new Random();
-            int i = random.nextInt(100) + 1; // pick up num in range[1,100]
-            if (i <= 25) {
-                direction = "up";
+        if (onPath) {
+            int goalCol = (gp.player.worldX + gp.player.solidArea.x) / gp.tileSize;
+            int goalRow = (gp.player.worldY + gp.player.solidArea.y) / gp.tileSize;
+
+            searchPath(goalCol, goalRow);
+
+        } else {
+
+            actionLockCounter++; //increment everytime setAction is called
+            if (actionLockCounter == 120) {
+//                  the action direction stay the same for 120 seconds
+//                randomize npc state
+                Random random = new Random();
+                int i = random.nextInt(100) + 1; // pick up num in range[1,100]
+                if (i <= 25) {
+                    direction = "up";
+                }
+                if (i > 25 && i <= 50) {
+                    direction = "down";
+                }
+                if (i > 50 && i <= 75) {
+                    direction = "left";
+                }
+                if (i > 75) {
+                    direction = "right";
+                }
+                actionLockCounter = 0; // reset counter
             }
-            if (i > 25 && i <= 50) {
-                direction = "down";
-            }
-            if (i > 50 && i <= 75) {
-                direction = "left";
-            }
-            if (i > 75) {
-                direction = "right";
-            }
-            actionLockCounter = 0; // reset counter
 
         }
 
     }
 
 
-    // ENTITY already hava an update function!
-    public void speak(){
-        if(dialogues[dialogueIndex] == null){
-            dialogueIndex = 0 ;
+    public void speak() {
+        onPath = true;
+        if (dialogues[dialogueIndex] == null) {
+            dialogueIndex = 0;
         }
         gp.ui.currentDialogue = dialogues[dialogueIndex];
         dialogueIndex++;
-        switch (gp.player.direction){
+        switch (gp.player.direction) {
             case "up":
                 direction = "up";
                 break;
             case "down":
                 direction = "down";
-            break;
+                break;
             case "right":
                 direction = "right";
                 break;

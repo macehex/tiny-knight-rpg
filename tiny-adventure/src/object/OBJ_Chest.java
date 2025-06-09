@@ -12,7 +12,7 @@ public class OBJ_Chest extends Entity {
             super(gp);
             name = "Chest";
             down1 = setup("/object/chest/chest1");
-            collision = true;
+            collision = false;
 
         }
 }
