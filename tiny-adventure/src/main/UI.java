@@ -183,14 +183,13 @@ public class UI {
         g2.drawImage(emblem, x - gp.tileSize / 4, y - gp.tileSize / 4, null);
         g2.drawImage(heart_background, x + gp.tileSize + gp.tileSize / 4, y, null);
 
+        double oneScale = (double) (gp.player.maxLife* gp.tileSize+gp.tileSize*1.5) / gp.player.maxLife;
+        double hpBarValue = oneScale * gp.player.life;
+
         x = gp.tileSize * 2 + 1;
         y = y + gp.tileSize / 5;
-        while (i < gp.player.life) {
-            g2.drawImage(heart_full, x, y, null);
-            i++;
-            x += gp.tileSize + gp.tileSize / 4;
-        }
 
+        g2.drawImage(heart_full, x, y, (int) hpBarValue, gp.tileSize/3+4, null);
     }
 
     public void drawOptionsScreen() {
