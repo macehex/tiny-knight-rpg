@@ -336,7 +336,7 @@ public class Entity {
 
         gp.pFinder.setNodes(startCol, startRow, goalCol, goalRow);
 
-        if (gp.pFinder.search() == true) {
+        if (gp.pFinder.search()) {
             // NEXT WORLD X / Y
             int nextX = gp.pFinder.pathList.get(0).col * gp.tileSize;
             int nextY = gp.pFinder.pathList.get(0).row * gp.tileSize;
@@ -364,7 +364,7 @@ public class Entity {
                 direction = "up";
                 checkCollision();
 
-                if (collisionOn == true) {
+                if (collisionOn) {
                     direction = "left";
                 }
             } else if (enTopY > nextY && enLeftX < nextX) {
@@ -372,7 +372,7 @@ public class Entity {
                 direction = "up";
                 checkCollision();
 
-                if (collisionOn == true) {
+                if (collisionOn) {
                     direction = "right";
                 }
             } else if (enTopY < nextY && enLeftX > nextX) {
@@ -380,7 +380,7 @@ public class Entity {
                 direction = "down";
                 checkCollision();
 
-                if (collisionOn == true) {
+                if (collisionOn) {
                     direction = "left";
                 }
             } else if (enTopY < nextY && enLeftX < nextX) {
@@ -388,7 +388,7 @@ public class Entity {
                 direction = "down";
                 checkCollision();
 
-                if (collisionOn == true) {
+                if (collisionOn) {
                     direction = "right";
                 }
             }
