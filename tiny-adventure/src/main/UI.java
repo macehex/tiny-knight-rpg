@@ -137,7 +137,7 @@ public class UI {
         g2.setColor(Color.white);
         switch (gp.gameState) {
             //TITLE state
-            case 0 ->                drawTitleScreen(g2);
+            case 0 -> drawTitleScreen(g2);
             case 1->{
                 // ìf playState
                 // display playing ui
