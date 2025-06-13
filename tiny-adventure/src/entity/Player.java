@@ -62,8 +62,6 @@ public class Player extends Entity {
         inventory.add(currentWeapon);
         inventory.add(new OBJ_SWORD(gp));
         inventory.add(new OBJ_Key(gp));
-
-
     }
     public void getPlayerImage() {
         up1 = setup("/player/warrior_runu1", gp.tileSize * 2, gp.tileSize * 2);
