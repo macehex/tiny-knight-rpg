@@ -421,10 +421,12 @@ public class Player extends Entity {
         if (i != 999) {
             //if i not equal to object index
             String objectName = gp.obj[gp.currentMap][i].name;
-            switch (objectName) {
+            if(inventory.size() != maxInventorySize)
+                switch (objectName) {
                 case "Key":
                     gp.playSoundEffect(5);
                     hasKey++;
+                    inventory.add(gp.obj[gp.currentMap][i]);
                     gp.obj[gp.currentMap][i] = null; // delete touched object
                     gp.ui.showMessage("Picked up key");
                     break;
@@ -462,6 +464,7 @@ public class Player extends Entity {
                     break;
 
             }
+            else gp.ui.showMessage("You cannot carry any more!");
         }
 
     }
@@ -556,3 +559,4 @@ public class Player extends Entity {
         }
     }
 }
+
