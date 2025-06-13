@@ -60,6 +60,11 @@ public class Entity {
     public boolean alive = true;
     public boolean dying = false;
     boolean hpBarOn = false;
+    public Entity currentWeapon;
+    //ITEMS ATTRIBUTES
+    public int attackValue = 1 ;
+    public int defenseValue;
+    public String description = "";
     // AI pathfinding
 
     public boolean onPath = false;

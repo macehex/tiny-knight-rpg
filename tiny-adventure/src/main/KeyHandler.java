@@ -48,6 +48,7 @@ public class KeyHandler implements KeyListener {
                             }
                     case KeyEvent.VK_F1 -> gp.gameState = gp.pauseState;
                     case KeyEvent.VK_ESCAPE -> gp.gameState = gp.optionsState;
+                    case KeyEvent.VK_C -> gp.gameState = gp.characterState;
                 }
             }
             //dialoge state
@@ -102,10 +103,34 @@ public class KeyHandler implements KeyListener {
                     }
                 }
             }
+            case 4->{
+                if (code == KeyEvent.VK_C )
+                    gp.gameState = gp.playState;
+                if (code == KeyEvent.VK_W) {
+                    if(gp.ui.slotRow!=0)
+                        gp.ui.slotRow--;
+                    gp.playSoundEffect(10);
+                    }
+                if (code == KeyEvent.VK_S) {
+                    if (gp.ui.slotRow != 3)
+                        gp.ui.slotRow++;
+                    gp.playSoundEffect(10);
+                }
+                if (code == KeyEvent.VK_A) {
+                    if (gp.ui.slotCol != 0)
+                        gp.ui.slotCol--;
+                    gp.playSoundEffect(10);
+                }
+                if (code == KeyEvent.VK_D) {
+                    if (gp.ui.slotCol != 3)
+                        gp.ui.slotCol++;
+                    gp.playSoundEffect(10);
+                }
+            }
+
         }
 
     }
-
     @Override
     public void keyReleased(KeyEvent e) {
         int code = e.getKeyCode(); //return key number that's pressed

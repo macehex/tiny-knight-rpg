@@ -3,11 +3,13 @@ package entity;
 import main.GamePanel;
 import main.KeyHandler;
 import main.UltilityTool;
+import object.*;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Player extends Entity {
@@ -16,6 +18,8 @@ public class Player extends Entity {
     public final int screenY; // background scroll
     // key item slot
     public int hasKey = 0;
+    public ArrayList<Entity> inventory  = new ArrayList<>();
+    public final int maxInventorySize = 24;
 
     public Player(GamePanel gp, KeyHandler keyH) {
         super(gp);
@@ -40,6 +44,7 @@ public class Player extends Entity {
         setDefaultValues();
         getPlayerImage();
         getPlayerAttackImage();
+        setItems();
     }
 
     public void setDefaultValues() {
@@ -51,8 +56,15 @@ public class Player extends Entity {
         // PLAYER STATUS
         maxLife = 5;
         life = maxLife;
+        currentWeapon = new OBJ_SWORD(gp);
     }
+    public void setItems(){
+        inventory.add(currentWeapon);
+        inventory.add(new OBJ_SWORD(gp));
+        inventory.add(new OBJ_Key(gp));
 
+
+    }
     public void getPlayerImage() {
         up1 = setup("/player/warrior_runu1", gp.tileSize * 2, gp.tileSize * 2);
         up2 = setup("/player/warrior_runu2", gp.tileSize * 2, gp.tileSize * 2);
