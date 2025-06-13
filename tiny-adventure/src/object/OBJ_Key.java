@@ -14,6 +14,7 @@ public class OBJ_Key extends Entity {
         super(gp);
         name = "Key";
         down1 = setup("/object/key");
+        description = "[" + name + "]\nIt opens a door.";
         //  HIT BOX
         solidArea.x = 12;
         solidArea.y = 12;
