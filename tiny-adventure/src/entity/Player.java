@@ -60,8 +60,8 @@ public class Player extends Entity {
     }
     public void setItems(){
         inventory.add(currentWeapon);
-        inventory.add(new OBJ_SWORD(gp));
-        inventory.add(new OBJ_Key(gp));
+
+
     }
     public void getPlayerImage() {
         up1 = setup("/player/warrior_runu1", gp.tileSize * 2, gp.tileSize * 2);
@@ -434,6 +434,12 @@ public class Player extends Entity {
                     if (hasKey > 0) {
                         gp.playSoundEffect(3);
                         gp.obj[gp.currentMap][i] = null;
+                        for (int j = 0; j < inventory.size(); j++) {
+                            if (inventory.get(j).name.equals("Key")) {
+                                inventory.remove(j);
+                                break;
+                            }
+                        }
                         hasKey--;
                         gp.ui.showMessage("Door opened");
                     } else {
