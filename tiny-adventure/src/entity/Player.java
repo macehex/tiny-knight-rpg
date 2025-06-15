@@ -49,9 +49,9 @@ public class Player extends Entity {
 
     public void setDefaultValues() {
         // PLACEHOLDER
-        worldX = gp.tileSize * 25; //CHANGE LATER ASAP
-        worldY = gp.tileSize * 11;
-        speed = 4;
+        worldX = gp.tileSize * 12; //CHANGE LATER ASAP
+        worldY = gp.tileSize * 33;
+        speed = 10;
         direction = "idle";
         // PLAYER STATUS
         maxLife = 5;
