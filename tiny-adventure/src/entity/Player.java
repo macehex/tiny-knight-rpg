@@ -251,6 +251,7 @@ public class Player extends Entity {
         }
     }
 
+
     public void draw(Graphics2D g2) {
 
 //        g2.setColor(Color.white);
@@ -467,7 +468,15 @@ public class Player extends Entity {
                     }
                     gp.obj[gp.currentMap][i] = null;
                     gp.ui.showMessage("Picked up health+2 potion");
-                    break;
+                case "Spikes":
+                        if (!gp.player.invincible) {
+                        // damage
+                        gp.playSoundEffect(8);
+                        gp.player.life -= 1;
+                        gp.player.invincible = true;
+                }
+
+                break;
 
             }
             else gp.ui.showMessage("You cannot carry any more!");

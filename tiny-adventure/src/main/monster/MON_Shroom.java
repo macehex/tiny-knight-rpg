@@ -19,7 +19,7 @@ public class MON_Shroom extends Entity {
         maxLife = 3;
         life = maxLife;
         solidArea = new Rectangle();
-        // PLAYER HIT BOX
+        // Monster HIT BOX
         solidArea.x = 15;
         solidArea.y = 20;
         solidArea.width = 16;

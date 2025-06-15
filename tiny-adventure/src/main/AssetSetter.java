@@ -25,10 +25,10 @@ public class AssetSetter {
                 () -> new OBJ_Key(gp),
                 () -> new OBJ_Key(gp),
                 // Door
-                    () -> new OBJ_Door(gp),
-                    () -> new OBJ_Door(gp),
-                    () -> new OBJ_Door(gp),
-                    () -> new OBJ_Door(gp),
+                () -> new OBJ_Door(gp),
+                () -> new OBJ_Door(gp),
+                () -> new OBJ_Door(gp),
+                () -> new OBJ_Door(gp),
 
                 // Chests
                 () -> new OBJ_Chest(gp),
@@ -49,7 +49,86 @@ public class AssetSetter {
                 () -> new OBJ_Potion_Heath_Two(gp),
 
 
-                () -> new OBJ_Portal(gp)
+                () -> new OBJ_Portal(gp),
+
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp),
+                () -> new OBJ_Spikes(gp)
+
         };
 
         // Corresponding coordinates for each object
@@ -61,10 +140,10 @@ public class AssetSetter {
                 {93, 18},
 
                 // Door
-                    {12, 18},
-                {61,40},
-                {75,40},
-                {92,14},
+                {12, 18},
+                {61, 40},
+                {75, 40},
+                {92, 14},
                 // Chests
                 {52, 28},
                 {61, 35},
@@ -84,7 +163,33 @@ public class AssetSetter {
                 {61, 13},
                 {92, 52},
 
-                {13, 43}  // Portal
+                {13, 43},  // Portal
+
+                // Spikes
+                {30, 11}, {31, 11}, {32, 11},
+                {30, 12}, {31, 12}, {32, 12},
+                {30, 13}, {31, 12}, {32, 12},
+
+                {82, 20}, {83, 20}, {84, 20}, {85, 20},
+                {82, 21}, {83, 21}, {84, 21}, {85, 21},
+                {82, 22}, {83, 22}, {84, 22}, {85, 22},
+                {82, 23}, {83, 23}, {84, 23}, {85, 23},
+
+                {69, 49}, {70, 49}, {71, 49}, {72, 49},
+                {69, 50}, {70, 50}, {71, 50}, {72, 50},
+                {69, 51}, {70, 51}, {71, 51}, {72, 51},
+                {69, 52}, {70, 52}, {71, 52}, {72, 52},
+
+                {52, 49}, {53, 49}, {54, 49}, {55, 49},
+                {52, 50}, {53, 50}, {54, 50}, {55, 50},
+                {52, 51}, {53, 51}, {54, 51}, {55, 51},
+                {52, 52}, {53, 52}, {54, 52}, {55, 52},
+
+                {26, 49}, {27, 49}, {28, 49}, {29, 49},
+                {26, 50}, {27, 50}, {28, 50}, {29, 50},
+                {26, 51}, {27, 51}, {28, 51}, {29, 51},
+                {26, 52}, {27, 52}, {28, 52}, {29, 52}
+
         };
 
         // Safety check: prevent mismatches
