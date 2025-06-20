@@ -422,6 +422,8 @@ public class UI {
         textY += gp.tileSize;
         g2.drawString("Options", textX, textY);
         textY += gp.tileSize;
+        g2.drawString("Inventory", textX, textY);
+        textY += gp.tileSize;
 
         textX = frameX + gp.tileSize * 5;
         textY = frameY + gp.tileSize * 2;
@@ -438,6 +440,10 @@ public class UI {
 
         g2.drawString("ESC", textX, textY);
         textY += gp.tileSize;
+
+        g2.drawString("C", textX, textY);
+        textY += gp.tileSize;
+
         //going back to the main option menu
         textX = frameX + gp.tileSize;
         textY = frameY + gp.tileSize * 9;
