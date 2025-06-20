@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/tiny-knight-rpg-reak.iml" filepath="$PROJECT_DIR$/tiny-knight-rpg-reak.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tiny-adventure.iml" filepath="$PROJECT_DIR$/tiny-adventure.iml" />
     </modules>
   </component>
 </project>
