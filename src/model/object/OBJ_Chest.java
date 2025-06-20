@@ -5,16 +5,20 @@ import controller.GamePanel;
 import java.util.Random;
 
 public class OBJ_Chest extends Entity {
-        private final GamePanel gp;
+    private final GamePanel gp;
 
-        public OBJ_Chest(GamePanel gp){
-            super(gp);
-            this.gp= gp;
-            name = "Chest";
-            down1 = setup("/object/chest/chest1");
-            collision = false;
+    public OBJ_Chest(GamePanel gp) {
+        super(gp);
+        this.gp = gp;
+        name = "Chest";
+        down1 = setup("/object/chest/chest1");
+        collision = false;
+    }
 
-        }
+    public void getChestAnimation() {
+
+    }
+
     public void randomReward() {
         Random rand = new Random();
         int reward = rand.nextInt(4); // 0 to 3

@@ -14,11 +14,11 @@ public class Player extends Entity {
     public final int screenX;
     public final int screenY; // background scroll
     // key item slot
-    public int hasKey = 0;
+    private int hasKey = 0;
     public ArrayList<Entity> inventory = new ArrayList<>();
     public final int maxInventorySize = 24;
     private boolean isSwim;
-
+    private int counterWater=0;
     public Player(GamePanel gp, KeyHandler keyH) {
         super(gp);
         isSwim = false;
@@ -47,11 +47,11 @@ public class Player extends Entity {
         setItems();
     }
 
-    public void setDefaultValues() {
+    private void setDefaultValues() {
         // PLACEHOLDER
         worldX = gp.tileSize * 12; //CHANGE LATER ASAP
         worldY = gp.tileSize * 33;
-        speed = 10;
+        speed = 8;
         direction = "idle";
         // PLAYER STATUS
         maxLife = 5;
@@ -60,11 +60,11 @@ public class Player extends Entity {
 
     }
 
-    public void setItems() {
+    private void setItems() {
         inventory.add(currentWeapon);
     }
 
-    public void getPlayerImage() {
+    private void getPlayerImage() {
         up1 = setup("/player/warrior_runu1", gp.tileSize * 2, gp.tileSize * 2);
         up2 = setup("/player/warrior_runu2", gp.tileSize * 2, gp.tileSize * 2);
         up3 = setup("/player/warrior_runu3", gp.tileSize * 2, gp.tileSize * 2);
@@ -101,7 +101,7 @@ public class Player extends Entity {
         idle6 = setup("/player/idle/Warrior_idle1", gp.tileSize * 2, gp.tileSize * 2);
     }
 
-    public void getPlayerSwimmingImage() {
+    private void getPlayerSwimmingImage() {
         swim_up1 = setup("/player/swim/u1", gp.tileSize * 2, gp.tileSize * 2);
         swim_up2 = setup("/player/swim/u2", gp.tileSize * 2, gp.tileSize * 2);
         swim_up3 = setup("/player/swim/u3", gp.tileSize * 2, gp.tileSize * 2);
@@ -130,15 +130,15 @@ public class Player extends Entity {
         swim_right5 = setup("/player/swim/r5", gp.tileSize * 2, gp.tileSize * 2);
         swim_right6 = setup("/player/swim/r6", gp.tileSize * 2, gp.tileSize * 2);
 
-        swim_idle1 = setup("/player/swim/u1", gp.tileSize * 2, gp.tileSize * 2);
-        swim_idle2 = setup("/player/swim/u2", gp.tileSize * 2, gp.tileSize * 2);
-        swim_idle3 = setup("/player/swim/u3", gp.tileSize * 2, gp.tileSize * 2);
-        swim_idle4 = setup("/player/swim/u4", gp.tileSize * 2, gp.tileSize * 2);
-        swim_idle5 = setup("/player/swim/u5", gp.tileSize * 2, gp.tileSize * 2);
-        swim_idle6 = setup("/player/swim/u6", gp.tileSize * 2, gp.tileSize * 2);
+        swim_idle1 = setup("/player/swim/d1", gp.tileSize * 2, gp.tileSize * 2);
+        swim_idle2 = setup("/player/swim/d2", gp.tileSize * 2, gp.tileSize * 2);
+        swim_idle3 = setup("/player/swim/d3", gp.tileSize * 2, gp.tileSize * 2);
+        swim_idle4 = setup("/player/swim/d4", gp.tileSize * 2, gp.tileSize * 2);
+        swim_idle5 = setup("/player/swim/d5", gp.tileSize * 2, gp.tileSize * 2);
+        swim_idle6 = setup("/player/swim/d6", gp.tileSize * 2, gp.tileSize * 2);
     }
 
-    public void getPlayerAttackImage() {
+    private void getPlayerAttackImage() {
         attackUp1 = setup("/player/attack/upa/u1", gp.tileSize * 2, gp.tileSize * 2);
         attackUp2 = setup("/player/attack/upa/u2", gp.tileSize * 2, gp.tileSize * 2);
         attackUp3 = setup("/player/attack/upa/u3", gp.tileSize * 2, gp.tileSize * 2);
@@ -495,7 +495,7 @@ public class Player extends Entity {
 
     }
 
-    public void attacking() {
+    private void attacking() {
         spriteCounter++;
         if (spriteCounter <= 3) {
             spriteNum = 1;
@@ -524,7 +524,7 @@ public class Player extends Entity {
         }
     }
 
-    public void pickUpObject(int i) {
+    private void pickUpObject(int i) {
         if (i != 999) {
             //if i not equal to object index
             String objectName = gp.obj[gp.currentMap][i].name;
@@ -590,7 +590,7 @@ public class Player extends Entity {
 
     }
 
-    public void contactMonster(int i) {
+    private void contactMonster(int i) {
         if (i != 999) {
             // resume  for 2 sec
             if (!invincible && !gp.monster[gp.currentMap][i].dying && gp.monster[gp.currentMap][i].alive) {
@@ -603,8 +603,15 @@ public class Player extends Entity {
             attacking = true;
         }
     }
+    private void contactWater(int count){
+        if (!invincible && count > 50) {
+            gp.playSoundEffect(8);
+            life -= 1;
+            invincible = true;
+        }
 
-    public void interactNPC(int i) {
+    }
+    private void interactNPC(int i) {
         if (i != 999) {
             if (gp.keyH.enterPressed) {
                 gp.gameState = gp.dialogueState;
@@ -614,19 +621,24 @@ public class Player extends Entity {
         }
     }
 
-    public void interactKing(int i) {
+    private void interactKing(int i) {
         gp.gameState = gp.dialogueState;
     }
 
-    public void checkSwimming() {
+    private void checkSwimming() {
         int tileNum = gp.tileM.mapTileNum[gp.currentMap][worldX / gp.tileSize][worldY / gp.tileSize];
         if (gp.tileM.tile[tileNum].isWater) {
             isSwim = true;
+            speed = 4;
+            counterWater++;
+            contactWater(counterWater);
         } else {
             isSwim = false;
+            speed = 8;
+            counterWater=0;
         }
     }
-    public void checkAttacking() {
+    private void checkAttacking() {
         int currentWorldX = worldX;
         int currentWorldY = worldY;
         int solidAreaWidth = solidArea.width;
@@ -665,7 +677,7 @@ public class Player extends Entity {
         solidArea.height = solidAreaHeight;
     }
 
-    public void damageMonster(int i) {
+    private void damageMonster(int i) {
         if (i != 999) {
             System.out.println("Attack dealt!");
             if (!gp.monster[gp.currentMap][i].invincible) {

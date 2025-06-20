@@ -14,7 +14,7 @@ public class OBJ_Spikes extends AnimatedEntity {
         name = "Spikes";
         type = 5; // spikes
 
-        imageIcon = setupAnimatedGif("/object/extra/greenportal",32,32);
+        imageIcon = setupAnimatedGif("/object/spike/spike",32,64);
 
         solidArea = new Rectangle();
         // Spikes HIT BOX
