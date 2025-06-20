@@ -23,7 +23,7 @@ public class NPC extends Entity {
 
     }
 
-    public void getNPCImage() {
+    private void getNPCImage() {
 
         up1 = setup("/npc/u1", gp.tileSize , gp.tileSize * 2);
         up2 = setup("/npc/u2", gp.tileSize , gp.tileSize * 2);
@@ -62,15 +62,13 @@ public class NPC extends Entity {
     }
 
 
-    public void setDialogue() {
+    private void setDialogue() {
         dialogues[0] = "Greeting young knight. \nI'm the king of this beautiful land";
         dialogues[1] = "and we welcome your arrival";
 
         dialogues[2] = "As you may have heard \nmy dearest daughter has been kidnapped and locked away";
         dialogues[3] = "We don't know where she is now\n so I ask of you to bring her back safe and sounds";
         dialogues[4] = "If you successfully do so,\n I will make sure to reward you handsomely";
-//        dialogues[5] = "Thank you young and brave warrior for rescuing me, I will have a word with my father";
-//        dialogues[6] = "to make you the honored royal knight of our kingdom";
     }
 
     public void setAction() {

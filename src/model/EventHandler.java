@@ -47,8 +47,8 @@ public class EventHandler {
                 //event hit happens
                 damagePit(gp.dialogueState);
             }
-            else if(hit(0,13,43,"any")){teleport(1,62,20);}
-            else if(hit(1,62,20,"any")){teleport(0,13,43);}
+            else if(hit(0,13,43,"any")){teleport(1,64,22);}
+            else if(hit(1,64,22,"any")){teleport(0,13,43);}
 
         }
     }

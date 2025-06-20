@@ -18,7 +18,7 @@ public class AssetSetter {
     }
 
     public void setObject() {
-        int mapNum = 0;
+        int mapNum =0;
         // Array of object constructors (in order)
         Supplier<Entity>[] objectSuppliers = new Supplier[]{
                 //key
@@ -206,31 +206,34 @@ public class AssetSetter {
             gp.obj[mapNum][i].worldY = objectCoords[i][1] * gp.tileSize;
         }
 
-
     }
 
     public void setNPC() {
-        int mapNum = 0;
-        int[][] npcCoords = {
-                {10, 30}, // NPC coordinates
+        // Array of NPC coordinates for each map
+        int[][][] npcCoords = {
+                { // Map 0
+                        {10, 30}
+                },
+                { // Map 1
+                        {65, 4}
+                }
         };
-        // Loop through and spawn NPCs
-        for (int i = 0; i < npcCoords.length; i++) {
-            gp.npc[mapNum][i] = new NPC(gp);
-            gp.npc[mapNum][i].worldX = gp.tileSize * npcCoords[i][0];
-            gp.npc[mapNum][i].worldY = gp.tileSize * npcCoords[i][1];
-        }
-        mapNum =1;
-        int[][] npcCoords2 = {
-                {65, 4}, // NPC coordinates
+
+        // Array of NPC suppliers for each map
+        Supplier<NPC>[] npcSuppliers = new Supplier[]{
+                () -> new NPC(gp),          // Map 0 NPC type
+                () -> new NPC_Princess(gp)  // Map 1 NPC type
         };
-        for(int i = 0; i < npcCoords2.length; i++) {
-            gp.npc[mapNum][i] = new NPC_Princess(gp);
-            gp.npc[mapNum][i].worldX = gp.tileSize * npcCoords2[i][0];
-            gp.npc[mapNum][i].worldY = gp.tileSize * npcCoords2[i][1];
+
+        // Loop through each map
+        for (int mapNum = 0; mapNum < npcCoords.length; mapNum++) {
+            for (int i = 0; i < npcCoords[mapNum].length; i++) {
+                gp.npc[mapNum][i] = npcSuppliers[mapNum].get();
+                gp.npc[mapNum][i].worldX = gp.tileSize * npcCoords[mapNum][i][0];
+                gp.npc[mapNum][i].worldY = gp.tileSize * npcCoords[mapNum][i][1];
+            }
         }
     }
-
     public void setMonster() {
         int mapNum = 0;
         // 2D array of monster coordinates (x, y)
