@@ -15,12 +15,13 @@ public class Player extends Entity {
     public final int screenY; // background scroll
     // key item slot
     public int hasKey = 0;
-    public ArrayList<Entity> inventory  = new ArrayList<>();
+    public ArrayList<Entity> inventory = new ArrayList<>();
     public final int maxInventorySize = 24;
+    private boolean isSwim;
 
     public Player(GamePanel gp, KeyHandler keyH) {
         super(gp);
-
+        isSwim = false;
         this.keyH = keyH;
 
         screenX = gp.screenWidth / 2 - gp.tileSize / 2;
@@ -39,8 +40,10 @@ public class Player extends Entity {
         attackArea.height = 48;
 
         setDefaultValues();
+
         getPlayerImage();
         getPlayerAttackImage();
+        getPlayerSwimmingImage();
         setItems();
     }
 
@@ -54,12 +57,13 @@ public class Player extends Entity {
         maxLife = 5;
         life = maxLife;
         currentWeapon = new OBJ_SWORD(gp);
+
     }
-    public void setItems(){
+
+    public void setItems() {
         inventory.add(currentWeapon);
-
-
     }
+
     public void getPlayerImage() {
         up1 = setup("/player/warrior_runu1", gp.tileSize * 2, gp.tileSize * 2);
         up2 = setup("/player/warrior_runu2", gp.tileSize * 2, gp.tileSize * 2);
@@ -97,6 +101,43 @@ public class Player extends Entity {
         idle6 = setup("/player/idle/Warrior_idle1", gp.tileSize * 2, gp.tileSize * 2);
     }
 
+    public void getPlayerSwimmingImage() {
+        swim_up1 = setup("/player/swim/u1", gp.tileSize * 2, gp.tileSize * 2);
+        swim_up2 = setup("/player/swim/u2", gp.tileSize * 2, gp.tileSize * 2);
+        swim_up3 = setup("/player/swim/u3", gp.tileSize * 2, gp.tileSize * 2);
+        swim_up4 = setup("/player/swim/u4", gp.tileSize * 2, gp.tileSize * 2);
+        swim_up5 = setup("/player/swim/u5", gp.tileSize * 2, gp.tileSize * 2);
+        swim_up6 = setup("/player/swim/u6", gp.tileSize * 2, gp.tileSize * 2);
+
+        swim_down1 = setup("/player/swim/d1", gp.tileSize * 2, gp.tileSize * 2);
+        swim_down2 = setup("/player/swim/d2", gp.tileSize * 2, gp.tileSize * 2);
+        swim_down3 = setup("/player/swim/d3", gp.tileSize * 2, gp.tileSize * 2);
+        swim_down4 = setup("/player/swim/d4", gp.tileSize * 2, gp.tileSize * 2);
+        swim_down5 = setup("/player/swim/d5", gp.tileSize * 2, gp.tileSize * 2);
+        swim_down6 = setup("/player/swim/d6", gp.tileSize * 2, gp.tileSize * 2);
+
+        swim_left1 = setup("/player/swim/l1", gp.tileSize * 2, gp.tileSize * 2);
+        swim_left2 = setup("/player/swim/l2", gp.tileSize * 2, gp.tileSize * 2);
+        swim_left3 = setup("/player/swim/l3", gp.tileSize * 2, gp.tileSize * 2);
+        swim_left4 = setup("/player/swim/l4", gp.tileSize * 2, gp.tileSize * 2);
+        swim_left5 = setup("/player/swim/l5", gp.tileSize * 2, gp.tileSize * 2);
+        swim_left6 = setup("/player/swim/l6", gp.tileSize * 2, gp.tileSize * 2);
+
+        swim_right1 = setup("/player/swim/r1", gp.tileSize * 2, gp.tileSize * 2);
+        swim_right2 = setup("/player/swim/r2", gp.tileSize * 2, gp.tileSize * 2);
+        swim_right3 = setup("/player/swim/r3", gp.tileSize * 2, gp.tileSize * 2);
+        swim_right4 = setup("/player/swim/r4", gp.tileSize * 2, gp.tileSize * 2);
+        swim_right5 = setup("/player/swim/r5", gp.tileSize * 2, gp.tileSize * 2);
+        swim_right6 = setup("/player/swim/r6", gp.tileSize * 2, gp.tileSize * 2);
+
+        swim_idle1 = setup("/player/swim/u1", gp.tileSize * 2, gp.tileSize * 2);
+        swim_idle2 = setup("/player/swim/u2", gp.tileSize * 2, gp.tileSize * 2);
+        swim_idle3 = setup("/player/swim/u3", gp.tileSize * 2, gp.tileSize * 2);
+        swim_idle4 = setup("/player/swim/u4", gp.tileSize * 2, gp.tileSize * 2);
+        swim_idle5 = setup("/player/swim/u5", gp.tileSize * 2, gp.tileSize * 2);
+        swim_idle6 = setup("/player/swim/u6", gp.tileSize * 2, gp.tileSize * 2);
+    }
+
     public void getPlayerAttackImage() {
         attackUp1 = setup("/player/attack/upa/u1", gp.tileSize * 2, gp.tileSize * 2);
         attackUp2 = setup("/player/attack/upa/u2", gp.tileSize * 2, gp.tileSize * 2);
@@ -128,10 +169,11 @@ public class Player extends Entity {
     }
 
     public void update() {
+        checkSwimming();
         //idle state
         if (attacking) {
             attacking();
-        } else if (!(keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed)) {
+        }else if (!(keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed)) {
             direction = "idle";
             //CHECK NPC collision for idle case
             int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
@@ -255,128 +297,195 @@ public class Player extends Entity {
 //        g.fillRect(x, y, width, height);
 //        g2.fillRect(x, y, gp.tileSize, gp.tileSize);
         BufferedImage image = null;
-        switch (direction) {
-            case "idle":
-                if (!attacking) {
-                    image = switch (spriteNum) {
-                        case 1 -> idle1;
-                        case 2 -> idle2;
-                        case 3 -> idle3;
-                        case 4 -> idle4;
-                        case 5 -> idle5;
-                        case 6 -> idle6;
-                        default -> image;
-                    };
-                } else {
-                    direction = "right";
-                    image = switch (spriteNum) {
-                        case 1 -> attackRight1;
-                        case 2 -> attackRight2;
-                        case 3 -> attackRight3;
-                        case 4 -> attackRight4;
-                        case 5 -> attackRight5;
-                        case 6 -> attackRight6;
-                        default -> image;
-                    };
-                }
-                break;
+        if(!isSwim){
+            switch (direction) {
+                case "idle":
+                    if (!attacking) {
+                        image = switch (spriteNum) {
+                            case 1 -> idle1;
+                            case 2 -> idle2;
+                            case 3 -> idle3;
+                            case 4 -> idle4;
+                            case 5 -> idle5;
+                            case 6 -> idle6;
+                            default -> image;
+                        };
+                    } else {
+                        direction = "right";
+                        image = switch (spriteNum) {
+                            case 1 -> attackRight1;
+                            case 2 -> attackRight2;
+                            case 3 -> attackRight3;
+                            case 4 -> attackRight4;
+                            case 5 -> attackRight5;
+                            case 6 -> attackRight6;
+                            default -> image;
+                        };
+                    }
+                    break;
 
-            case "up":
-                if (!attacking) {
-                    image = switch (spriteNum) {
-                        case 1 -> up1;
-                        case 2 -> up2;
-                        case 3 -> up3;
-                        case 4 -> up4;
-                        case 5 -> up5;
-                        case 6 -> up6;
-                        default -> image;
-                    };
-                } else {
-                    image = switch (spriteNum) {
-                        case 1 -> attackUp1;
-                        case 2 -> attackUp2;
-                        case 3 -> attackUp3;
-                        case 4 -> attackUp4;
-                        case 5 -> attackUp5;
-                        case 6 -> attackUp6;
-                        default -> image;
-                    };
-                }
-                break;
+                case "up":
+                    if (!attacking) {
+                        image = switch (spriteNum) {
+                            case 1 -> up1;
+                            case 2 -> up2;
+                            case 3 -> up3;
+                            case 4 -> up4;
+                            case 5 -> up5;
+                            case 6 -> up6;
+                            default -> image;
+                        };
+                    } else {
+                        image = switch (spriteNum) {
+                            case 1 -> attackUp1;
+                            case 2 -> attackUp2;
+                            case 3 -> attackUp3;
+                            case 4 -> attackUp4;
+                            case 5 -> attackUp5;
+                            case 6 -> attackUp6;
+                            default -> image;
+                        };
+                    }
+                    break;
 
-            case "down":
-                if (!attacking) {
-                    image = switch (spriteNum) {
-                        case 1 -> down1;
-                        case 2 -> down2;
-                        case 3 -> down3;
-                        case 4 -> down4;
-                        case 5 -> down5;
-                        case 6 -> down6;
-                        default -> image;
-                    };
-                } else {
-                    image = switch (spriteNum) {
-                        case 1 -> attackDown1;
-                        case 2 -> attackDown2;
-                        case 3 -> attackDown3;
-                        case 4 -> attackDown4;
-                        case 5 -> attackDown5;
-                        case 6 -> attackDown6;
-                        default -> image;
-                    };
-                }
-                break;
+                case "down":
+                    if (!attacking) {
+                        image = switch (spriteNum) {
+                            case 1 -> down1;
+                            case 2 -> down2;
+                            case 3 -> down3;
+                            case 4 -> down4;
+                            case 5 -> down5;
+                            case 6 -> down6;
+                            default -> image;
+                        };
+                    } else {
+                        image = switch (spriteNum) {
+                            case 1 -> attackDown1;
+                            case 2 -> attackDown2;
+                            case 3 -> attackDown3;
+                            case 4 -> attackDown4;
+                            case 5 -> attackDown5;
+                            case 6 -> attackDown6;
+                            default -> image;
+                        };
+                    }
+                    break;
 
-            case "left":
-                if (!attacking) {
-                    image = switch (spriteNum) {
-                        case 1 -> left1;
-                        case 2 -> left2;
-                        case 3 -> left3;
-                        case 4 -> left4;
-                        case 5 -> left5;
-                        case 6 -> left6;
-                        default -> image;
-                    };
-                } else {
-                    image = switch (spriteNum) {
-                        case 1 -> attackLeft1;
-                        case 2 -> attackLeft2;
-                        case 3 -> attackLeft3;
-                        case 4 -> attackLeft4;
-                        case 5 -> attackLeft5;
-                        case 6 -> attackLeft6;
-                        default -> image;
-                    };
-                }
-                break;
+                case "left":
+                    if (!attacking) {
+                        image = switch (spriteNum) {
+                            case 1 -> left1;
+                            case 2 -> left2;
+                            case 3 -> left3;
+                            case 4 -> left4;
+                            case 5 -> left5;
+                            case 6 -> left6;
+                            default -> image;
+                        };
+                    } else {
+                        image = switch (spriteNum) {
+                            case 1 -> attackLeft1;
+                            case 2 -> attackLeft2;
+                            case 3 -> attackLeft3;
+                            case 4 -> attackLeft4;
+                            case 5 -> attackLeft5;
+                            case 6 -> attackLeft6;
+                            default -> image;
+                        };
+                    }
+                    break;
 
-            case "right":
-                if (!attacking) {
+                case "right":
+                    if (!attacking) {
+                        image = switch (spriteNum) {
+                            case 1 -> right1;
+                            case 2 -> right2;
+                            case 3 -> right3;
+                            case 4 -> right4;
+                            case 5 -> right5;
+                            case 6 -> right6;
+                            default -> image;
+                        };
+                    } else {
+                        image = switch (spriteNum) {
+                            case 1 -> attackRight1;
+                            case 2 -> attackRight2;
+                            case 3 -> attackRight3;
+                            case 4 -> attackRight4;
+                            case 5 -> attackRight5;
+                            case 6 -> attackRight6;
+                            default -> image;
+                        };
+                    }
+                    break;
+            }
+
+        }else if(isSwim){
+            switch (direction) {
+                case "idle":
                     image = switch (spriteNum) {
-                        case 1 -> right1;
-                        case 2 -> right2;
-                        case 3 -> right3;
-                        case 4 -> right4;
-                        case 5 -> right5;
-                        case 6 -> right6;
+                        case 1 -> swim_idle1;
+                        case 2 -> swim_idle2;
+                        case 3 -> swim_idle3;
+                        case 4 -> swim_idle4;
+                        case 5 -> swim_idle5;
+                        case 6 -> swim_idle6;
                         default -> image;
                     };
-                } else {
+                    break;
+
+                case "up":
                     image = switch (spriteNum) {
-                        case 1 -> attackRight1;
-                        case 2 -> attackRight2;
-                        case 3 -> attackRight3;
-                        case 4 -> attackRight4;
-                        case 5 -> attackRight5;
-                        case 6 -> attackRight6;
+                        case 1 -> swim_up1;
+                        case 2 -> swim_up2;
+                        case 3 -> swim_up3;
+                        case 4 -> swim_up4;
+                        case 5 -> swim_up5;
+                        case 6 -> swim_up6;
                         default -> image;
                     };
-                }
-                break;
+                    break;
+
+                case "down":
+                    image = switch (spriteNum) {
+                        case 1 -> swim_down1;
+                        case 2 -> swim_down2;
+                        case 3 -> swim_down3;
+                        case 4 -> swim_down4;
+                        case 5 -> swim_down5;
+                        case 6 -> swim_down6;
+                        default -> image;
+                    };
+                    break;
+
+                case "left":
+                    image = switch (spriteNum) {
+                        case 1 -> swim_left1;
+                        case 2 -> swim_left2;
+                        case 3 -> swim_left3;
+                        case 4 -> swim_left4;
+                        case 5 -> swim_left5;
+                        case 6 -> swim_left6;
+                        default -> image;
+                    };
+                    break;
+
+                case "right":
+                    image = switch (spriteNum) {
+                        case 1 -> swim_right1;
+                        case 2 -> swim_right2;
+                        case 3 -> swim_right3;
+                        case 4 -> swim_right4;
+                        case 5 -> swim_right5;
+                        case 6 -> swim_right6;
+                        default -> image;
+                    };
+                    break;
+            }
+
         }
+
 
         g2.drawImage(image, screenX, screenY, null);
 //        // HIT BOX troubleshooting
@@ -419,63 +528,63 @@ public class Player extends Entity {
         if (i != 999) {
             //if i not equal to object index
             String objectName = gp.obj[gp.currentMap][i].name;
-            if(inventory.size() != maxInventorySize)
+            if (inventory.size() != maxInventorySize)
                 switch (objectName) {
-                case "Key":
-                    gp.playSoundEffect(5);
-                    hasKey++;
-                    inventory.add(gp.obj[gp.currentMap][i]);
-                    gp.obj[gp.currentMap][i] = null; // delete touched object
-                    gp.ui.showMessage("Picked up key");
-                    break;
-                case "Door":
-                    if (hasKey > 0) {
-                        gp.playSoundEffect(3);
-                        gp.obj[gp.currentMap][i] = null;
-                        for (int j = 0; j < inventory.size(); j++) {
-                            if (inventory.get(j).name.equals("Key")) {
-                                inventory.remove(j);
-                                break;
+                    case "Key":
+                        gp.playSoundEffect(5);
+                        hasKey++;
+                        inventory.add(gp.obj[gp.currentMap][i]);
+                        gp.obj[gp.currentMap][i] = null; // delete touched object
+                        gp.ui.showMessage("Picked up key");
+                        break;
+                    case "Door":
+                        if (hasKey > 0) {
+                            gp.playSoundEffect(3);
+                            gp.obj[gp.currentMap][i] = null;
+                            for (int j = 0; j < inventory.size(); j++) {
+                                if (inventory.get(j).name.equals("Key")) {
+                                    inventory.remove(j);
+                                    break;
+                                }
                             }
+                            hasKey--;
+                            gp.ui.showMessage("Door opened");
+                        } else {
+                            gp.ui.showMessage("Find a key");
                         }
-                        hasKey--;
-                        gp.ui.showMessage("Door opened");
-                    } else {
-                        gp.ui.showMessage("Find a key");
-                    }
-                    break;
-                case "Chest":
-                    gp.playSoundEffect(0);
+                        break;
+                    case "Chest":
+                        gp.playSoundEffect(0);
 //                    gp.ui.gameFinished = true;
-                    ((OBJ_Chest) gp.obj[gp.currentMap][i]).randomReward();
-                    gp.obj[gp.currentMap][i] = null; // delete touched object                    gp.obj[gp.currentMap][i] = null; // delete touched object
-                    break;
-                case "Speed Potion": //increase movement speed
-                    gp.playSoundEffect(4);
-                    speed += 1;
-                    gp.obj[gp.currentMap][i] = null;
-                    gp.ui.showMessage("Picked up speed potion");
-                    break;
-                case "Health Potion 2":
-                    gp.playSoundEffect(4);
-                    if (gp.player.life < gp.player.maxLife + 2) {
-                        gp.player.life += 2;
-                    } else {
-                        gp.player.life = gp.player.maxLife;
-                    }
-                    gp.obj[gp.currentMap][i] = null;
-                    gp.ui.showMessage("Picked up health+2 potion");
-                case "Spikes":
+                        ((OBJ_Chest) gp.obj[gp.currentMap][i]).randomReward();
+                        gp.obj[gp.currentMap][i] = null; // delete touched object                    gp.obj[gp.currentMap][i] = null; // delete touched object
+                        break;
+                    case "Speed Potion": //increase movement speed
+                        gp.playSoundEffect(4);
+                        speed += 1;
+                        gp.obj[gp.currentMap][i] = null;
+                        gp.ui.showMessage("Picked up speed potion");
+                        break;
+                    case "Health Potion 2":
+                        gp.playSoundEffect(4);
+                        if (gp.player.life < gp.player.maxLife + 2) {
+                            gp.player.life += 2;
+                        } else {
+                            gp.player.life = gp.player.maxLife;
+                        }
+                        gp.obj[gp.currentMap][i] = null;
+                        gp.ui.showMessage("Picked up health+2 potion");
+                    case "Spikes":
                         if (!gp.player.invincible) {
-                        // damage
-                        gp.playSoundEffect(8);
-                        gp.player.life -= 1;
-                        gp.player.invincible = true;
+                            // damage
+                            gp.playSoundEffect(8);
+                            gp.player.life -= 1;
+                            gp.player.invincible = true;
+                        }
+
+                        break;
+
                 }
-
-                break;
-
-            }
             else gp.ui.showMessage("You cannot carry any more!");
         }
 
@@ -509,7 +618,14 @@ public class Player extends Entity {
         gp.gameState = gp.dialogueState;
     }
 
-
+    public void checkSwimming() {
+        int tileNum = gp.tileM.mapTileNum[gp.currentMap][worldX / gp.tileSize][worldY / gp.tileSize];
+        if (gp.tileM.tile[tileNum].isWater) {
+            isSwim = true;
+        } else {
+            isSwim = false;
+        }
+    }
     public void checkAttacking() {
         int currentWorldX = worldX;
         int currentWorldY = worldY;

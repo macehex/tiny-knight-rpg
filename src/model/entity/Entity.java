@@ -35,6 +35,11 @@ public class Entity {
             left1, left2, left3, left4, left5, left6,
             right1, right2, right3, right4, right5, right6,
             idle1, idle2, idle3, idle4, idle5, idle6;
+    public BufferedImage swim_up1, swim_up2, swim_up3, swim_up4, swim_up5, swim_up6,
+            swim_down1, swim_down2, swim_down3, swim_down4, swim_down5, swim_down6,
+            swim_left1, swim_left2, swim_left3, swim_left4, swim_left5, swim_left6,
+            swim_right1, swim_right2, swim_right3, swim_right4, swim_right5, swim_right6,
+            swim_idle1, swim_idle2, swim_idle3, swim_idle4, swim_idle5, swim_idle6;
     public ImageIcon imageIcon;
     public String direction = "down";
 

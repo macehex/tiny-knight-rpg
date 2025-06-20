@@ -19,7 +19,6 @@ public class NPC_Princess extends Entity {
         solidArea.height = gp.tileSize/2;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
-
     }
 
     public void getNPCImage() {
