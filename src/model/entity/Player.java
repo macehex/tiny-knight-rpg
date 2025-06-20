@@ -379,9 +379,9 @@ public class Player extends Entity {
         }
 
         g2.drawImage(image, screenX, screenY, null);
-//        // collision trouble shoot
-        g2.setColor(Color.red);
-        g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
+//        // HIT BOX troubleshooting
+//        g2.setColor(Color.red);
+//        g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
 
 
     }
@@ -497,16 +497,11 @@ public class Player extends Entity {
 
     public void interactNPC(int i) {
         if (i != 999) {
-            System.out.println("Hitting an npc");
-            if (gp.keyH.fPressed) {
+            if (gp.keyH.enterPressed) {
                 gp.gameState = gp.dialogueState;
                 gp.npc[gp.currentMap][i].speak();
             }
-            gp.keyH.fPressed = false;
-        }
-        if (gp.keyH.kPressed) {
-            gp.playSoundEffect(7);
-            attacking = true;
+            gp.keyH.enterPressed = false;
         }
     }
 

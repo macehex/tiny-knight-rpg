@@ -5,7 +5,7 @@ import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener {
     public boolean upPressed, downPressed, leftPressed, rightPressed, dashPressed,
-            enterPressed, dialoguePressed, fPressed, kPressed;
+            enterPressed, dialoguePressed, kPressed;
     // K is for attack
     public boolean checkDrawTime = false;
 
@@ -31,8 +31,8 @@ public class KeyHandler implements KeyListener {
                     case KeyEvent.VK_S -> downPressed = true;
                     case KeyEvent.VK_D -> rightPressed = true;
                     case KeyEvent.VK_K -> kPressed = true;
-                    case KeyEvent.VK_F -> fPressed = true;
                     case KeyEvent.VK_O -> checkDrawTime = true;
+                    case KeyEvent.VK_ENTER -> enterPressed = true;
                     case KeyEvent.VK_R -> {
                         if (gp.currentMap == 0) {
                             gp.tileM.loadMap("/maps/map2/map2.txt", 0);
@@ -48,7 +48,7 @@ public class KeyHandler implements KeyListener {
             }
             //dialoge state
             case 3 -> {
-                if (code == KeyEvent.VK_F) {
+                if (code == KeyEvent.VK_ENTER) {
                     gp.gameState = gp.playState;
                 }
             }

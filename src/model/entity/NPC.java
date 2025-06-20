@@ -2,53 +2,63 @@ package model.entity;
 
 import controller.GamePanel;
 
+import java.awt.*;
 import java.util.Random;
 
 public class NPC extends Entity {
     public NPC(GamePanel gp) {
         super(gp);
-        direction = "right";
-        speed = 1;
-        getGoblinImage();
+        direction = "idle";
+        speed = 0;
+        getNPCImage();
         setDialogue();
+        solidArea = new Rectangle();
+        // Monster HIT BOX
+        solidArea.x = 7;
+        solidArea.y = 7;
+        solidArea.width = gp.tileSize/2;
+        solidArea.height = gp.tileSize/2;
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
+
     }
 
-    public void getGoblinImage() {
+    public void getNPCImage() {
 
-        up1 = setup("/npc/Torch_Red_idle1", gp.tileSize * 2, gp.tileSize * 2);
-        up2 = setup("/npc/Torch_Red_idle2", gp.tileSize * 2, gp.tileSize * 2);
-        up3 = setup("/npc/Torch_Red_idle3", gp.tileSize * 2, gp.tileSize * 2);
-        up4 = setup("/npc/Torch_Red_idle4", gp.tileSize * 2, gp.tileSize * 2);
-        up5 = setup("/npc/Torch_Red_idle5", gp.tileSize * 2, gp.tileSize * 2);
-        up6 = setup("/npc/Torch_Red_idle6", gp.tileSize * 2, gp.tileSize * 2);
+        up1 = setup("/npc/u1", gp.tileSize , gp.tileSize * 2);
+        up2 = setup("/npc/u2", gp.tileSize , gp.tileSize * 2);
+        up3 = setup("/npc/u3", gp.tileSize , gp.tileSize * 2);
+        up4 = setup("/npc/u4", gp.tileSize , gp.tileSize * 2);
+        up5 = up1;
+        up6 = up2;
 
-        down1 = setup("/npc/Torch_Red_idle1", gp.tileSize * 2, gp.tileSize * 2);
-        down2 = setup("/npc/Torch_Red_idle2", gp.tileSize * 2, gp.tileSize * 2);
-        down3 = setup("/npc/Torch_Red_idle3", gp.tileSize * 2, gp.tileSize * 2);
-        down4 = setup("/npc/Torch_Red_idle4", gp.tileSize * 2, gp.tileSize * 2);
-        down5 = setup("/npc/Torch_Red_idle5", gp.tileSize * 2, gp.tileSize * 2);
-        down6 = setup("/npc/Torch_Red_idle6", gp.tileSize * 2, gp.tileSize * 2);
+        down1 = setup("/npc/d1", gp.tileSize , gp.tileSize * 2);
+        down2 = setup("/npc/d2", gp.tileSize , gp.tileSize * 2);
+        down3 = setup("/npc/d3", gp.tileSize , gp.tileSize * 2);
+        down4 = setup("/npc/d4", gp.tileSize , gp.tileSize * 2);
+        down5 = down1;
+        down6 = down2;
 
-        left1 = setup("/npc/Torch_Red_idle1", gp.tileSize * 2, gp.tileSize * 2);
-        left2 = setup("/npc/Torch_Red_idle2", gp.tileSize * 2, gp.tileSize * 2);
-        left3 = setup("/npc/Torch_Red_idle3", gp.tileSize * 2, gp.tileSize * 2);
-        left4 = setup("/npc/Torch_Red_idle4", gp.tileSize * 2, gp.tileSize * 2);
-        left5 = setup("/npc/Torch_Red_idle5", gp.tileSize * 2, gp.tileSize * 2);
-        left6 = setup("/npc/Torch_Red_idle6", gp.tileSize * 2, gp.tileSize * 2);
+        left1 = setup("/npc/l1", gp.tileSize , gp.tileSize * 2);
+        left2 = setup("/npc/l2", gp.tileSize , gp.tileSize * 2);
+        left3 = setup("/npc/l3", gp.tileSize , gp.tileSize * 2);
+        left4 = setup("/npc/l4", gp.tileSize , gp.tileSize * 2);
+        left5=left1;
+        left6 = left2;
 
-        right1 = setup("/npc/Torch_Red_runr1", gp.tileSize * 2, gp.tileSize * 2);
-        right2 = setup("/npc/Torch_Red_runr2", gp.tileSize * 2, gp.tileSize * 2);
-        right3 = setup("/npc/Torch_Red_runr3", gp.tileSize * 2, gp.tileSize * 2);
-        right4 = setup("/npc/Torch_Red_runr4", gp.tileSize * 2, gp.tileSize * 2);
-        right5 = setup("/npc/Torch_Red_runr5", gp.tileSize * 2, gp.tileSize * 2);
-        right6 = setup("/npc/Torch_Red_runr6", gp.tileSize * 2, gp.tileSize * 2);
+        right1 = setup("/npc/r1", gp.tileSize , gp.tileSize * 2);
+        right2 = setup("/npc/r2", gp.tileSize , gp.tileSize * 2);
+        right3 = setup("/npc/r3", gp.tileSize , gp.tileSize * 2);
+        right4 = setup("/npc/r4", gp.tileSize , gp.tileSize * 2);
+        right5 = right1;
+        right6 = right2;
 
-        idle1 = setup("/npc/Torch_Red_idle1", gp.tileSize * 2, gp.tileSize * 2);
-        idle2 = setup("/npc/Torch_Red_idle2", gp.tileSize * 2, gp.tileSize * 2);
-        idle3 = setup("/npc/Torch_Red_idle3", gp.tileSize * 2, gp.tileSize * 2);
-        idle4 = setup("/npc/Torch_Red_idle4", gp.tileSize * 2, gp.tileSize * 2);
-        idle5 = setup("/npc/Torch_Red_idle5", gp.tileSize * 2, gp.tileSize * 2);
-        idle6 = setup("/npc/Torch_Red_idle6", gp.tileSize * 2, gp.tileSize * 2);
+        idle1 = setup("/npc/idle1", gp.tileSize , gp.tileSize * 2);
+        idle2 = setup("/npc/idle2", gp.tileSize , gp.tileSize * 2);
+        idle3 = setup("/npc/idle3", gp.tileSize , gp.tileSize * 2);
+        idle4 = setup("/npc/idle4", gp.tileSize , gp.tileSize * 2);
+        idle5 = idle1;
+        idle6 = idle2;
     }
 
 
@@ -56,48 +66,25 @@ public class NPC extends Entity {
         dialogues[0] = "Greeting young knight. \nI'm the king of this beautiful land";
         dialogues[1] = "and we welcome your arrival";
 
-//        dialogues[1] = "As you may have heard my dearest daughter has been kidnapped and locked away";
-//        dialogues[2] = "We don't know where she is now so I ask of you to bring her back safe and sounds";
-//        dialogues[3] = "If you successfully do so, I will make sure to reward you handsomely";
-//        dialogues[4] = "Thank you young and brave warrior for rescuing me, I will have a word with my father";
-//        dialogues[5] = "to make you the honored royal knight of our kingdom";
+        dialogues[2] = "As you may have heard \nmy dearest daughter has been kidnapped and locked away";
+        dialogues[3] = "We don't know where she is now\n so I ask of you to bring her back safe and sounds";
+        dialogues[4] = "If you successfully do so,\n I will make sure to reward you handsomely";
+//        dialogues[5] = "Thank you young and brave warrior for rescuing me, I will have a word with my father";
+//        dialogues[6] = "to make you the honored royal knight of our kingdom";
     }
 
     public void setAction() {
         //set NPC behavior & AI
         if (onPath) {
+            speed =1;
             int goalCol = (gp.player.worldX + gp.player.solidArea.x) / gp.tileSize;
             int goalRow = (gp.player.worldY + gp.player.solidArea.y) / gp.tileSize;
 
             searchPath(goalCol, goalRow);
 
-        } else {
-
-            actionLockCounter++; //increment everytime setAction is called
-            if (actionLockCounter == 120) {
-//                  the action direction stay the same for 120 seconds
-//                randomize npc state
-                Random random = new Random();
-                int i = random.nextInt(100) + 1; // pick up num in range[1,100]
-                if (i <= 25) {
-                    direction = "up";
-                }
-                if (i > 25 && i <= 50) {
-                    direction = "down";
-                }
-                if (i > 50 && i <= 75) {
-                    direction = "left";
-                }
-                if (i > 75) {
-                    direction = "right";
-                }
-                actionLockCounter = 0; // reset counter
-            }
 
         }
-
     }
-
 
     public void speak() {
         onPath = true;

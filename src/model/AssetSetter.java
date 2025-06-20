@@ -3,6 +3,7 @@ package model;
 import controller.GamePanel;
 import model.entity.Entity;
 import model.entity.NPC;
+import model.entity.NPC_Princess;
 import model.monster.MON_Shroom;
 import model.object.*;
 
@@ -135,9 +136,9 @@ public class AssetSetter {
         // Corresponding coordinates for each object
         int[][] objectCoords = {
                 // Key
-                {74, 42},
-                {60, 42},
-                {11, 20},
+                {74, 44},
+                {61, 44},
+                {11, 22},
                 {93, 18},
 
                 // Door
@@ -211,13 +212,22 @@ public class AssetSetter {
     public void setNPC() {
         int mapNum = 0;
         int[][] npcCoords = {
-                {35, 16}, // NPC coordinates
+                {10, 30}, // NPC coordinates
         };
         // Loop through and spawn NPCs
         for (int i = 0; i < npcCoords.length; i++) {
             gp.npc[mapNum][i] = new NPC(gp);
             gp.npc[mapNum][i].worldX = gp.tileSize * npcCoords[i][0];
             gp.npc[mapNum][i].worldY = gp.tileSize * npcCoords[i][1];
+        }
+        mapNum =1;
+        int[][] npcCoords2 = {
+                {65, 4}, // NPC coordinates
+        };
+        for(int i = 0; i < npcCoords2.length; i++) {
+            gp.npc[mapNum][i] = new NPC_Princess(gp);
+            gp.npc[mapNum][i].worldX = gp.tileSize * npcCoords2[i][0];
+            gp.npc[mapNum][i].worldY = gp.tileSize * npcCoords2[i][1];
         }
     }
 

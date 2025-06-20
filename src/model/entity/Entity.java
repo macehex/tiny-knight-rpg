@@ -231,7 +231,7 @@ public class Entity {
                 hpBarCounter = 0;
                 g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
             }
-//        // collision trouble shoot
+//        // HIT BOX TROUBLESHOOTING
             g2.setColor(Color.red);
             g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
             if (dying) {

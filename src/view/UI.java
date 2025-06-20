@@ -412,7 +412,7 @@ public class UI {
         textY += gp.tileSize;
         g2.drawString("Move", textX, textY);
         textY += gp.tileSize;
-        g2.drawString("Confirm", textX, textY);
+        g2.drawString("Confirm/Interact", textX, textY);
         textY += gp.tileSize;
 
         g2.drawString("Attack", textX, textY);
