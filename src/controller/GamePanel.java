@@ -103,9 +103,9 @@ public class GamePanel extends JPanel implements Runnable {
 //        gameState = titleState;
         gameState = titleState;
 
-        aSetter.setObject(); //calling setobject method
-        aSetter.setNPC();
-//        aSetter.setMonster();
+//        aSetter.setObject(); //calling setobject method
+//        aSetter.setNPC();
+////        aSetter.setMonster();
 
         //fullscreen processing
         tempScreen = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB);
@@ -119,7 +119,21 @@ public class GamePanel extends JPanel implements Runnable {
         gameThread = new Thread(this); // this : passing the GamePanel class to the constructor
         gameThread.start();
     }
-
+    public void retry(){
+        player.setDefaultPosition();
+        player.restoreLife();
+        aSetter.setMonster();
+        aSetter.setNPC();
+    }
+    public void restart(){
+        player.setDefaultValues();
+        player.setDefaultPosition();
+        player.restoreLife();
+        aSetter.setMonster();
+        aSetter.setNPC();
+        player.setItems();
+        aSetter.setObject();
+    }
     @Override
     // run automatically called when running startGameThread()
     public void run() {

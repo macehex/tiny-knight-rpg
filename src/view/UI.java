@@ -10,7 +10,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
-
+import java.util.ArrayList;
 public class UI {
     // all the onscreen ui
     BufferedImage inventoryFrame;
@@ -21,11 +21,12 @@ public class UI {
     BufferedImage keyImage;
     BufferedImage titleScreenImage, titleButtonImage;
     public boolean messageOn = false;
-    public String message = "";
     public int slotCol = 0;
     public int slotRow = 0;
 
     public String currentDialogue = "";
+    ArrayList<String> messages = new ArrayList<>();
+    ArrayList<Integer> messageCounterList = new ArrayList<>();
     // title
     public int commandNum = 0;
     public boolean gameFinished = false;
@@ -145,9 +146,10 @@ public class UI {
 //    }
 
     // notification
-    public void showMessage(String text) {
-        message = text;
-        messageOn = true;
+    public void addMessage(String text) {
+        messages.add(text);
+        messageCounterList.add(0);
+
     }
 
     public void draw(Graphics2D g2) {
@@ -167,6 +169,7 @@ public class UI {
 //                    g2.setColor(Color.white);
 //                    g2.drawImage(keyImage, gp.tileSize / 4, gp.tileSize / 4, gp.tileSize * 1, gp.tileSize * 1, null);
 //                    g2.drawString("x " + gp.player.hasKey, 60, 45);
+                drawMessages();
                 drawPlayerLife();
 
             }
@@ -193,6 +196,29 @@ public class UI {
             }
             case 5 -> drawOptionsScreen();
             case 6 -> drawGameOverScreen();
+        }
+    }
+
+    private void drawMessages() {
+        int messageX = gp.tileSize;
+        int messageY = gp.tileSize * 3;
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 20f));
+        for(int i = 0 ; i<messages.size();i++){
+            if(messages.get(i)!=null){
+                g2.setColor(Color.black);
+                g2.drawString(messages.get(i),messageX+2,messageY+2);
+
+                g2.setColor(Color.white);
+                g2.drawString(messages.get(i),messageX,messageY);
+                int counter = messageCounterList.get(i)+1;
+                messageCounterList.set(i,counter); //set the counter to the list
+                messageY+= gp.tileSize;
+                if(messageCounterList.get(i) > 120){ //if the message is shown for 120 frames
+                    messages.remove(i);
+                    messageCounterList.remove(i);//reset the counter
+                }
+            }
+
         }
     }
 

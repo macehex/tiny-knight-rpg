@@ -84,11 +84,14 @@ public class KeyHandler implements KeyListener {
 
                         switch (gp.ui.commandNum) {
                             case 0 -> {
+                                gp.restart();
                                 gp.gameState = gp.playState;
                                 gp.playMusic(6);
                             }
                             case 1 -> {
                                 // Load game later
+                                gp.gameState = gp.playState;
+                                gp.playMusic(6);
                             }
                             case 2 -> {
                                 // Settings later
@@ -221,6 +224,7 @@ public class KeyHandler implements KeyListener {
             case KeyEvent.VK_ENTER -> {
                 if (gp.ui.commandNum == 0) {
                     gp.gameState = gp.playState;
+                    gp.retry();
                 } else if (gp.ui.commandNum == 1) {
                     gp.stopMusic();
                     gp.gameState = gp.titleState;

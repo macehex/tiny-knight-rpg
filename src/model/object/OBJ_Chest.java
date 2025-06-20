@@ -23,16 +23,26 @@ public class OBJ_Chest extends Entity {
             case 0 ->{
                 if(gp.player.life < gp.player.maxLife){
                     gp.player.life++;
+                    gp.ui.addMessage("Life increased!");
+
                 }
             }
             case 1 -> {
                 if(gp.player.life < gp.player.maxLife-1){
                 gp.player.life+=2;
+                    gp.ui.addMessage("Life increased by 2!");
+
                 }
             }
-            case 2 -> gp.player.life--;
+            case 2 -> {
+                gp.player.life--;
+                gp.ui.addMessage("Life decreased!");
+
+            }
             case 3 -> {
                 gp.player.maxLife++;
+                gp.ui.addMessage("Increased max life!");
+
             }
         }
     }

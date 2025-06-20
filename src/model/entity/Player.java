@@ -53,7 +53,7 @@ public class Player extends Entity {
         setItems();
     }
 
-    private void setDefaultValues() {
+    public void setDefaultValues() {
         // PLACEHOLDER
         worldX = gp.tileSize * 12; //CHANGE LATER ASAP
         worldY = gp.tileSize * 33;
@@ -63,10 +63,20 @@ public class Player extends Entity {
         maxLife = 5;
         life = maxLife;
         currentWeapon = new OBJ_SWORD(gp);
+        hasKey = 0;
 
     }
-
-    private void setItems() {
+    public void setDefaultPosition(){
+        worldX = gp.tileSize * 12; //CHANGE LATER ASAP
+        worldY = gp.tileSize * 33;
+        direction = "idle";
+    }
+    public void restoreLife(){
+        life = maxLife;
+        invincible =false;
+    }
+    public void setItems() {
+        inventory.clear();
         inventory.add(currentWeapon);
     }
 
@@ -541,7 +551,7 @@ public class Player extends Entity {
                         hasKey++;
                         inventory.add(gp.obj[gp.currentMap][i]);
                         gp.obj[gp.currentMap][i] = null; // delete touched object
-                        gp.ui.showMessage("Picked up key");
+                        gp.ui.addMessage("Picked up key!");
                         break;
                     case "Door":
                         if (hasKey > 0) {
@@ -561,12 +571,13 @@ public class Player extends Entity {
                                 }
                             }
                             hasKey--;
-                            gp.ui.showMessage("Door opened");
+                            gp.ui.addMessage("Door opened!");
                         } else {
-                            gp.ui.showMessage("Find a key");
+                            gp.ui.addMessage("Find a key!");
                         }
                         break;
                     case "Chest":
+                        gp.ui.addMessage("Opening a chest!");
                         gp.playSoundEffect(0);
 //                    gp.ui.gameFinished = true;
                         ((OBJ_Chest) gp.obj[gp.currentMap][i]).randomReward();
@@ -575,12 +586,13 @@ public class Player extends Entity {
                         gp.obj[gp.currentMap][i] = new OBJ_ChestOpened(gp);
                         gp.obj[gp.currentMap][i].worldX = tempX;
                         gp.obj[gp.currentMap][i].worldY = tempY;
+
                         break;
                     case "Speed Potion": //increase movement speed
                         gp.playSoundEffect(4);
                         speed += 1;
                         gp.obj[gp.currentMap][i] = null;
-                        gp.ui.showMessage("Picked up speed potion");
+                        gp.ui.addMessage("Picked up speed potion!");
                         break;
                     case "Health Potion 2":
                         gp.playSoundEffect(4);
@@ -590,13 +602,16 @@ public class Player extends Entity {
                             gp.player.life = gp.player.maxLife;
                         }
                         gp.obj[gp.currentMap][i] = null;
-                        gp.ui.showMessage("Picked up health+2 potion");
+                        gp.ui.addMessage("Picked up health+2 potion!");
+                        break;
                     case "Spikes":
                         if (!gp.player.invincible) {
                             // damage
                             gp.playSoundEffect(8);
                             gp.player.life -= 1;
                             gp.player.invincible = true;
+                            gp.ui.addMessage("Get out of the spikes!");
+
                         }
                         break;
                     case "Ladder":
@@ -608,7 +623,7 @@ public class Player extends Entity {
                         break;
 
                 }
-            else gp.ui.showMessage("You cannot carry any more!");
+            else gp.ui.addMessage("You cannot carry any more!");
         }
 
     }
@@ -702,7 +717,6 @@ public class Player extends Entity {
 
     private void damageMonster(int i) {
         if (i != 999) {
-            System.out.println("Attack dealt!");
             if (!gp.monster[gp.currentMap][i].invincible) {
                 gp.playSoundEffect(9);
                 gp.monster[gp.currentMap][i].life -= 1;
@@ -716,5 +730,6 @@ public class Player extends Entity {
             System.out.println("Missed attack!");
         }
     }
+
 }
 
