@@ -5,6 +5,7 @@ import model.entity.Entity;
 import model.entity.NPC;
 import model.entity.NPC_Princess;
 import model.monster.MON_Shroom;
+import model.monster.MON_Slime;
 import model.object.*;
 
 import java.util.function.Supplier;
@@ -235,28 +236,33 @@ public class AssetSetter {
         }
     }
     public void setMonster() {
-        int mapNum = 0;
-        // 2D array of monster coordinates (x, y)
-        int[][] monsterCoords = {
-                {10, 10},
-                {11, 10},
-                {12, 10},
-                {13, 10},
-                {14, 10},
-                {10, 11},
-                {30, 5},
-                {12, 32},
-                {65, 30},
-                {52, 50},
-                {74, 38},
-                {41, 8},
-        };
-        // Loop through and spawn monsters
-        for (int i = 0; i < monsterCoords.length; i++) {
-            gp.monster[mapNum][i] = new MON_Shroom(gp);
-            gp.monster[mapNum][i].worldX = gp.tileSize * monsterCoords[i][0];
-            gp.monster[mapNum][i].worldY = gp.tileSize * monsterCoords[i][1];
-        }
+        // Array of monster suppliers and their coordinates for each map
+        Object[][][] mapMonsters = {
+                { // Map 0
+                        {new MON_Shroom(gp), 10, 10},
+                        {new MON_Slime(gp), 11, 10},
+                        {new MON_Slime(gp), 12, 10},
+                        {new MON_Slime(gp), 13, 10},
+                        {new MON_Shroom(gp), 14, 10},
+                        {new MON_Shroom(gp), 10, 11},
+                        {new MON_Shroom(gp), 30, 5},
+                        {new MON_Shroom(gp), 12, 32},
+                        {new MON_Shroom(gp), 65, 30},
+                        {new MON_Shroom(gp), 52, 50},
+                        {new MON_Shroom(gp), 74, 38},
+                        {new MON_Shroom(gp), 41, 8}
 
-    }
-}
+                },
+                { // Map 1
+                }
+        };
+
+        // Loop through each map and its monsters
+        for (int mapNum = 0; mapNum < mapMonsters.length; mapNum++) {
+            for (int i = 0; i < mapMonsters[mapNum].length; i++) {
+                gp.monster[mapNum][i] = (Entity) mapMonsters[mapNum][i][0];
+                gp.monster[mapNum][i].worldX = gp.tileSize * (int) mapMonsters[mapNum][i][1];
+                gp.monster[mapNum][i].worldY = gp.tileSize * (int) mapMonsters[mapNum][i][2];
+            }
+        }
+    }}

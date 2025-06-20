@@ -8,7 +8,6 @@ public class MON_Shroom extends MON {
     GamePanel gp;
 
     public MON_Shroom(GamePanel gp) {
-
         super(gp);
         this.gp = gp;
         type = 2; // DIFFERENT for each monster
