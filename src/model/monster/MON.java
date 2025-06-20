@@ -47,19 +47,14 @@ public class MON extends Entity{
     public void update(){
         super.update();
         //check distance between player and slime
-        int xDistance = Math.abs(worldX - gp.player.worldX);
-        int yDistance = Math.abs(worldY - gp.player.worldY);
-
-        int tileDistance =  (xDistance + yDistance)/gp.tileSize;
+        tileDistance =  getTileDistance();
         if(!onPath && tileDistance<4){
             int i = new Random().nextInt(100)+1;
             if(i>50){
                 onPath = true;
             }
         }
-        if(onPath&& tileDistance > 10){
-            onPath = false;
-        }
+        checkStopChasingOrNot(10);
     }
 
 }

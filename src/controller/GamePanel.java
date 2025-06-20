@@ -195,6 +195,11 @@ public class GamePanel extends JPanel implements Runnable {
                 break;
         }
     }
+    //getter and setter for gameState
+    public int getCurrentMap() {
+        return currentMap;
+    }
+
     public void drawToTempScreen(){
         // DEBUGGING
         long drawStart = 0;
@@ -294,5 +299,12 @@ public class GamePanel extends JPanel implements Runnable {
     public void playSoundEffect(int i) {
         sound_effect.setFile(i);
         sound_effect.play();
+    }
+
+    public int getScreenWidth() {
+        return screenWidth;
+    }
+    public int getScreenHeight(){
+        return screenHeight;
     }
 }

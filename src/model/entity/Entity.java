@@ -1,6 +1,7 @@
 package model.entity;
 
 import controller.GamePanel;
+import javafx.stage.Screen;
 import view.UltilityTool;
 
 import javax.imageio.ImageIO;
@@ -23,6 +24,10 @@ public class Entity {
     public String name;
     public boolean collision = false;
     public boolean invincible = false;
+    protected int defaultSpeed =1;
+    protected int tileDistance;
+    private int xDistance;
+    private int yDistance;
     //COUNTER
     int invincibleCounter = 0;
     public int spriteCounter = 0;
@@ -67,7 +72,7 @@ public class Entity {
     boolean hpBarOn = false;
     public Entity currentWeapon;
     //ITEMS ATTRIBUTES
-    public int attackValue = 1 ;
+    public int attackValue = 1;
     public int defenseValue;
     public String description = "";
     // AI pathfinding
@@ -333,13 +338,14 @@ public class Entity {
         gp.cChecker.checkEntity(this, gp.monster);
 
         boolean contactPlayer = gp.cChecker.checkPlayer(this);
-        if (this.type == 2&& contactPlayer&& !gp.player.invincible) {
+        if (this.type == 2 && contactPlayer && !gp.player.invincible) {
             // damage
             gp.playSoundEffect(8);
             gp.player.life -= 1;
             gp.player.invincible = true;
         }
     }
+
     public void searchPath(int goalCol, int goalRow) {
         int startCol = (worldX + solidArea.x) / gp.tileSize;
         int startRow = (worldY + solidArea.y) / gp.tileSize;
@@ -412,4 +418,44 @@ public class Entity {
             // }
         }
     }
+
+    public int getWorldX() {
+        return worldX;
+    }
+
+    public int getWorldY() {
+        return worldY;
+    }
+
+    public Rectangle getSolidArea() {
+        return solidArea;
+    }
+
+    public int getScreenX() {
+        return worldX - gp.player.worldX + gp.player.screenX;
+    }
+
+    public int getScreenY() {
+        return worldY - gp.player.worldY + gp.player.screenY;
+    }
+    public int getTileDistance(){
+        //calculate distance between player and monster in tiles
+         xDistance = getXDistance();
+         yDistance = getYDistance();
+        tileDistance = (xDistance + yDistance) / gp.tileSize;
+        return tileDistance;
+    }
+    public int getXDistance() {
+        return Math.abs(worldX - gp.player.worldX);
+    }
+    public int getYDistance() {
+        return Math.abs(worldY - gp.player.worldY);
+    }
+    protected void checkStopChasingOrNot(int tileDistance){
+        if(onPath&& this.tileDistance > tileDistance){
+            onPath = false;
+        }
+    }
+
+
 }
