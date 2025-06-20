@@ -11,13 +11,10 @@ public class OBJ_Chest extends Entity {
         super(gp);
         this.gp = gp;
         name = "Chest";
-        down1 = setup("/object/chest/chest1");
-        collision = false;
+        down1 = setup("/object/chest/chest");
+        collision = true;
     }
 
-    public void getChestAnimation() {
-
-    }
 
     public void randomReward() {
         Random rand = new Random();

@@ -27,7 +27,7 @@ public class OBJ_Door extends Entity {
         solidArea = new Rectangle(0, 0, gp.tileSize * 2, gp.tileSize * 3);
     }
 
-    private BufferedImage loadTile(String path) {
+    protected BufferedImage loadTile(String path) {
         try {
             return ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(path + ".png")));
         } catch (IOException e) {
@@ -36,7 +36,7 @@ public class OBJ_Door extends Entity {
         }
     }
 
-    private BufferedImage composeDoor(
+    protected BufferedImage composeDoor(
             BufferedImage tl, BufferedImage tr,
             BufferedImage ml, BufferedImage mr,
             BufferedImage bl, BufferedImage br,

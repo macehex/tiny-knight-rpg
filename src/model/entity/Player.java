@@ -3,6 +3,8 @@ package model.entity;
 import controller.GamePanel;
 import controller.KeyHandler;
 import model.object.OBJ_Chest;
+import model.object.OBJ_ChestOpened;
+import model.object.OBJ_DoorOpened;
 import model.object.OBJ_SWORD;
 
 import java.awt.*;
@@ -19,6 +21,8 @@ public class Player extends Entity {
     public final int maxInventorySize = 24;
     private boolean isSwim;
     private int counterWater=0;
+    private int tempX;
+    private int tempY;
     public Player(GamePanel gp, KeyHandler keyH) {
         super(gp);
         isSwim = false;
@@ -540,7 +544,14 @@ public class Player extends Entity {
                     case "Door":
                         if (hasKey > 0) {
                             gp.playSoundEffect(3);
-                            gp.obj[gp.currentMap][i] = null;
+//                            gp.obj[gp.currentMap][i] = null;
+                            tempX = gp.obj[gp.currentMap][i].worldX;
+                            tempY = gp.obj[gp.currentMap][i].worldY;
+                            gp.obj[gp.currentMap][i] = new OBJ_DoorOpened(gp);
+                            gp.obj[gp.currentMap][i].worldX = tempX;
+                            gp.obj[gp.currentMap][i].worldY = tempY;
+
+
                             for (int j = 0; j < inventory.size(); j++) {
                                 if (inventory.get(j).name.equals("Key")) {
                                     inventory.remove(j);
@@ -557,7 +568,11 @@ public class Player extends Entity {
                         gp.playSoundEffect(0);
 //                    gp.ui.gameFinished = true;
                         ((OBJ_Chest) gp.obj[gp.currentMap][i]).randomReward();
-                        gp.obj[gp.currentMap][i] = null; // delete touched object                    gp.obj[gp.currentMap][i] = null; // delete touched object
+                        tempX = gp.obj[gp.currentMap][i].worldX;
+                        tempY = gp.obj[gp.currentMap][i].worldY;
+                        gp.obj[gp.currentMap][i] = new OBJ_ChestOpened(gp);
+                        gp.obj[gp.currentMap][i].worldX = tempX;
+                        gp.obj[gp.currentMap][i].worldY = tempY;
                         break;
                     case "Speed Potion": //increase movement speed
                         gp.playSoundEffect(4);
