@@ -18,5 +18,5 @@
 - [Cài đặt Java 23 hoặc cao hơn](https://www.oracle.com/java/technologies/downloads/#jdk23-windows)
 - Thêm folder res thành resource root 
 ![img_2.png](img_2.png)
-- Tìm file `Main.java` trong package `game` và chạy file này bằng CTRL + F5 hoặc bấm nút chạy.
+- Tìm file `Main.java` trong package `main` và chạy file này bằng CTRL + F5 hoặc bấm nút chạy.
 ![img_3.png](img_3.png)
