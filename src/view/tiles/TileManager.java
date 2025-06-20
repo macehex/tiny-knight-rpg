@@ -40,11 +40,11 @@ public class TileManager {
             // Format the tile number with leading zeros (e.g., 0 becomes "000", 27 becomes "027")
             String tileName = String.format("tile%03d", i);
             // Call setup with the current index, formatted tile name, and false
-            if(i <= 131){
-                tileCollision = true;
-            }else{
-                tileCollision = false;
-            }
+//            if(i <= 131){
+//                tileCollision = true;
+//            }else{
+//                tileCollision = false;
+//            }
                 setup(i, tileName, tileCollision);
         }
     }

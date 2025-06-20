@@ -105,7 +105,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         aSetter.setObject(); //calling setobject method
         aSetter.setNPC();
-        aSetter.setMonster();
+//        aSetter.setMonster();
 
         //fullscreen processing
         tempScreen = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB);

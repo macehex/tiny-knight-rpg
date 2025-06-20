@@ -27,6 +27,9 @@ public class AssetSetter {
                 () -> new OBJ_Key(gp),
                 () -> new OBJ_Key(gp),
                 () -> new OBJ_Key(gp),
+                //Ladder
+                () -> new OBJ_Ladder(gp),
+
                 // Door
                 () -> new OBJ_Door(gp),
                 () -> new OBJ_Door(gp),
@@ -141,7 +144,8 @@ public class AssetSetter {
                 {61, 44},
                 {11, 22},
                 {93, 18},
-
+                // Ladder
+                {64,3},
                 // Door
                 {12, 18},
                 {61, 40},
@@ -207,6 +211,7 @@ public class AssetSetter {
             gp.obj[mapNum][i].worldY = objectCoords[i][1] * gp.tileSize;
         }
 
+
     }
 
     public void setNPC() {
@@ -265,4 +270,28 @@ public class AssetSetter {
                 gp.monster[mapNum][i].worldY = gp.tileSize * (int) mapMonsters[mapNum][i][2];
             }
         }
-    }}
+    }
+    public void setLadder() {
+        // Array of ladder coordinates
+        int[][] ladderCoords = {
+                {14,45},{14, 49}, {14, 48}, {14, 47}, {14, 46},
+                {57, 30},
+                {54, 30}
+        };
+
+        // Ladder supplier
+        Supplier<Entity> ladderSupplier = () -> new OBJ_LadderInWorld(gp);
+
+        int mapNum = 0; // Assuming map 0
+
+        // Loop through ladder coordinates and set them
+        for (int i = 0; i < ladderCoords.length; i++) {
+            gp.obj[mapNum][i] = ladderSupplier.get();
+            gp.obj[mapNum][i].worldX = ladderCoords[i][0] * gp.tileSize;
+            gp.obj[mapNum][i].worldY = ladderCoords[i][1] * gp.tileSize;
+        }
+    }
+
+
+
+}

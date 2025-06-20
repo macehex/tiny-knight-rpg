@@ -15,6 +15,8 @@ public class Player extends Entity {
     KeyHandler keyH;
     public final int screenX;
     public final int screenY; // background scroll
+    public boolean hasLadder = false;
+
     // key item slot
     private int hasKey = 0;
     public ArrayList<Entity> inventory = new ArrayList<>();
@@ -55,7 +57,7 @@ public class Player extends Entity {
         // PLACEHOLDER
         worldX = gp.tileSize * 12; //CHANGE LATER ASAP
         worldY = gp.tileSize * 33;
-        speed = 8;
+        speed = 15;
         direction = "idle";
         // PLAYER STATUS
         maxLife = 5;
@@ -596,7 +598,13 @@ public class Player extends Entity {
                             gp.player.life -= 1;
                             gp.player.invincible = true;
                         }
-
+                        break;
+                    case "Ladder":
+                        gp.aSetter.setLadder();
+                        hasLadder = true;
+                        gp.playSoundEffect(4);
+                        inventory.add(gp.obj[gp.currentMap][i]);
+                        gp.obj[gp.currentMap][i] = null;
                         break;
 
                 }
