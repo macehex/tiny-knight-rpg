@@ -189,12 +189,24 @@ public class UI {
     private void drawGold(){
         int x = gp.tileSize * 16;
         int y = gp.tileSize/2;
-        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 30f));
-        g2.setColor(Color.white);
+
         g2.drawImage(goldImage.getImage(),x, y-8, gp.tileSize, gp.tileSize, null);
+
+
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 31f));
+        g2.setStroke(new BasicStroke(3));
+        g2.setColor(Color.white);
         x += gp.tileSize+10;
         y += gp.tileSize/2+2;
         g2.drawString("x "+gp.player.gold, x, y);
+
+        g2.setColor(Color.RED);
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 30f));
+        g2.setStroke(new BasicStroke(1));
+
+
+        g2.drawString("x "+gp.player.gold, x-1, y-1);
+
     }
     private void drawMessages() {
         int messageX = gp.tileSize;
