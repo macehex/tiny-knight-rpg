@@ -53,7 +53,8 @@ public class AssetSetter {
                 () -> new OBJ_Potion_Heath_Two(gp),
                 () -> new OBJ_Potion_Heath_Two(gp),
                 () -> new OBJ_Potion_Heath_Two(gp),
-
+                () -> new OBJ_Potion_Heath_Two(gp),
+                () -> new OBJ_Potion_Heath_Two(gp),
 
                 () -> new OBJ_Portal(gp),
 
@@ -167,6 +168,8 @@ public class AssetSetter {
                 // Health Potion
                 {42, 7},
                 {9, 10},
+                {15, 9},
+                {12, 12},
                 {61, 13},
                 {92, 52},
 

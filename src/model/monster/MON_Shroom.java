@@ -63,12 +63,41 @@ public class MON_Shroom extends MON {
         idle6 = setup("/enemies/shroom/idle/shroom6");
 
     }
+    private void getAngryImage(){
+        up1 = setup("/enemies/shroom/angry/shroom1");
+        up2 = setup("/enemies/shroom/angry/shroom2");
+        up3 = setup("/enemies/shroom/angry/shroom3");
+        up4 = setup("/enemies/shroom/angry/shroom4");
+        up5 = setup("/enemies/shroom/angry/shroom5");
+        up6 = setup("/enemies/shroom/angry/shroom6");
 
+        down1 = setup("/enemies/shroom/angry/shroom1");
+        down2 = setup("/enemies/shroom/angry/shroom2");
+        down3 = setup("/enemies/shroom/angry/shroom3");
+        down4 = setup("/enemies/shroom/angry/shroom4");
+        down5 = setup("/enemies/shroom/angry/shroom5");
+        down6 = setup("/enemies/shroom/angry/shroom6");
+
+        left1 = setup("/enemies/shroom/angry/shroom1");
+        left2 = setup("/enemies/shroom/angry/shroom2");
+        left3 = setup("/enemies/shroom/angry/shroom3");
+        left4 = setup("/enemies/shroom/angry/shroom4");
+        left5 = setup("/enemies/shroom/angry/shroom5");
+        left6 = setup("/enemies/shroom/angry/shroom6");
+
+        right1 = setup("/enemies/shroom/angry/shroom1");
+        right2 = setup("/enemies/shroom/angry/shroom2");
+        right3 = setup("/enemies/shroom/angry/shroom3");
+        right4 = setup("/enemies/shroom/angry/shroom4");
+        right5 = setup("/enemies/shroom/angry/shroom5");
+        right6 = setup("/enemies/shroom/angry/shroom6");
+    }
 // model.ai
     @Override
     public void damageReaction() {
         actionLockCounter = 0;
          speed =2;
         onPath = true;
+        getAngryImage();
     }
 }

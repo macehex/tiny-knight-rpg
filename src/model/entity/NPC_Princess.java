@@ -34,8 +34,8 @@ public class NPC_Princess extends Entity {
 
 
     public void setDialogue() {
-        dialogues[0] = "Thank you young and brave warrior for rescuing me,\n I will have a word with my father";
-        dialogues[1] = "to make you the honored\n royal knight of our kingdom";
+        dialogues[0] = "Thank you young and brave warrior for rescuing me,\nI will have a word with my father";
+        dialogues[1] = "to make you the honored\nroyal knight of our kingdom";
     }
 
     public void setAction() {

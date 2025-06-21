@@ -67,8 +67,8 @@ public class NPC extends Entity {
         dialogues[1] = "and we welcome your arrival";
 
         dialogues[2] = "As you may have heard \nmy dearest daughter has been kidnapped and locked away";
-        dialogues[3] = "We don't know where she is now\n so I ask of you to bring her back safe and sounds";
-        dialogues[4] = "If you successfully do so,\n I will make sure to reward you handsomely";
+        dialogues[3] = "We don't know where she is now\nso I ask of you to bring her back safe and sounds";
+        dialogues[4] = "If you successfully do so,\nI will make sure to reward you handsomely";
     }
 
     public void setAction() {

@@ -596,7 +596,7 @@ public class Player extends Entity {
                         break;
                     case "Health Potion 2":
                         gp.playSoundEffect(4);
-                        if (gp.player.life < gp.player.maxLife + 2) {
+                        if (gp.player.life <= gp.player.maxLife - 2) {
                             gp.player.life += 2;
                         } else {
                             gp.player.life = gp.player.maxLife;
@@ -611,7 +611,6 @@ public class Player extends Entity {
                             gp.player.life -= 1;
                             gp.player.invincible = true;
                             gp.ui.addMessage("Get out of the spikes!");
-
                         }
                         break;
                     case "Ladder":
@@ -621,7 +620,6 @@ public class Player extends Entity {
                         inventory.add(gp.obj[gp.currentMap][i]);
                         gp.obj[gp.currentMap][i] = null;
                         break;
-
                 }
             else gp.ui.addMessage("You cannot carry any more!");
         }
