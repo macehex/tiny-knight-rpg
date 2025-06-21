@@ -27,6 +27,8 @@ public class AssetSetter {
                 () -> new OBJ_Key(gp),
                 () -> new OBJ_Key(gp),
                 () -> new OBJ_Key(gp),
+                () -> new OBJ_Key(gp),
+
                 //Ladder
                 () -> new OBJ_Ladder(gp),
 
@@ -145,6 +147,7 @@ public class AssetSetter {
                 {61, 44},
                 {11, 22},
                 {93, 18},
+                {78,34},
                 // Ladder
                 {64, 3},
                 // Door
@@ -280,6 +283,7 @@ public class AssetSetter {
         // Array of ladder coordinates
         int[][] ladderCoords = {
                 {14, 45}, {14, 49}, {14, 48}, {14, 47}, {14, 46},
+
                 {57, 30},
                 {54, 30}
         };

@@ -24,7 +24,9 @@ public class OBJ_Chest extends Entity {
                 if(gp.player.life < gp.player.maxLife){
                     gp.player.life++;
                     gp.ui.addMessage("Life increased!");
-
+                }else{
+                    gp.ui.addMessage("You gained 20 golds!");
+                    gp.player.gold += 20;
                 }
             }
             case 1 -> {
@@ -32,16 +34,24 @@ public class OBJ_Chest extends Entity {
                 gp.player.life+=2;
                     gp.ui.addMessage("Life increased by 2!");
 
+                }else{
+                    gp.ui.addMessage("You gained 30 golds!");
+                    gp.player.gold += 30;
                 }
             }
             case 2 -> {
-                gp.player.life--;
-                gp.ui.addMessage("Life decreased!");
+                if(gp.player.life>1){
+                    gp.player.life-=1;
+                    gp.ui.addMessage("Life decreased!");
+                }else{
+                    gp.ui.addMessage("You gained 40 golds!");
+                    gp.player.gold += 40;
+                }
 
             }
             case 3 -> {
                 gp.player.maxLife++;
-                gp.player.life = maxLife;
+                gp.player.life = gp.player.maxLife;
                 gp.ui.addMessage("Increased max life!");
 
             }
