@@ -2,6 +2,7 @@ package model.entity;
 
 import controller.GamePanel;
 import javafx.stage.Screen;
+import model.object.OBJ_Gold;
 import view.UltilityTool;
 
 import javax.imageio.ImageIO;
@@ -24,7 +25,7 @@ public class Entity {
     public String name;
     public boolean collision = false;
     public boolean invincible = false;
-    protected int defaultSpeed =1;
+    protected int defaultSpeed = 1;
     protected int tileDistance;
     private int xDistance;
     private int yDistance;
@@ -438,24 +439,44 @@ public class Entity {
     public int getScreenY() {
         return worldY - gp.player.worldY + gp.player.screenY;
     }
-    public int getTileDistance(){
+
+    public int getTileDistance() {
         //calculate distance between player and monster in tiles
-         xDistance = getXDistance();
-         yDistance = getYDistance();
+        xDistance = getXDistance();
+        yDistance = getYDistance();
         tileDistance = (xDistance + yDistance) / gp.tileSize;
         return tileDistance;
     }
+
     public int getXDistance() {
         return Math.abs(worldX - gp.player.worldX);
     }
+
     public int getYDistance() {
         return Math.abs(worldY - gp.player.worldY);
     }
-    protected void checkStopChasingOrNot(int tileDistance){
-        if(onPath&& this.tileDistance > tileDistance){
+
+    protected void checkStopChasingOrNot(int tileDistance) {
+        if (onPath && this.tileDistance > tileDistance) {
             onPath = false;
         }
     }
 
+    public void dropItem(Entity monster) {
+        int tempX = monster.worldX;
+        int tempY = monster.worldY;
 
+        // Replace the monster with a gold object
+        OBJ_Gold gold = new OBJ_Gold(this.gp);
+        gold.worldX = tempX;
+        gold.worldY = tempY;
+
+        // Add the gold object to the game world
+        for (int i = 0; i < gp.obj[gp.currentMap].length; i++) {
+            if (gp.obj[gp.currentMap][i] == null) {
+                gp.obj[gp.currentMap][i] = gold;
+                break;
+            }
+        }
+    }
 }

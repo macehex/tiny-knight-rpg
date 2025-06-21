@@ -2,10 +2,12 @@ package view;
 
 import controller.GamePanel;
 import model.entity.Entity;
+import model.object.OBJ_Gold;
 import model.object.OBJ_Heart;
 import model.object.OBJ_Key;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -19,6 +21,7 @@ public class UI {
     int messageCounter = 0;
     Font Consolas_40, TimeNewsRoman_80B, TimeNewsRoman_25, Pixeloid_80, Pixeloid_40;
     BufferedImage keyImage;
+    ImageIcon goldImage;
     BufferedImage titleScreenImage, titleButtonImage;
     public boolean messageOn = false;
     public int slotCol = 0;
@@ -48,7 +51,9 @@ public class UI {
 
         OBJ_Key key = new OBJ_Key(gp);
         keyImage = key.image;
-        //CREATE 2D OBJECT
+        OBJ_Gold gold = new OBJ_Gold(gp);
+        goldImage = gold.imageIcon;
+            //CREATE 2D OBJECT
         Entity heart = new OBJ_Heart(gp);
         heart_blank = heart.image;
         heart_full = heart.image2;
@@ -130,20 +135,6 @@ public class UI {
         g2.drawRoundRect(x + 5, y + 5, width - 10, height - 10, 25, 25);
         System.out.println("subwindow drawn");
     }
-//    public void drawSubWindow(int x, int y, int width, int height) {
-//        UltilityTool uTool = new UltilityTool();
-//        BufferedImage box = null;
-//        try {
-//            box = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/object/RectangleBox.png")));
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        g2.drawImage(box, x, y, width , height, null);
-//        Color c = new Color(185, 145, 88);
-//
-//        g2.setColor(c);
-//
-//    }
 
     // notification
     public void addMessage(String text) {
@@ -164,13 +155,10 @@ public class UI {
                 // ìf playState
                 // display playing ui
                 // set font
-//                    draw key
-//                    g2.setFont(Pixeloid_40);
-//                    g2.setColor(Color.white);
-//                    g2.drawImage(keyImage, gp.tileSize / 4, gp.tileSize / 4, gp.tileSize * 1, gp.tileSize * 1, null);
-//                    g2.drawString("x " + gp.player.hasKey, 60, 45);
+//
                 drawMessages();
                 drawPlayerLife();
+                drawGold();
 
             }
             case 2 -> {
@@ -198,7 +186,16 @@ public class UI {
             case 6 -> drawGameOverScreen();
         }
     }
-
+    private void drawGold(){
+        int x = gp.tileSize * 16;
+        int y = gp.tileSize/2;
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 30f));
+        g2.setColor(Color.white);
+        g2.drawImage(goldImage.getImage(),x, y-8, gp.tileSize, gp.tileSize, null);
+        x += gp.tileSize+10;
+        y += gp.tileSize/2+2;
+        g2.drawString("x "+gp.player.gold, x, y);
+    }
     private void drawMessages() {
         int messageX = gp.tileSize;
         int messageY = gp.tileSize * 3;

@@ -1,19 +1,18 @@
 package model.object;
+
 import controller.GamePanel;
 import view.AnimatedEntity;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
-public class OBJ_DoorOpened extends AnimatedEntity {
-    private final GamePanel gp;
-    public OBJ_DoorOpened(GamePanel gp){
+public class OBJ_Gold extends AnimatedEntity {
+    GamePanel gp;
+    public OBJ_Gold(GamePanel gp) {
         super(gp);
-        this.gp = gp;
-        name = "DoorOpened";
-        collision = false;
-        imageIcon = setupAnimatedGif("/object/door/dooropen", gp.tileSize, gp.tileSize);
-
+        this.gp=  gp;
+        name = "Gold";
+        imageIcon = setupAnimatedGif("/object/coin/coin", gp.tileSize, gp.tileSize);
+        collision = false; // Gold does not have collision
     }
     @Override
     public void draw(Graphics2D g2) {
@@ -25,7 +24,7 @@ public class OBJ_DoorOpened extends AnimatedEntity {
                 worldY + gp.tileSize > gp.player.worldY - gp.player.screenY &&
                 worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
 
-            g2.drawImage(imageIcon.getImage(), screenX, screenY, gp.tileSize*2, gp.tileSize*3, null);
+            g2.drawImage(imageIcon.getImage(), screenX, screenY, gp.tileSize/2, gp.tileSize/2, null);
         }
     }
 

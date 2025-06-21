@@ -17,6 +17,7 @@ public class Player extends Entity {
     public final int screenY; // background scroll
     public boolean hasLadder = false;
     public int damage;
+    public int gold;
     // key item slot
     private int hasKey = 0;
     public ArrayList<Entity> inventory = new ArrayList<>();
@@ -45,6 +46,7 @@ public class Player extends Entity {
         attackArea.width = 48;
         attackArea.height = 48;
         damage = 1;
+        gold = 0;
         setDefaultValues();
 
         getPlayerImage();
@@ -64,6 +66,7 @@ public class Player extends Entity {
         life = maxLife;
         currentWeapon = new OBJ_SWORD(gp);
         hasKey = 0;
+        gold = 0;
     }
     public void setDefaultPosition(){
         worldX = gp.tileSize * 12; //CHANGE LATER ASAP
@@ -545,6 +548,13 @@ public class Player extends Entity {
             String objectName = gp.obj[gp.currentMap][i].name;
             if (inventory.size() != maxInventorySize)
                 switch (objectName) {
+                    case "Gold":
+                        gp.playSoundEffect(5);
+
+                        gp.obj[gp.currentMap][i] = null;
+                        gold +=100;
+                        gp.ui.addMessage("You got 100 golds!");
+                        break;
                     case "Key":
                         gp.playSoundEffect(5);
                         hasKey++;

@@ -1,6 +1,7 @@
 package model.monster;
 
 import controller.GamePanel;
+import model.object.OBJ_Gold;
 
 import java.awt.*;
 
@@ -100,4 +101,5 @@ public class MON_Shroom extends MON {
         onPath = true;
         getAngryImage();
     }
+
 }

@@ -8,6 +8,8 @@ import model.EventHandler;
 import model.ai.PathFinder;
 import model.entity.Entity;
 import model.entity.Player;
+import model.object.OBJ_DoorOpened;
+import model.object.OBJ_Gold;
 import view.UI;
 import view.tiles.TileManager;
 
@@ -186,7 +188,8 @@ public class GamePanel extends JPanel implements Runnable {
                         }
                     }
                     if(monster[currentMap][i] != null&&!monster[currentMap][i].alive){
-                        monster[currentMap][i]= null;
+                        monster[currentMap][i].dropItem(monster[currentMap][i]);
+                        monster[currentMap][i] = null;
                     }
                 }
                 break;
@@ -196,6 +199,7 @@ public class GamePanel extends JPanel implements Runnable {
                 break;
         }
     }
+
     //getter and setter for gameState
     public int getCurrentMap() {
         return currentMap;
