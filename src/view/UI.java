@@ -202,7 +202,7 @@ public class UI {
     private void drawMessages() {
         int messageX = gp.tileSize;
         int messageY = gp.tileSize * 3;
-        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 20f));
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 18f));
         for(int i = 0 ; i<messages.size();i++){
             if(messages.get(i)!=null){
                 g2.setColor(Color.black);

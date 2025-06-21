@@ -41,6 +41,7 @@ public class OBJ_Chest extends Entity {
             }
             case 3 -> {
                 gp.player.maxLife++;
+                gp.player.life = maxLife;
                 gp.ui.addMessage("Increased max life!");
 
             }

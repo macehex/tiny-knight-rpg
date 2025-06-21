@@ -19,7 +19,7 @@ public class AssetSetter {
     }
 
     public void setObject() {
-        int mapNum =0;
+        int mapNum = 0;
         // Array of object constructors (in order)
         Supplier<Entity>[] objectSuppliers = new Supplier[]{
                 //key
@@ -146,7 +146,7 @@ public class AssetSetter {
                 {11, 22},
                 {93, 18},
                 // Ladder
-                {64,3},
+                {64, 3},
                 // Door
                 {12, 18},
                 {61, 40},
@@ -243,6 +243,7 @@ public class AssetSetter {
             }
         }
     }
+
     public void setMonster() {
         // Array of monster suppliers and their coordinates for each map
         Object[][][] mapMonsters = {
@@ -274,10 +275,11 @@ public class AssetSetter {
             }
         }
     }
+
     public void setLadder() {
         // Array of ladder coordinates
         int[][] ladderCoords = {
-                {14,45},{14, 49}, {14, 48}, {14, 47}, {14, 46},
+                {14, 45}, {14, 49}, {14, 48}, {14, 47}, {14, 46},
                 {57, 30},
                 {54, 30}
         };
@@ -295,6 +297,46 @@ public class AssetSetter {
         }
     }
 
+    public void setPotion() {
+        int mapNum = 0;
 
+        // Array of potion suppliers
+        Supplier<Entity>[] potionSuppliers = new Supplier[]{
+                () -> new OBJ_Potion_Strength(gp),
+                () -> new OBJ_Potion_Speed(gp),
+                () -> new OBJ_Potion_Heath_Two(gp),
+                () -> new OBJ_Potion_Heath_Two(gp),
+                () -> new OBJ_Potion_Heath_Two(gp),
+                () -> new OBJ_Potion_Heath_Two(gp),
+                () -> new OBJ_Potion_Heath_Two(gp),
+                () -> new OBJ_Potion_Heath_Two(gp)
+        };
+
+        // Corresponding coordinates for each potion
+        int[][] potionCoords = {
+                {12, 30}, // Strength Potion
+                {53, 28}, // Speed Potion
+
+                {42, 7},  // Health Potion
+                {9, 10},
+                {15, 9},
+                {12, 12},
+                {61, 13},
+                {92, 52},
+                //Strength Potion
+        };
+
+        // Safety check: prevent mismatches
+        if (potionSuppliers.length != potionCoords.length) {
+            throw new IllegalStateException("Mismatch: " + potionSuppliers.length + " suppliers vs " + potionCoords.length + " coordinates.");
+        }
+
+        // Loop to create and place each potion
+        for (int i = 0; i < potionSuppliers.length; i++) {
+            gp.obj[mapNum][i] = potionSuppliers[i].get();
+            gp.obj[mapNum][i].worldX = potionCoords[i][0] * gp.tileSize;
+            gp.obj[mapNum][i].worldY = potionCoords[i][1] * gp.tileSize;
+        }
+    }
 
 }

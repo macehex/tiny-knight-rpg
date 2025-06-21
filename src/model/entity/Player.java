@@ -16,7 +16,7 @@ public class Player extends Entity {
     public final int screenX;
     public final int screenY; // background scroll
     public boolean hasLadder = false;
-
+    public int damage;
     // key item slot
     private int hasKey = 0;
     public ArrayList<Entity> inventory = new ArrayList<>();
@@ -44,7 +44,7 @@ public class Player extends Entity {
 
         attackArea.width = 48;
         attackArea.height = 48;
-
+        damage = 1;
         setDefaultValues();
 
         getPlayerImage();
@@ -64,7 +64,6 @@ public class Player extends Entity {
         life = maxLife;
         currentWeapon = new OBJ_SWORD(gp);
         hasKey = 0;
-
     }
     public void setDefaultPosition(){
         worldX = gp.tileSize * 12; //CHANGE LATER ASAP
@@ -594,12 +593,26 @@ public class Player extends Entity {
                         gp.obj[gp.currentMap][i] = null;
                         gp.ui.addMessage("Picked up speed potion!");
                         break;
+                    case "Strength Potion":
+                        //adding extra damage to monster later
+                        gp.playSoundEffect(4);
+                        maxLife += 2;
+                        gp.ui.drawPlayerLife();
+                        gp.obj[gp.currentMap][i] = null;
+                        gp.ui.addMessage("Picked up strength potion!");
+                        gp.ui.addMessage("You got stronger!");
+                        gp.player.damage++;
+                        gp.ui.addMessage("Your damage increased by 1!");
+                        break;
                     case "Health Potion 2":
                         gp.playSoundEffect(4);
-                        if (gp.player.life <= gp.player.maxLife - 2) {
+                        if (gp.player.life < gp.player.maxLife - 1) {
                             gp.player.life += 2;
-                        } else {
-                            gp.player.life = gp.player.maxLife;
+                        } else if(gp.player.life < gp.player.maxLife){
+                            gp.player.life++;
+                        }else{
+                            gp.ui.addMessage("You are already at max life!");
+                            break;
                         }
                         gp.obj[gp.currentMap][i] = null;
                         gp.ui.addMessage("Picked up health+2 potion!");
@@ -717,7 +730,7 @@ public class Player extends Entity {
         if (i != 999) {
             if (!gp.monster[gp.currentMap][i].invincible) {
                 gp.playSoundEffect(9);
-                gp.monster[gp.currentMap][i].life -= 1;
+                gp.monster[gp.currentMap][i].life -= gp.player.damage;
                 gp.monster[gp.currentMap][i].invincible = true;
                 gp.monster[gp.currentMap][i].damageReaction();
                 if (gp.monster[gp.currentMap][i].life <= 0) {
