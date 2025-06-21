@@ -33,8 +33,10 @@ public class Entity {
     private int xDistance;
     private int yDistance;
     //COUNTER
-    int invincibleCounter = 0;
+    public int invincibleCounter = 0;
     public int spriteCounter = 0;
+    public int offBalanceCounter = 0;
+    public int knockBackCounter = 0;
 
 
     int dyingCounter = 0;
@@ -366,16 +368,17 @@ public class Entity {
         collisionOn = false;
         gp.cChecker.checkTile(this); //passing "NPC" class (because npc has the priority )
         gp.cChecker.checkObject(this, false);
-
         gp.cChecker.checkEntity(this, gp.npc);
         gp.cChecker.checkEntity(this, gp.monster);
 
         boolean contactPlayer = gp.cChecker.checkPlayer(this);
         if (this.type == 2 && contactPlayer && !gp.player.invincible) {
-            // damage
-            gp.playSoundEffect(8);
-            gp.player.life -= 1;
-            gp.player.invincible = true;
+//            // damage
+//            gp.playSoundEffect(8);
+//            gp.player.life -= 1;
+//            gp.player.invincible = true;
+            damagePlayer(attack);
+
         }
     }
 
@@ -610,16 +613,11 @@ public class Entity {
         int i = new Random().nextInt(100)+1;
 
         //SET THE MONSTER DROP
-        if(i < 50)
-        {
+        if (i < 50) {
             dropItem(new OBJ_Key(gp));
-        }
-        if(i >= 50 && i < 75)
-        {
+        } else if (i < 75) {
             dropItem(new OBJ_Potion_Heath_Two(gp));
-        }
-        if(i >= 75 && i < 100)
-        {
+        } else {
             dropItem(new OBJ_Gold(gp));
         }
     }

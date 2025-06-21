@@ -8,8 +8,6 @@ import model.EventHandler;
 import model.ai.PathFinder;
 import model.entity.Entity;
 import model.entity.Player;
-import model.object.OBJ_DoorOpened;
-import model.object.OBJ_Gold;
 import view.UI;
 import view.tiles.TileManager;
 

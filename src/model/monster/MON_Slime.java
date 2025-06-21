@@ -15,6 +15,7 @@ public class MON_Slime extends MON{
         name = "slime";
         speed = 1;
         maxLife = 2;
+        attack =  1;
         life = maxLife;
         solidArea = new Rectangle();
         // Monster HIT BOX

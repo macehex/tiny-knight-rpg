@@ -19,7 +19,7 @@ public class MON_Orc extends MON {
         speed = defaultSpeed;
         maxLife = 8;
         life = maxLife;
-        attack = 8;
+        attack = 1;
         defense = 2;
         exp = 8;
         knockBackPower = 5;
@@ -61,6 +61,7 @@ public class MON_Orc extends MON {
         attackRight2 = setup("/enemies/orc/orc_attack_right_2", gp.tileSize * 2, gp.tileSize);
     }
 
+    @Override
     public void setAction() {
 
 
@@ -91,4 +92,96 @@ public class MON_Orc extends MON {
         //direction = gp.player.direction;
         onPath = true; // gets aggro
     }
+
+    @Override
+    public void update() {
+
+        if (knockBack == true) {
+            checkCollision();
+            if (collisionOn == true) {
+                knockBackCounter = 0;
+                knockBack = false;
+                speed = defaultSpeed;
+            } else if (collisionOn == false) {
+                switch (knockBackDirection) {
+                    case "up":
+                        worldY -= speed;
+                        break;
+
+                    case "down":
+                        worldY += speed;
+                        break;
+
+                    case "left":
+                        worldX -= speed;
+                        break;
+
+                    case "right":
+                        worldX += speed;
+                        break;
+                }
+            }
+            knockBackCounter++;
+            if (knockBackCounter == 10) {
+                knockBackCounter = 0;
+                knockBack = false;
+                speed = defaultSpeed;
+            }
+        } else if (attacking == true) {
+            attacking();
+        } else {
+            setAction();
+            checkCollision();
+
+            if (collisionOn == false) {
+                switch (direction) {
+                    case "up":
+                        worldY -= speed;
+                        break;
+
+                    case "down":
+                        worldY += speed;
+                        break;
+
+                    case "left":
+                        worldX -= speed;
+                        break;
+
+                    case "right":
+                        worldX += speed;
+                        break;
+                }
+            }
+            spriteCounter++;
+            if (spriteCounter > 24) {
+                if (spriteNum == 1)                  //Every 12 frames sprite num changes.
+                {
+                    spriteNum = 2;
+                } else if (spriteNum == 2) {
+                    spriteNum = 1;
+                }
+                spriteCounter = 0;                  // spriteCounter reset
+            }
+        }
+        //Like player's invincible method
+        if (invincible == true) {
+            invincibleCounter++;
+            if (invincibleCounter > 40) {
+                invincible = false;
+                invincibleCounter = 0;
+            }
+        }
+        if (shotAvailableCounter < 30) {
+            shotAvailableCounter++;
+        }
+        if (offBalance == true) {
+            offBalanceCounter++;
+            if (offBalanceCounter > 60) {
+                offBalance = false;
+                offBalanceCounter = 0;
+            }
+        }
+    }
+
+
 }

@@ -16,6 +16,7 @@ public class MON_Shroom extends MON {
         speed = 1;
         maxLife = 3;
         life = maxLife;
+        attack = 1;
         solidArea = new Rectangle();
         // Monster HIT BOX
         solidArea.x = 15;

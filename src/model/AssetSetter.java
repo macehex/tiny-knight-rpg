@@ -252,7 +252,7 @@ public class AssetSetter {
         // Array of monster suppliers and their coordinates for each map
         Object[][][] mapMonsters = {
                 { // Map 0
-//                        {new MON_Orc(gp), 13, 27},
+                        {new MON_Orc(gp), 13, 27},
                         {new MON_Shroom(gp), 10, 10},
                         {new MON_Slime(gp), 11, 10},
                         {new MON_Slime(gp), 12, 10},
