@@ -59,7 +59,7 @@ public class Player extends Entity {
         // PLACEHOLDER
         worldX = gp.tileSize * 12; //CHANGE LATER ASAP
         worldY = gp.tileSize * 33;
-        speed = 15;
+        speed = 8;
         direction = "idle";
         // PLAYER STATUS
         maxLife = 5;
@@ -311,9 +311,6 @@ public class Player extends Entity {
 
     public void draw(Graphics2D g2) {
 
-//        g2.setColor(Color.white);
-//        g.fillRect(x, y, width, height);
-//        g2.fillRect(x, y, gp.tileSize, gp.tileSize);
         BufferedImage image = null;
         if(!isSwim){
             switch (direction) {
@@ -439,7 +436,7 @@ public class Player extends Entity {
                     break;
             }
 
-        }else if(isSwim){
+        }else{
             switch (direction) {
                 case "idle":
                     image = switch (spriteNum) {

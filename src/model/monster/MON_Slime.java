@@ -14,7 +14,7 @@ public class MON_Slime extends MON{
         type = 2; // DIFFERENT for each monster
         name = "slime";
         speed = 1;
-        maxLife = 3;
+        maxLife = 2;
         life = maxLife;
         solidArea = new Rectangle();
         // Monster HIT BOX
