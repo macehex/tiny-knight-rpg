@@ -37,16 +37,14 @@ public class Player extends Entity {
         solidArea = new Rectangle();
         // PLAYER HIT BOX
         solidArea.x = 40;
-        solidArea.y = 25;
+        solidArea.y = 28;
         solidArea.width = 16;
-        solidArea.height = 32;
+        solidArea.height = 30;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
 
         attackArea.width = 48;
         attackArea.height = 48;
-        damage = 1;
-        gold = 0;
         setDefaultValues();
 
         getPlayerImage();
@@ -66,7 +64,9 @@ public class Player extends Entity {
         life = maxLife;
         currentWeapon = new OBJ_SWORD(gp);
         hasKey = 0;
+        damage = 1;
         gold = 0;
+
     }
     public void setDefaultPosition(){
         worldX = gp.tileSize * 12; //CHANGE LATER ASAP
@@ -78,7 +78,6 @@ public class Player extends Entity {
         invincible =false;
     }
     public void setItems() {
-        inventory.clear();
         inventory.add(currentWeapon);
     }
 
@@ -504,8 +503,8 @@ public class Player extends Entity {
 
         g2.drawImage(image, screenX, screenY, null);
 //        // HIT BOX troubleshooting
-//        g2.setColor(Color.red);
-//        g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
+        g2.setColor(Color.red);
+        g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
 
 
     }
@@ -691,10 +690,9 @@ public class Player extends Entity {
         } else {
             isSwim = false;
             speed = 8;
-            counterWater=0;
+            counterWater = 0;
         }
-    }
-    private void checkAttacking() {
+    }    private void checkAttacking() {
         int currentWorldX = worldX;
         int currentWorldY = worldY;
         int solidAreaWidth = solidArea.width;
@@ -732,7 +730,11 @@ public class Player extends Entity {
         solidArea.width = solidAreaWidth;
         solidArea.height = solidAreaHeight;
     }
-
+    public void knockBack(Entity entity){
+        entity.direction = direction;
+        entity.speed += 10;
+        entity.knockBack = true;
+    }
     private void damageMonster(int i) {
         if (i != 999) {
             if (!gp.monster[gp.currentMap][i].invincible) {
@@ -783,6 +785,9 @@ public class Player extends Entity {
                 }
             }
         }
+    }
+    public String getDirection() {
+        return direction;
     }
 
 }

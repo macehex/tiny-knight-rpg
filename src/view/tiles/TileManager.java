@@ -66,7 +66,7 @@ public class TileManager {
             System.out.println("Failed to load tile image: " + imageName + ".jpg");
             e.printStackTrace();
         }
-        if (index >= 213 || index == 138||index == 141|| index ==147) {
+        if (index >= 213 || index == 138|| index ==139) {
             tile[index].isWater = true;
         }
 

@@ -253,6 +253,10 @@ public class AssetSetter {
         Object[][][] mapMonsters = {
                 { // Map 0
                         {new MON_Orc(gp), 13, 27},
+                        {new MON_Orc(gp), 62, 8},
+                        {new MON_Orc(gp), 69, 8},
+                        {new MON_Orc(gp), 66, 14},
+
                         {new MON_Shroom(gp), 10, 10},
                         {new MON_Slime(gp), 11, 10},
                         {new MON_Slime(gp), 12, 10},

@@ -61,31 +61,6 @@ public class MON_Orc extends MON {
         attackRight2 = setup("/enemies/orc/orc_attack_right_2", gp.tileSize * 2, gp.tileSize);
     }
 
-    @Override
-    public void setAction() {
-
-
-        if (onPath) {
-            //Check if it stops chasing
-            checkStopChasingOrNot(gp.player, 15, 100);
-
-            int goalCol = (gp.player.worldX + gp.player.solidArea.x) / gp.tileSize;
-            int goalRow = (gp.player.worldY + gp.player.solidArea.y) / gp.tileSize;
-
-            searchPath(goalCol, goalRow);
-        } else {
-            //Check if it starts chasing
-            checkStartChasingOrNot(gp.player, 5, 100);
-
-            //Get a random direction
-            getRandomDirection(120);
-        }
-
-        //Check if it is attacks
-        if (attacking == false) {
-            checkAttackOrNot(30, gp.tileSize * 4, gp.tileSize); //Small rate = More agressive
-        }
-    }
 
     public void damageReaction() {
         actionLockCounter = 0;

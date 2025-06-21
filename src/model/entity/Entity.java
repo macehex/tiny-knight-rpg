@@ -133,48 +133,85 @@ public class Entity {
 
     public void update() {
         // if subclass have same method -> subclass method have the priority
-        setAction();
-        checkCollision();
-        if (!collisionOn) {
-            switch (direction) {
-                case "up":
-                    worldY -= speed;
-                    break;
-                case "down":
-                    worldY += speed;
-                    break;
-                case "left":
-                    worldX -= speed;
-                    break;
-                case "right":
-                    worldX += speed;
-                    break;
+        if (knockBack == true) {
+            checkCollision();
+            if (collisionOn) {
+                knockBackCounter = 0;
+                knockBack = false;
+                speed = defaultSpeed;
+            } else {
+                switch (gp.player.getDirection()) {
+                    case "up":
+                        worldY -= speed;
+                        break;
+
+                    case "down":
+                        worldY += speed;
+                        break;
+
+                    case "left":
+                        worldX -= speed;
+                        break;
+
+                    case "right":
+                        worldX += speed;
+                        break;
+                }
             }
+            knockBackCounter++;
+            if (knockBackCounter == 10) {
+                knockBackCounter = 0;
+                knockBack = false;
+                speed = defaultSpeed;
+            }
+        } else if (attacking == true) {
+            attacking();
         }
-        spriteCounter++;
-        //update() gets called 60 times per second
-        if (spriteCounter > 6) {
-            switch (spriteNum) {
-                case 1:
-                    spriteNum = 2;
-                    break;
-                case 2:
-                    spriteNum = 3;
-                    break;
-                case 3:
-                    spriteNum = 4;
-                    break;
-                case 4:
-                    spriteNum = 5;
-                    break;
-                case 5:
-                    spriteNum = 6;
-                    break;
-                case 6:
-                    spriteNum = 1;
-                    break;
+        else{
+            setAction();
+            checkCollision();
+            if (!collisionOn) {
+                switch (direction) {
+                    case "up":
+                        worldY -= speed;
+                        break;
+                    case "down":
+                        worldY += speed;
+                        break;
+                    case "left":
+                        worldX -= speed;
+                        break;
+                    case "right":
+                        worldX += speed;
+                        break;
+                }
             }
-            spriteCounter = 0;
+            spriteCounter++;
+            //update() gets called 60 times per second
+            if (spriteCounter > 6) {
+                switch (spriteNum) {
+                    case 1:
+                        spriteNum = 2;
+                        break;
+                    case 2:
+                        spriteNum = 3;
+                        break;
+                    case 3:
+                        spriteNum = 4;
+                        break;
+                    case 4:
+                        spriteNum = 5;
+                        break;
+                    case 5:
+                        spriteNum = 6;
+                        break;
+                    case 6:
+                        spriteNum = 1;
+                        break;
+                }
+                spriteCounter = 0;
+            }
+
         }
         if (invincible) {
             invincibleCounter++;
@@ -183,6 +220,14 @@ public class Entity {
                 invincibleCounter = 0;
             }
         }
+        if (offBalance == true) {
+            offBalanceCounter++;
+            if (offBalanceCounter > 60) {
+                offBalance = false;
+                offBalanceCounter = 0;
+            }
+        }
+
 
     }
 
@@ -687,7 +732,7 @@ public class Entity {
     }
     public void damagePlayer(int attack)
     {
-        if(gp.player.invincible == false)
+        if(!gp.player.invincible)
         {
             int damage = attack - gp.player.defense;
             //Get an opposite direction of this attacker
@@ -732,5 +777,16 @@ public class Entity {
         return oppositeDirection;
     }
 
+    public int getGoalCol(Entity target)
+    {
+        int goalCol = (target.worldX + target.solidArea.x) / gp.tileSize;
+        return goalCol;
+
+    }
+    public int getGoalRow(Entity target)
+    {
+        int goalRow = (target.worldY + target.solidArea.y) / gp.tileSize;
+        return goalRow;
+    }
 
 }

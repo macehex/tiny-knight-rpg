@@ -14,51 +14,28 @@ public class MON extends Entity{
         getDyingImages();
 
     }
+
     public void setAction() {
-        //set NPC behavior & AI
+
+
         if (onPath) {
-            int goalCol = (gp.player.worldX + gp.player.solidArea.x) / gp.tileSize;
-            int goalRow = (gp.player.worldY + gp.player.solidArea.y) / gp.tileSize;
+            //Check if it stops chasing
+            checkStopChasingOrNot(gp.player, 10, 100);
 
-            searchPath(goalCol, goalRow);
-
+            searchPath(getGoalCol(gp.player), getGoalRow(gp.player));
         } else {
+            //Check if it starts chasing
+            checkStartChasingOrNot(gp.player, 5, 100);
 
-            actionLockCounter++; //increment everytime setAction is called
-            if (actionLockCounter == 120) {
-//                  the action direction stay the same for 120 seconds
-//                randomize npc state
-                Random random = new Random();
-                int i = random.nextInt(100) + 1; // pick up num in range[1,100]
-                if (i <= 25) {
-                    direction = "up";
-                }
-                if (i > 25 && i <= 50) {
-                    direction = "down";
-                }
-                if (i > 50 && i <= 75) {
-                    direction = "left";
-                }
-                if (i > 75) {
-                    direction = "right";
-                }
-                actionLockCounter = 0; // reset counter
-            }
-
+            //Get a random direction
+            getRandomDirection(120);
         }
 
-    }
-    public void update(){
-        super.update();
-        //check distance between player and slime
-        tileDistance =  getTileDistance(gp.player);
-        if(!onPath && tileDistance<4){
-            int i = new Random().nextInt(100)+1;
-            if(i>50){
-                onPath = true;
-            }
+        //Check if it is attacks
+        if (attacking == false) {
+            checkAttackOrNot(30, gp.tileSize * 4, gp.tileSize);
         }
-        checkStopChasingOrNot(gp.player,10,100);
     }
+
 
 }

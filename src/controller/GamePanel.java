@@ -125,6 +125,8 @@ public class GamePanel extends JPanel implements Runnable {
         aSetter.setMonster();
         aSetter.setNPC();
         aSetter.setPotion();
+        aSetter.setObject();
+
     }
     public void restart(){
         player.setDefaultValues();
@@ -132,7 +134,6 @@ public class GamePanel extends JPanel implements Runnable {
         player.restoreLife();
         aSetter.setMonster();
         aSetter.setNPC();
-        player.setItems();
         aSetter.setObject();
     }
     @Override
