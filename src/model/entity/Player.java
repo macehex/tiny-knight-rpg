@@ -509,8 +509,8 @@ public class Player extends Entity {
 
 
     }
-
-    private void attacking() {
+    @Override
+    public void attacking() {
         spriteCounter++;
         if (spriteCounter <= 3) {
             spriteNum = 1;
@@ -748,5 +748,42 @@ public class Player extends Entity {
             System.out.println("Missed attack!");
         }
     }
+    public void damageMonster(int i, Entity attacker, int attack, int knockBackPower)
+    {
+        if(i != 999)
+        {
+            if(gp.monster[gp.currentMap][i].invincible == false)
+            {
+                gp.playSoundEffect(7);   //hitmonster.wav
+
+                if(knockBackPower > 0)
+                {
+                    setKnockBack(gp.monster[gp.currentMap][i], attacker, knockBackPower);
+                }
+                if(gp.monster[gp.currentMap][i].offBalance == true)
+                {
+                    attack *= 2;
+                }
+                int damage = attack - gp.monster[gp.currentMap][i].defense;
+                if(damage <= 0 )
+                {
+                    damage = 1;
+                }
+                gp.monster[gp.currentMap][i].life -= damage;
+                gp.ui.addMessage(damage + " damage!");
+                gp.monster[gp.currentMap][i].invincible = true;
+                gp.monster[gp.currentMap][i].damageReaction();  //run away from player
+
+                if(gp.monster[gp.currentMap][i].life <= 0)
+                {
+                    gp.monster[gp.currentMap][i].dying = true;
+                    gp.ui.addMessage("Killed the " + gp.monster[gp.currentMap][i].name + "!");
+                    gp.ui.addMessage("Exp +" + gp.monster[gp.currentMap][i].exp + "!");
+                    exp += gp.monster[gp.currentMap][i].exp;
+                }
+            }
+        }
+    }
+
 }
 

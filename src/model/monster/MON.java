@@ -1,6 +1,10 @@
 package model.monster;
 import model.entity.Entity;
 import controller.GamePanel;
+import model.object.OBJ_Gold;
+import model.object.OBJ_Key;
+import model.object.OBJ_Potion_Heath_Two;
+
 import java.util.Random;
 public class MON extends Entity{
     GamePanel gp;
@@ -47,14 +51,14 @@ public class MON extends Entity{
     public void update(){
         super.update();
         //check distance between player and slime
-        tileDistance =  getTileDistance();
+        tileDistance =  getTileDistance(gp.player);
         if(!onPath && tileDistance<4){
             int i = new Random().nextInt(100)+1;
             if(i>50){
                 onPath = true;
             }
         }
-        checkStopChasingOrNot(10);
+        checkStopChasingOrNot(gp.player,10,100);
     }
 
 }
