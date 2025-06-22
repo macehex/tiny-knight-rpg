@@ -62,7 +62,7 @@ public class Player extends Entity {
         direction = "idle";
         // PLAYER STATUS
 
-        maxLife = 8;
+        maxLife = 5;
         knockBackPower = 5;
         life = maxLife;
         currentWeapon = new OBJ_SWORD(gp);
