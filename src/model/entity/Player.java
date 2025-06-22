@@ -666,14 +666,6 @@ public class Player extends Entity {
         }
     }
 
-    private void contactWater(int count) {
-        if (!invincible && count > 50) {
-            gp.playSoundEffect(8);
-            life -= 1;
-            invincible = true;
-        }
-
-    }
 
     private void interactNPC(int i) {
         if (i != 999) {
@@ -749,22 +741,7 @@ public class Player extends Entity {
         entity.knockBack = true;
     }
 
-    //    private void damageMonster(int i) {
-//        if (i != 999) {
-//            if (!gp.monster[gp.getCurrentMap()][i].invincible) {
-//                gp.playSoundEffect(9);
-//                gp.monster[gp.getCurrentMap()][i].life -= gp.player.damage;
-//                gp.monster[gp.getCurrentMap()][i].invincible = true;
-//                gp.monster[gp.getCurrentMap()][i].damageReaction();
-//                if (gp.monster[gp.getCurrentMap()][i].life <= 0) {
-//                    gp.monster[gp.getCurrentMap()][i].dying = true;
-//                }
-//            }
-//        } else {
-//            System.out.println("Missed attack!");
-//        }
-//    }
-    public void damageMonster(int i, Entity attacker, int attack, int knockBackPower) {
+    protected void damageMonster(int i, Entity attacker, int attack, int knockBackPower) {
         if (i != 999) {
             if (gp.monster[gp.getCurrentMap()][i].invincible == false) {
                 gp.playSoundEffect(7);   //hitmonster.wav
@@ -794,9 +771,6 @@ public class Player extends Entity {
         }
     }
 
-    public String getDirection() {
-        return direction;
-    }
 
 }
 

@@ -729,6 +729,14 @@ public class Entity {
             attacking = false;
         }
     }
+    public void contactWater(int count) {
+        if (!invincible && count > 50) {
+            gp.playSoundEffect(8);
+            life -= 1;
+            invincible = true;
+        }
+    }
+
     public void damagePlayer(int attack)
     {
         if(!gp.player.invincible)
@@ -786,6 +794,9 @@ public class Entity {
     {
         int goalRow = (target.worldY + target.solidArea.y) / gp.getTileSize();
         return goalRow;
+    }
+    public String getDirection() {
+        return direction;
     }
 
 }
