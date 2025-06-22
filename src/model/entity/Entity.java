@@ -1,7 +1,6 @@
 package model.entity;
 
 import controller.GamePanel;
-import javafx.stage.Screen;
 import model.object.OBJ_Gold;
 import model.object.OBJ_Key;
 import model.object.OBJ_Potion_Heath_Two;
@@ -798,5 +797,13 @@ public class Entity {
     public String getDirection() {
         return direction;
     }
+    public int getMaxLife(){
+        return maxLife;
+    }
 
+
+    public void setMaxLife(int maxLife) {
+         this.maxLife = maxLife;
+
+    }
 }

@@ -62,7 +62,7 @@ public class Player extends Entity {
         direction = "idle";
         // PLAYER STATUS
 
-        maxLife = 5;
+        maxLife = 8;
         knockBackPower = 5;
         life = maxLife;
         currentWeapon = new OBJ_SWORD(gp);
@@ -619,9 +619,9 @@ public class Player extends Entity {
                         break;
                     case "Health Potion 2":
                         gp.playSoundEffect(4);
-                        if (gp.player.life < gp.player.maxLife - 1) {
+                        if (gp.player.life < gp.player.getMaxLife() - 1) {
                             gp.player.life += 2;
-                        } else if (gp.player.life < gp.player.maxLife) {
+                        } else if (gp.player.life < gp.player.getMaxLife()) {
                             gp.player.life++;
                         } else {
                             gp.ui.addMessage("You are already at max life!");

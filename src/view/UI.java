@@ -241,13 +241,14 @@ public class UI {
         int x = gp.getTileSize() / 2;
         int y = gp.getTileSize() / 2;
         int i = 0;
+
         //blank max heart
         g2.drawImage(emblem, x - gp.getTileSize() / 4, y - gp.getTileSize() / 4, null);
         g2.drawImage(heart_background, x + gp.getTileSize() + gp.getTileSize() / 4, y, null);
 
-        double oneScale = (double) (gp.player.maxLife * gp.getTileSize() + gp.getTileSize() * 1.5) / gp.player.maxLife;
-        double hpBarValue = oneScale * gp.player.life;
-
+        double oneScale = (double) (gp.player.getMaxLife() * gp.getTileSize() + gp.getTileSize() * 1.5) / gp.player.getMaxLife();
+//        double hpBarValue = oneScale * gp.player.life;
+        double hpBarValue = Math.min(oneScale * gp.player.life, oneScale * gp.player.getMaxLife());
         x = gp.getTileSize() * 2 + 1;
         y = y + gp.getTileSize() / 5;
 
