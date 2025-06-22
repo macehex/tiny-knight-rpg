@@ -9,7 +9,7 @@ public class OBJ_ChestOpened extends AnimatedEntity {
         super(gp);
         this.gp = gp;
         name ="chestOpened";
-        imageIcon = setupAnimatedGif("/object/chest/chest_32", gp.tileSize, gp.tileSize);
+        imageIcon = setupAnimatedGif("/object/chest/chest_32", gp.getTileSize(), gp.getTileSize());
         collision = true;
     }
 }

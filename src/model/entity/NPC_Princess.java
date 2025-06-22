@@ -15,8 +15,8 @@ public class NPC_Princess extends Entity {
         // Monster HIT BOX
         solidArea.x = 7;
         solidArea.y = 7;
-        solidArea.width = gp.tileSize/2;
-        solidArea.height = gp.tileSize/2;
+        solidArea.width = gp.getTileSize()/2;
+        solidArea.height = gp.getTileSize()/2;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
     }
@@ -24,10 +24,10 @@ public class NPC_Princess extends Entity {
     public void getNPCImage() {
 
 
-        idle1 = setup("/npc/princess/idle1", gp.tileSize , gp.tileSize * 2);
-        idle2 = setup("/npc/princess/idle2", gp.tileSize , gp.tileSize * 2);
-        idle3 = setup("/npc/princess/idle3", gp.tileSize , gp.tileSize * 2);
-        idle4 = setup("/npc/princess/idle4", gp.tileSize , gp.tileSize * 2);
+        idle1 = setup("/npc/princess/idle1", gp.getTileSize() , gp.getTileSize() * 2);
+        idle2 = setup("/npc/princess/idle2", gp.getTileSize() , gp.getTileSize() * 2);
+        idle3 = setup("/npc/princess/idle3", gp.getTileSize() , gp.getTileSize() * 2);
+        idle4 = setup("/npc/princess/idle4", gp.getTileSize() , gp.getTileSize() * 2);
         idle5 = idle1;
         idle6 = idle2;
     }

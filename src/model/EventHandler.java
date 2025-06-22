@@ -11,11 +11,11 @@ public class EventHandler {
 
     public EventHandler(GamePanel gp) {
         this.gp = gp;
-        eventRect = new EventRect[gp.maxMap][gp.maxWorldCol][gp.maxWorldRow];
+        eventRect = new EventRect[gp.getMaxMap()][gp.maxWorldCol][gp.maxWorldRow];
         int col = 0;
         int row = 0;
         int map = 0;
-        while (map < gp.maxMap && col < gp.maxWorldCol && row < gp.maxWorldRow) {
+        while (map < gp.getMaxMap() && col < gp.maxWorldCol && row < gp.maxWorldRow) {
             eventRect[map][col][row] = new EventRect();
             eventRect[map][col][row].x = 23;
             eventRect[map][col][row].y = 23;
@@ -40,7 +40,7 @@ public class EventHandler {
         int xDistance = Math.abs(gp.player.worldX - previousEventX);
         int yDistance = Math.abs(gp.player.worldY - previousEventY);
         int distance = Math.max(xDistance, yDistance);
-        if (distance > gp.tileSize) {
+        if (distance > gp.getTileSize()) {
             canTouchEvent = true;
         }
         if (canTouchEvent) {
@@ -71,12 +71,12 @@ public class EventHandler {
     public boolean hit(int map, int col, int row, String reqDirection) {
         boolean hit = false;
         //Check to see if the passed map is current map
-        if (map == gp.currentMap) {
+        if (map == gp.getCurrentMap()) {
 
             gp.player.solidArea.x = gp.player.worldX + gp.player.solidArea.x;
             gp.player.solidArea.y = gp.player.worldY + gp.player.solidArea.y;
-            eventRect[map][col][row].x = col * gp.tileSize + eventRect[map][col][row].x;
-            eventRect[map][col][row].y = row * gp.tileSize + eventRect[map][col][row].y;
+            eventRect[map][col][row].x = col * gp.getTileSize() + eventRect[map][col][row].x;
+            eventRect[map][col][row].y = row * gp.getTileSize() + eventRect[map][col][row].y;
 
             if (gp.player.solidArea.intersects(eventRect[map][col][row]) && !eventRect[map][col][row].eventDone) {
                 if (gp.player.direction.contentEquals(reqDirection) || reqDirection.contentEquals("any")) {
@@ -97,9 +97,9 @@ public class EventHandler {
     }
 
     public void teleport(int map, int col, int row) {
-        gp.currentMap = map;
-        gp.player.worldX = col * gp.tileSize;
-        gp.player.worldY = row * gp.tileSize;
+        gp.setCurrentMap(map);
+        gp.player.worldX = col * gp.getTileSize();
+        gp.player.worldY = row * gp.getTileSize();
         previousEventX = gp.player.worldX;
         previousEventY = gp.player.worldY;
         canTouchEvent = false;

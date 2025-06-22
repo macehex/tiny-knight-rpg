@@ -214,8 +214,8 @@ public class AssetSetter {
         // Loop to create and place each object
         for (int i = 0; i < objectSuppliers.length; i++) {
             gp.obj[mapNum][i] = objectSuppliers[i].get();
-            gp.obj[mapNum][i].worldX = objectCoords[i][0] * gp.tileSize;
-            gp.obj[mapNum][i].worldY = objectCoords[i][1] * gp.tileSize;
+            gp.obj[mapNum][i].worldX = objectCoords[i][0] * gp.getTileSize();
+            gp.obj[mapNum][i].worldY = objectCoords[i][1] * gp.getTileSize();
         }
 
 
@@ -242,8 +242,8 @@ public class AssetSetter {
         for (int mapNum = 0; mapNum < npcCoords.length; mapNum++) {
             for (int i = 0; i < npcCoords[mapNum].length; i++) {
                 gp.npc[mapNum][i] = npcSuppliers[mapNum].get();
-                gp.npc[mapNum][i].worldX = gp.tileSize * npcCoords[mapNum][i][0];
-                gp.npc[mapNum][i].worldY = gp.tileSize * npcCoords[mapNum][i][1];
+                gp.npc[mapNum][i].worldX = gp.getTileSize() * npcCoords[mapNum][i][0];
+                gp.npc[mapNum][i].worldY = gp.getTileSize() * npcCoords[mapNum][i][1];
             }
         }
     }
@@ -279,8 +279,8 @@ public class AssetSetter {
         for (int mapNum = 0; mapNum < mapMonsters.length; mapNum++) {
             for (int i = 0; i < mapMonsters[mapNum].length; i++) {
                 gp.monster[mapNum][i] = (Entity) mapMonsters[mapNum][i][0];
-                gp.monster[mapNum][i].worldX = gp.tileSize * (int) mapMonsters[mapNum][i][1];
-                gp.monster[mapNum][i].worldY = gp.tileSize * (int) mapMonsters[mapNum][i][2];
+                gp.monster[mapNum][i].worldX = gp.getTileSize() * (int) mapMonsters[mapNum][i][1];
+                gp.monster[mapNum][i].worldY = gp.getTileSize() * (int) mapMonsters[mapNum][i][2];
             }
         }
     }
@@ -302,8 +302,8 @@ public class AssetSetter {
         // Loop through ladder coordinates and set them
         for (int i = 0; i < ladderCoords.length; i++) {
             gp.obj[mapNum][i] = ladderSupplier.get();
-            gp.obj[mapNum][i].worldX = ladderCoords[i][0] * gp.tileSize;
-            gp.obj[mapNum][i].worldY = ladderCoords[i][1] * gp.tileSize;
+            gp.obj[mapNum][i].worldX = ladderCoords[i][0] * gp.getTileSize();
+            gp.obj[mapNum][i].worldY = ladderCoords[i][1] * gp.getTileSize();
         }
     }
 
@@ -344,8 +344,8 @@ public class AssetSetter {
         // Loop to create and place each potion
         for (int i = 0; i < potionSuppliers.length; i++) {
             gp.obj[mapNum][i] = potionSuppliers[i].get();
-            gp.obj[mapNum][i].worldX = potionCoords[i][0] * gp.tileSize;
-            gp.obj[mapNum][i].worldY = potionCoords[i][1] * gp.tileSize;
+            gp.obj[mapNum][i].worldX = potionCoords[i][0] * gp.getTileSize();
+            gp.obj[mapNum][i].worldY = potionCoords[i][1] * gp.getTileSize();
         }
     }
 

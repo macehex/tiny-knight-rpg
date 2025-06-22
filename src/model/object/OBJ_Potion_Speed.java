@@ -9,7 +9,7 @@ public class OBJ_Potion_Speed extends AnimatedEntity {
         super(gp);
         this.gp = gp;
         name ="Health Potion 2";
-        imageIcon = setupAnimatedGif("/object/consumable/green_potion", gp.tileSize, gp.tileSize);
+        imageIcon = setupAnimatedGif("/object/consumable/green_potion", gp.getTileSize(), gp.getTileSize());
         collision = false;
     }
 }

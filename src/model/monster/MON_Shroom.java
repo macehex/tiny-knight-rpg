@@ -28,7 +28,7 @@ public class MON_Shroom extends MON {
         getImage();
     }
 
-    private void getImage() {
+    public void getImage() {
         up1 = setup("/enemies/shroom/idle/shroom1");
         up2 = setup("/enemies/shroom/idle/shroom2");
         up3 = setup("/enemies/shroom/idle/shroom3");
@@ -65,7 +65,7 @@ public class MON_Shroom extends MON {
         idle6 = setup("/enemies/shroom/idle/shroom6");
 
     }
-    private void getAngryImage(){
+    public void getAttackImage(){
         up1 = setup("/enemies/shroom/angry/shroom1");
         up2 = setup("/enemies/shroom/angry/shroom2");
         up3 = setup("/enemies/shroom/angry/shroom3");
@@ -100,7 +100,7 @@ public class MON_Shroom extends MON {
         actionLockCounter = 0;
          speed =2;
         onPath = true;
-        getAngryImage();
+        getAttackImage();
     }
 
 }

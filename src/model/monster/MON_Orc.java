@@ -40,25 +40,25 @@ public class MON_Orc extends MON {
     }
 
     public void getImage() {
-        up1 = setup("/enemies/orc/orc_up_1", gp.tileSize, gp.tileSize);
-        up2 = setup("/enemies/orc/orc_up_2", gp.tileSize, gp.tileSize);
-        down1 = setup("/enemies/orc/orc_down_1", gp.tileSize, gp.tileSize);
-        down2 = setup("/enemies/orc/orc_down_2", gp.tileSize, gp.tileSize);
-        left1 = setup("/enemies/orc/orc_left_1", gp.tileSize, gp.tileSize);
-        left2 = setup("/enemies/orc/orc_left_2", gp.tileSize, gp.tileSize);
-        right1 = setup("/enemies/orc/orc_right_1", gp.tileSize, gp.tileSize);
-        right2 = setup("/enemies/orc/orc_right_2", gp.tileSize, gp.tileSize);
+        up1 = setup("/enemies/orc/orc_up_1", gp.getTileSize(), gp.getTileSize());
+        up2 = setup("/enemies/orc/orc_up_2", gp.getTileSize(), gp.getTileSize());
+        down1 = setup("/enemies/orc/orc_down_1", gp.getTileSize(), gp.getTileSize());
+        down2 = setup("/enemies/orc/orc_down_2", gp.getTileSize(), gp.getTileSize());
+        left1 = setup("/enemies/orc/orc_left_1", gp.getTileSize(), gp.getTileSize());
+        left2 = setup("/enemies/orc/orc_left_2", gp.getTileSize(), gp.getTileSize());
+        right1 = setup("/enemies/orc/orc_right_1", gp.getTileSize(), gp.getTileSize());
+        right2 = setup("/enemies/orc/orc_right_2", gp.getTileSize(), gp.getTileSize());
     }
 
     public void getAttackImage() {
-        attackUp1 = setup("/enemies/orc/orc_attack_up_1", gp.tileSize, gp.tileSize * 2);
-        attackUp2 = setup("/enemies/orc/orc_attack_up_2", gp.tileSize, gp.tileSize * 2);
-        attackDown1 = setup("/enemies/orc/orc_attack_down_1", gp.tileSize, gp.tileSize * 2);
-        attackDown2 = setup("/enemies/orc/orc_attack_down_2", gp.tileSize, gp.tileSize * 2);
-        attackLeft1 = setup("/enemies/orc/orc_attack_left_1", gp.tileSize * 2, gp.tileSize);
-        attackLeft2 = setup("/enemies/orc/orc_attack_left_2", gp.tileSize * 2, gp.tileSize);
-        attackRight1 = setup("/enemies/orc/orc_attack_right_1", gp.tileSize * 2, gp.tileSize);
-        attackRight2 = setup("/enemies/orc/orc_attack_right_2", gp.tileSize * 2, gp.tileSize);
+        attackUp1 = setup("/enemies/orc/orc_attack_up_1", gp.getTileSize(), gp.getTileSize() * 2);
+        attackUp2 = setup("/enemies/orc/orc_attack_up_2", gp.getTileSize(), gp.getTileSize() * 2);
+        attackDown1 = setup("/enemies/orc/orc_attack_down_1", gp.getTileSize(), gp.getTileSize() * 2);
+        attackDown2 = setup("/enemies/orc/orc_attack_down_2", gp.getTileSize(), gp.getTileSize() * 2);
+        attackLeft1 = setup("/enemies/orc/orc_attack_left_1", gp.getTileSize() * 2, gp.getTileSize());
+        attackLeft2 = setup("/enemies/orc/orc_attack_left_2", gp.getTileSize() * 2, gp.getTileSize());
+        attackRight1 = setup("/enemies/orc/orc_attack_right_1", gp.getTileSize() * 2, gp.getTileSize());
+        attackRight2 = setup("/enemies/orc/orc_attack_right_2", gp.getTileSize() * 2, gp.getTileSize());
     }
 
 

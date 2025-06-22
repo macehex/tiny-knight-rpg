@@ -1,12 +1,9 @@
 package model.monster;
 import model.entity.Entity;
 import controller.GamePanel;
-import model.object.OBJ_Gold;
-import model.object.OBJ_Key;
-import model.object.OBJ_Potion_Heath_Two;
 
-import java.util.Random;
-public class MON extends Entity{
+
+public abstract class MON extends Entity{
     GamePanel gp;
     public MON(GamePanel gp) {
         super(gp);
@@ -14,10 +11,9 @@ public class MON extends Entity{
         getDyingImages();
 
     }
-
+    public abstract void getImage();
+    public abstract void getAttackImage();
     public void setAction() {
-
-
         if (onPath) {
             //Check if it stops chasing
             checkStopChasingOrNot(gp.player, 10, 100);
@@ -33,7 +29,7 @@ public class MON extends Entity{
 
         //Check if it is attacks
         if (attacking == false) {
-            checkAttackOrNot(30, gp.tileSize * 4, gp.tileSize);
+            checkAttackOrNot(30, gp.getTileSize() * 4, gp.getTileSize());
         }
     }
 

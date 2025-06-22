@@ -16,8 +16,8 @@ public class NPC extends Entity {
         // Monster HIT BOX
         solidArea.x = 7;
         solidArea.y = 7;
-        solidArea.width = gp.tileSize/2;
-        solidArea.height = gp.tileSize/2;
+        solidArea.width = gp.getTileSize()/2;
+        solidArea.height = gp.getTileSize()/2;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
 
@@ -25,38 +25,38 @@ public class NPC extends Entity {
 
     private void getNPCImage() {
 
-        up1 = setup("/npc/u1", gp.tileSize , gp.tileSize * 2);
-        up2 = setup("/npc/u2", gp.tileSize , gp.tileSize * 2);
-        up3 = setup("/npc/u3", gp.tileSize , gp.tileSize * 2);
-        up4 = setup("/npc/u4", gp.tileSize , gp.tileSize * 2);
+        up1 = setup("/npc/u1", gp.getTileSize() , gp.getTileSize() * 2);
+        up2 = setup("/npc/u2", gp.getTileSize() , gp.getTileSize() * 2);
+        up3 = setup("/npc/u3", gp.getTileSize() , gp.getTileSize() * 2);
+        up4 = setup("/npc/u4", gp.getTileSize() , gp.getTileSize() * 2);
         up5 = up1;
         up6 = up2;
 
-        down1 = setup("/npc/d1", gp.tileSize , gp.tileSize * 2);
-        down2 = setup("/npc/d2", gp.tileSize , gp.tileSize * 2);
-        down3 = setup("/npc/d3", gp.tileSize , gp.tileSize * 2);
-        down4 = setup("/npc/d4", gp.tileSize , gp.tileSize * 2);
+        down1 = setup("/npc/d1", gp.getTileSize() , gp.getTileSize() * 2);
+        down2 = setup("/npc/d2", gp.getTileSize() , gp.getTileSize() * 2);
+        down3 = setup("/npc/d3", gp.getTileSize() , gp.getTileSize() * 2);
+        down4 = setup("/npc/d4", gp.getTileSize() , gp.getTileSize() * 2);
         down5 = down1;
         down6 = down2;
 
-        left1 = setup("/npc/l1", gp.tileSize , gp.tileSize * 2);
-        left2 = setup("/npc/l2", gp.tileSize , gp.tileSize * 2);
-        left3 = setup("/npc/l3", gp.tileSize , gp.tileSize * 2);
-        left4 = setup("/npc/l4", gp.tileSize , gp.tileSize * 2);
+        left1 = setup("/npc/l1", gp.getTileSize() , gp.getTileSize() * 2);
+        left2 = setup("/npc/l2", gp.getTileSize() , gp.getTileSize() * 2);
+        left3 = setup("/npc/l3", gp.getTileSize() , gp.getTileSize() * 2);
+        left4 = setup("/npc/l4", gp.getTileSize() , gp.getTileSize() * 2);
         left5=left1;
         left6 = left2;
 
-        right1 = setup("/npc/r1", gp.tileSize , gp.tileSize * 2);
-        right2 = setup("/npc/r2", gp.tileSize , gp.tileSize * 2);
-        right3 = setup("/npc/r3", gp.tileSize , gp.tileSize * 2);
-        right4 = setup("/npc/r4", gp.tileSize , gp.tileSize * 2);
+        right1 = setup("/npc/r1", gp.getTileSize() , gp.getTileSize() * 2);
+        right2 = setup("/npc/r2", gp.getTileSize() , gp.getTileSize() * 2);
+        right3 = setup("/npc/r3", gp.getTileSize() , gp.getTileSize() * 2);
+        right4 = setup("/npc/r4", gp.getTileSize() , gp.getTileSize() * 2);
         right5 = right1;
         right6 = right2;
 
-        idle1 = setup("/npc/idle1", gp.tileSize , gp.tileSize * 2);
-        idle2 = setup("/npc/idle2", gp.tileSize , gp.tileSize * 2);
-        idle3 = setup("/npc/idle3", gp.tileSize , gp.tileSize * 2);
-        idle4 = setup("/npc/idle4", gp.tileSize , gp.tileSize * 2);
+        idle1 = setup("/npc/idle1", gp.getTileSize() , gp.getTileSize() * 2);
+        idle2 = setup("/npc/idle2", gp.getTileSize() , gp.getTileSize() * 2);
+        idle3 = setup("/npc/idle3", gp.getTileSize() , gp.getTileSize() * 2);
+        idle4 = setup("/npc/idle4", gp.getTileSize() , gp.getTileSize() * 2);
         idle5 = idle1;
         idle6 = idle2;
     }
@@ -75,8 +75,8 @@ public class NPC extends Entity {
         //set NPC behavior & AI
         if (onPath) {
             speed =1;
-            int goalCol = (gp.player.worldX + gp.player.solidArea.x) / gp.tileSize;
-            int goalRow = (gp.player.worldY + gp.player.solidArea.y) / gp.tileSize;
+            int goalCol = (gp.player.worldX + gp.player.solidArea.x) / gp.getTileSize();
+            int goalRow = (gp.player.worldY + gp.player.solidArea.y) / gp.getTileSize();
 
             searchPath(goalCol, goalRow);
 

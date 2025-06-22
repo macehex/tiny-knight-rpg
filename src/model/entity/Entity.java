@@ -236,10 +236,10 @@ public class Entity {
         int screenX = worldX - gp.player.worldX + gp.player.screenX;
         int screenY = worldY - gp.player.worldY + gp.player.screenY;
         // dont draw all of the view.tiles
-        if (worldX + gp.tileSize > gp.player.worldX - gp.player.screenX &&
-                worldX - gp.tileSize < gp.player.worldX + gp.player.screenX &&
-                worldY + gp.tileSize > gp.player.worldY - gp.player.screenY &&
-                worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
+        if (worldX + gp.getTileSize() > gp.player.worldX - gp.player.screenX &&
+                worldX - gp.getTileSize() < gp.player.worldX + gp.player.screenX &&
+                worldY + gp.getTileSize() > gp.player.worldY - gp.player.screenY &&
+                worldY - gp.getTileSize() < gp.player.worldY + gp.player.screenY) {
             switch (direction) {
                 case "idle":
                     image = switch (spriteNum) {
@@ -300,13 +300,13 @@ public class Entity {
             // Monster health bar
             if (type == 2 && hpBarOn) {
 
-                double oneScale = ((double) gp.tileSize / maxLife);
+                double oneScale = ((double) gp.getTileSize() / maxLife);
                 double hpBarValue = oneScale * life;
 
                 g2.setColor(new Color(35, 35, 35));
-                g2.fillRoundRect(screenX - 1, screenY - gp.tileSize / 5 - 1, gp.tileSize + 2, gp.tileSize / 5 + 2, 2, 2);
+                g2.fillRoundRect(screenX - 1, screenY - gp.getTileSize() / 5 - 1, gp.getTileSize() + 2, gp.getTileSize() / 5 + 2, 2, 2);
                 g2.setColor(new Color(219, 92, 92));
-                g2.fillRoundRect(screenX, screenY - gp.tileSize / 5, (int) hpBarValue, gp.tileSize / 5, 1, 1);
+                g2.fillRoundRect(screenX, screenY - gp.getTileSize() / 5, (int) hpBarValue, gp.getTileSize() / 5, 1, 1);
                 hpBarCounter++;
                 if (hpBarCounter > 480) {
                     hpBarCounter = 0;
@@ -328,7 +328,7 @@ public class Entity {
                 dyingAnimation(g2, screenX, screenY);
 
             } else {
-                g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+                g2.drawImage(image, screenX, screenY, gp.getTileSize(), gp.getTileSize(), null);
                 g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
             }
 
@@ -353,7 +353,7 @@ public class Entity {
             dying = false;
             alive = false;
         }
-        g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(image, screenX, screenY, gp.getTileSize(), gp.getTileSize(), null);
 
     }
 
@@ -384,7 +384,7 @@ public class Entity {
         BufferedImage image = null;
         try {
             image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(imagePath + ".png")));
-            image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
+            image = uTool.scaleImage(image, gp.getTileSize(), gp.getTileSize());
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -393,20 +393,20 @@ public class Entity {
     }
 
     public void getDyingImages() {
-        dead1 = setup("/effects/dead/Dead1", gp.tileSize * 2, gp.tileSize * 2);
-        dead2 = setup("/effects/dead/Dead2", gp.tileSize * 2, gp.tileSize * 2);
-        dead3 = setup("/effects/dead/Dead3", gp.tileSize * 2, gp.tileSize * 2);
-        dead4 = setup("/effects/dead/Dead4", gp.tileSize * 2, gp.tileSize * 2);
-        dead5 = setup("/effects/dead/Dead5", gp.tileSize * 2, gp.tileSize * 2);
-        dead6 = setup("/effects/dead/Dead6", gp.tileSize * 2, gp.tileSize * 2);
-        dead7 = setup("/effects/dead/Dead7", gp.tileSize * 2, gp.tileSize * 2);
-        dead8 = setup("/effects/dead/Dead8", gp.tileSize * 2, gp.tileSize * 2);
-        dead9 = setup("/effects/dead/Dead9", gp.tileSize * 2, gp.tileSize * 2);
-        dead10 = setup("/effects/dead/Dead10", gp.tileSize * 2, gp.tileSize * 2);
-        dead11 = setup("/effects/dead/Dead11", gp.tileSize * 2, gp.tileSize * 2);
-        dead12 = setup("/effects/dead/Dead12", gp.tileSize * 2, gp.tileSize * 2);
-        dead13 = setup("/effects/dead/Dead13", gp.tileSize * 2, gp.tileSize * 2);
-        dead14 = setup("/effects/dead/Dead14", gp.tileSize * 2, gp.tileSize * 2);
+        dead1 = setup("/effects/dead/Dead1", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        dead2 = setup("/effects/dead/Dead2", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        dead3 = setup("/effects/dead/Dead3", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        dead4 = setup("/effects/dead/Dead4", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        dead5 = setup("/effects/dead/Dead5", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        dead6 = setup("/effects/dead/Dead6", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        dead7 = setup("/effects/dead/Dead7", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        dead8 = setup("/effects/dead/Dead8", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        dead9 = setup("/effects/dead/Dead9", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        dead10 = setup("/effects/dead/Dead10", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        dead11 = setup("/effects/dead/Dead11", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        dead12 = setup("/effects/dead/Dead12", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        dead13 = setup("/effects/dead/Dead13", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        dead14 = setup("/effects/dead/Dead14", gp.getTileSize() * 2, gp.getTileSize() * 2);
     }
 
     public void checkCollision() {
@@ -428,15 +428,15 @@ public class Entity {
     }
 
     public void searchPath(int goalCol, int goalRow) {
-        int startCol = (worldX + solidArea.x) / gp.tileSize;
-        int startRow = (worldY + solidArea.y) / gp.tileSize;
+        int startCol = (worldX + solidArea.x) / gp.getTileSize();
+        int startRow = (worldY + solidArea.y) / gp.getTileSize();
 
         gp.pFinder.setNodes(startCol, startRow, goalCol, goalRow);
 
         if (gp.pFinder.search()) {
             // NEXT WORLD X / Y
-            int nextX = gp.pFinder.pathList.get(0).col * gp.tileSize;
-            int nextY = gp.pFinder.pathList.get(0).row * gp.tileSize;
+            int nextX = gp.pFinder.pathList.get(0).col * gp.getTileSize();
+            int nextY = gp.pFinder.pathList.get(0).row * gp.getTileSize();
 
             // ENTITY SOLID AREA POSITION
             int enLeftX = worldX + solidArea.x;
@@ -444,11 +444,11 @@ public class Entity {
             int enTopY = worldY + solidArea.y;
             int enBottomY = worldY + solidArea.y + solidArea.height;
 
-            if (enTopY > nextY && enLeftX >= nextX && enRightX < nextX + gp.tileSize) {
+            if (enTopY > nextY && enLeftX >= nextX && enRightX < nextX + gp.getTileSize()) {
                 direction = "up";
-            } else if (enTopY < nextY && enLeftX >= nextX && enRightX < nextX + gp.tileSize) {
+            } else if (enTopY < nextY && enLeftX >= nextX && enRightX < nextX + gp.getTileSize()) {
                 direction = "down";
-            } else if (enTopY >= nextY && enBottomY < nextY + gp.tileSize) {
+            } else if (enTopY >= nextY && enBottomY < nextY + gp.getTileSize()) {
                 // LEFT OR RIGHT
                 if (enLeftX > nextX) {
                     direction = "left";
@@ -523,7 +523,7 @@ public class Entity {
 
     public int getTileDistance(Entity target)
     {
-        int tileDistance = (getXdistance(target) + getYdistance(target))/gp.tileSize;
+        int tileDistance = (getXdistance(target) + getYdistance(target))/gp.getTileSize();
         return tileDistance;
     }
 
@@ -594,11 +594,11 @@ public class Entity {
     {
         for(int i = 0; i < gp.obj[1].length; i++)
         {
-            if(gp.obj[gp.currentMap][i] == null)
+            if(gp.obj[gp.getCurrentMap()][i] == null)
             {
-                gp.obj[gp.currentMap][i] = droppedItem;
-                gp.obj[gp.currentMap][i].worldX = worldX;  //the dead monster's worldX
-                gp.obj[gp.currentMap][i].worldY = worldY;  //the dead monster's worldY
+                gp.obj[gp.getCurrentMap()][i] = droppedItem;
+                gp.obj[gp.getCurrentMap()][i].worldX = worldX;  //the dead monster's worldX
+                gp.obj[gp.getCurrentMap()][i].worldY = worldY;  //the dead monster's worldY
                 break; //end loop after finding empty slot on array
             }
         }
@@ -688,9 +688,9 @@ public class Entity {
             switch (direction)
             {
                 case "up": worldY -= attackArea.height; break;                 //attackArea's size
-                case "down" : worldY += gp.tileSize; break;                    //gp.tileSize(player's size)
+                case "down" : worldY += gp.getTileSize(); break;                    //gp.getTileSize()(player's size)
                 case "left" : worldX -= attackArea.width; break;               //attackArea's size
-                case "right" : worldX += gp.tileSize; break;                   //gp.tileSize(player's size)
+                case "right" : worldX += gp.getTileSize(); break;                   //gp.getTileSize()(player's size)
             }
 
             //attackArea becomes solidArea
@@ -779,13 +779,13 @@ public class Entity {
 
     public int getGoalCol(Entity target)
     {
-        int goalCol = (target.worldX + target.solidArea.x) / gp.tileSize;
+        int goalCol = (target.worldX + target.solidArea.x) / gp.getTileSize();
         return goalCol;
 
     }
     public int getGoalRow(Entity target)
     {
-        int goalRow = (target.worldY + target.solidArea.y) / gp.tileSize;
+        int goalRow = (target.worldY + target.solidArea.y) / gp.getTileSize();
         return goalRow;
     }
 

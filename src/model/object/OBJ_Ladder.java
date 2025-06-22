@@ -10,7 +10,7 @@ public class OBJ_Ladder extends AnimatedEntity {
         this.gp = gp;
         name ="Ladder";
         down1 = setup("/object/ladder");
-        imageIcon = setupAnimatedGif("/object/ladder", gp.tileSize, gp.tileSize);
+        imageIcon = setupAnimatedGif("/object/ladder", gp.getTileSize(), gp.getTileSize());
         collision = false;
         description = "[" + name + "]\nUse this ladder\nto get over big gaps.";
 

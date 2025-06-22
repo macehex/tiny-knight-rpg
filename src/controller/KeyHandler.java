@@ -34,9 +34,9 @@ public class KeyHandler implements KeyListener {
                     case KeyEvent.VK_O -> checkDrawTime = true;
                     case KeyEvent.VK_ENTER -> enterPressed = true;
                     case KeyEvent.VK_R -> {
-                        if (gp.currentMap == 0) {
+                        if (gp.getCurrentMap() == 0) {
                             gp.tileM.loadMap("/maps/map2/map2.txt", 0);
-                        } else if (gp.currentMap == 1) {
+                        } else if (gp.getCurrentMap() == 1) {
                             gp.tileM.loadMap("/map/map2/map2_second.txt", 1);
                         }
 

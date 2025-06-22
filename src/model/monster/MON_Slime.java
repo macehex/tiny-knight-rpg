@@ -28,7 +28,7 @@ public class MON_Slime extends MON{
         getImage();
     }
 
-    private void getImage() {
+    public void getImage() {
 
         left1 = setup("/enemies/slime/l1");
         left2 = setup("/enemies/slime/l2");
@@ -64,6 +64,10 @@ public class MON_Slime extends MON{
         down5 = idle5;
         down6 = idle6;
 
+    }
+
+    @Override
+    public void getAttackImage() {
     }
 
 }

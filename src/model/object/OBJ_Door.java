@@ -22,9 +22,9 @@ public class OBJ_Door extends Entity {
         BufferedImage bottomLeft = loadTile("/object/door/bottomleft");
         BufferedImage bottomRight = loadTile("/object/door/bottomright");
 
-        image = composeDoor(topLeft, topRight, midLeft, midRight, bottomLeft, bottomRight, gp.tileSize);
+        image = composeDoor(topLeft, topRight, midLeft, midRight, bottomLeft, bottomRight, gp.getTileSize());
         collision = true;
-        solidArea = new Rectangle(0, 0, gp.tileSize * 2, gp.tileSize * 3);
+        solidArea = new Rectangle(0, 0, gp.getTileSize() * 2, gp.getTileSize() * 3);
     }
 
     protected BufferedImage loadTile(String path) {
@@ -61,11 +61,11 @@ public class OBJ_Door extends Entity {
     public void draw(Graphics2D g2) {
         int screenX = worldX - gp.player.worldX + gp.player.screenX;
         int screenY = worldY - gp.player.worldY + gp.player.screenY;
-        if (worldX + gp.tileSize * 2 > gp.player.worldX - gp.player.screenX &&
-                worldX - gp.tileSize * 2 < gp.player.worldX + gp.player.screenX &&
-                worldY + gp.tileSize * 3 > gp.player.worldY - gp.player.screenY &&
-                worldY - gp.tileSize * 3 < gp.player.worldY + gp.player.screenY) {
-            g2.drawImage(image, screenX, screenY, gp.tileSize * 2, gp.tileSize * 3, null);
+        if (worldX + gp.getTileSize() * 2 > gp.player.worldX - gp.player.screenX &&
+                worldX - gp.getTileSize() * 2 < gp.player.worldX + gp.player.screenX &&
+                worldY + gp.getTileSize() * 3 > gp.player.worldY - gp.player.screenY &&
+                worldY - gp.getTileSize() * 3 < gp.player.worldY + gp.player.screenY) {
+            g2.drawImage(image, screenX, screenY, gp.getTileSize() * 2, gp.getTileSize() * 3, null);
         }
     }
 }

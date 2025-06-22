@@ -20,33 +20,32 @@ import javax.swing.JPanel;
 
 public class GamePanel extends JPanel implements Runnable {
     // SCREEN SETTINGS
-    public final int originalTileSize = 16; // 16x16 tile
+    private final int originalTileSize = 16; // 16x16 tile
     //scale to screen
-    public final int scale = 3;
-    public final int tileSize = originalTileSize * scale;
+    private final int scale = 3;
+    private final int tileSize = originalTileSize * scale;
     //remember to scale characters and objects too
     // how many view.tiles can be displayed on a screen
-    public final int maxScreenCol = 20;
-    public final int maxScreenRow = 12; // ~ 16:9
+    private final int maxScreenCol = 20;
+    private final int maxScreenRow = 12; // ~ 16:9
     public final int screenWidth = tileSize * maxScreenCol;  //16*16*3 = 768
     public final int screenHeight = tileSize * maxScreenRow; //12*16*3 = 576
-//    FULLSCREEN MODE
+
+    // GAME WORLD SETTINGS:
+    public final int maxWorldCol = 100;
+    public final int maxWorldRow = 55;
+    private final int maxMap = 10;
+    private int currentMap = 0;
+
+    //Setting the
+    private int FPS = 60;
+
+    //    FULLSCREEN MODE
     public boolean fullScreenOn = false;
     public int screenWidth2 = screenWidth;
     public int screenHeight2 = screenHeight;
     BufferedImage tempScreen;
     Graphics2D g2;
-
-    // GAME WORLD SETTINGS:
-    public final int maxWorldCol = 100;
-    public final int maxWorldRow = 55;
-//    public final int worldWidth = tileSize * maxWorldCol;
-//    public final int worldHeight = tileSize * maxWorldRow;
-    public final int maxMap = 10;
-    public int currentMap = 0;
-
-    //Setting the
-    int FPS = 60;
 
     //Tile
     public TileManager tileM = new TileManager(this);
@@ -97,16 +96,9 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void setupGame() {
 
-//        playMusic(6);
-//        stopMusic();
         //DEFAULT
-//        gameState = titleState;
+
         gameState = titleState;
-
-//        aSetter.setObject(); //calling setobject method
-//        aSetter.setNPC();
-////        aSetter.setMonster();
-
         //fullscreen processing
         tempScreen = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB);
         g2 = (Graphics2D)tempScreen.getGraphics();
@@ -310,5 +302,14 @@ public class GamePanel extends JPanel implements Runnable {
     }
     public int getScreenHeight(){
         return screenHeight;
+    }
+    public int getTileSize(){
+        return tileSize;}
+
+    public void setCurrentMap(int map) {
+        currentMap = map;
+    }
+    public int getMaxMap() {
+        return maxMap;
     }
 }

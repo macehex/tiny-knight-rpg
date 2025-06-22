@@ -20,8 +20,8 @@ public class OBJ_Spikes extends AnimatedEntity {
         // Spikes HIT BOX
         solidArea.x = 8;
         solidArea.y = 8;
-        solidArea.width = gp.tileSize-solidArea.x;
-        solidArea.height = gp.tileSize-solidArea.y;
+        solidArea.width = gp.getTileSize()-solidArea.x;
+        solidArea.height = gp.getTileSize()-solidArea.y;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
 
