@@ -32,11 +32,11 @@ public class Player extends Entity {
         isSwim = false;
         this.keyH = keyH;
 
-        screenX = gp.getScreenWidth() / 2 - gp.getTileSize() / 2;
-        screenY = gp.getScreenHeight() / 2 - gp.getTileSize() / 2;
+        screenX = gp.getScreenX();
+        screenY = gp.getScreenY();
 
-        solidArea = new Rectangle();
         // PLAYER HIT BOX
+        solidArea = new Rectangle();
         solidArea.x = 40;
         solidArea.y = 28;
         solidArea.width = 16;
@@ -46,8 +46,8 @@ public class Player extends Entity {
 
         attackArea.width = 48;
         attackArea.height = 48;
+
         setDefaultValues();
-        knockBackPower = 5;
         getPlayerImage();
         getPlayerAttackImage();
         getPlayerSwimmingImage();
@@ -58,10 +58,12 @@ public class Player extends Entity {
         // PLACEHOLDER
         worldX = gp.getTileSize() * 12; //CHANGE LATER ASAP
         worldY = gp.getTileSize() * 33;
-        speed = 8;
+        setNotSwimming();
         direction = "idle";
         // PLAYER STATUS
+
         maxLife = 5;
+        knockBackPower = 5;
         life = maxLife;
         currentWeapon = new OBJ_SWORD(gp);
         hasKey = 0;
@@ -683,9 +685,6 @@ public class Player extends Entity {
         }
     }
 
-    private void interactKing(int i) {
-        gp.gameState = gp.dialogueState;
-    }
 
     private void checkSwimming() {
         int tileNum = gp.tileM.mapTileNum[gp.getCurrentMap()][worldX / gp.getTileSize()][worldY / gp.getTileSize()];
@@ -695,10 +694,13 @@ public class Player extends Entity {
             counterWater++;
             contactWater(counterWater);
         } else {
-            isSwim = false;
-            speed = 8;
-            counterWater = 0;
+            setNotSwimming();
         }
+    }
+    private void setNotSwimming() {
+        isSwim = false;
+        speed = 8;
+        counterWater = 0;
     }
 
     private void checkAttacking() {

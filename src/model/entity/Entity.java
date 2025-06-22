@@ -73,7 +73,7 @@ public class Entity {
     int dialogueIndex = 0;
 
     //Character and monster  status
-    public int type; // 0 - player, 1 = npc, 2 = shroom
+    public int type; // 0 - player, 1 = npc, 2 = monster
 
     public int maxLife;
     public int life;
@@ -86,7 +86,6 @@ public class Entity {
     public int defenseValue;
     public String description = "";
     // AI pathfinding
-
     public boolean onPath = false;
 
     //different model.entity: npc

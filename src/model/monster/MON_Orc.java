@@ -15,7 +15,7 @@ public class MON_Orc extends MON {
 
         type = 2;
         name = "Orc";
-        defaultSpeed = 1;
+
         speed = defaultSpeed;
         maxLife = 8;
         life = maxLife;

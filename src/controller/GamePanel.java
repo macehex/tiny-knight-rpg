@@ -318,4 +318,10 @@ public class GamePanel extends JPanel implements Runnable {
     public int getMaxWorldRow(){
         return maxWorldRow;
     }
+    public int getScreenX(){
+        return  getScreenWidth() / 2 - getTileSize() / 2;
+    }
+    public int getScreenY(){
+        return  getScreenHeight() / 2 - getTileSize() / 2;
+    }
 }

@@ -9,7 +9,7 @@ public abstract class MON extends Entity{
         super(gp);
         this.gp = gp;
         getDyingImages();
-
+        defaultSpeed = 1;
     }
     public abstract void getImage();
     public abstract void getAttackImage();
