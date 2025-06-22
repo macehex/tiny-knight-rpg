@@ -23,16 +23,17 @@ public class Player extends Entity {
     public ArrayList<Entity> inventory = new ArrayList<>();
     public final int maxInventorySize = 24;
     private boolean isSwim;
-    private int counterWater=0;
+    private int counterWater = 0;
     private int tempX;
     private int tempY;
+
     public Player(GamePanel gp, KeyHandler keyH) {
         super(gp);
         isSwim = false;
         this.keyH = keyH;
 
-        screenX = gp.screenWidth / 2 - gp.getTileSize() / 2;
-        screenY = gp.screenHeight / 2 - gp.getTileSize() / 2;
+        screenX = gp.getScreenWidth() / 2 - gp.getTileSize() / 2;
+        screenY = gp.getScreenHeight() / 2 - gp.getTileSize() / 2;
 
         solidArea = new Rectangle();
         // PLAYER HIT BOX
@@ -56,7 +57,7 @@ public class Player extends Entity {
     public void setDefaultValues() {
         // PLACEHOLDER
         worldX = gp.getTileSize() * 12; //CHANGE LATER ASAP
-        worldY = gp.getTileSize()  * 33;
+        worldY = gp.getTileSize() * 33;
         speed = 8;
         direction = "idle";
         // PLAYER STATUS
@@ -68,92 +69,96 @@ public class Player extends Entity {
         gold = 0;
 
     }
-    public void setDefaultPosition(){
-        worldX = gp.getTileSize()  * 12; //CHANGE LATER ASAP
-        worldY = gp.getTileSize()  * 33;
+
+    public void setDefaultPosition() {
+        worldX = gp.getTileSize() * 12; //CHANGE LATER ASAP
+        worldY = gp.getTileSize() * 33;
         direction = "idle";
     }
-    public void restoreLife(){
+
+    public void restoreLife() {
         life = maxLife;
-        invincible =false;
+        invincible = false;
     }
+
     public void setItems() {
         inventory.add(currentWeapon);
     }
 
     private void getPlayerImage() {
-        up1 = setup("/player/warrior_runu1", gp.getTileSize()  * 2, gp.getTileSize()  * 2);
-        up2 = setup("/player/warrior_runu2", gp.getTileSize()  * 2, gp.getTileSize()  * 2);
-        up3 = setup("/player/warrior_runu3", gp.getTileSize()  * 2, gp.getTileSize()  * 2);
-        up4 = setup("/player/warrior_runu4", gp.getTileSize()  * 2, gp.getTileSize()  * 2);
-        up5 = setup("/player/warrior_runu5", gp.getTileSize()  * 2, gp.getTileSize()  * 2);
-        up6 = setup("/player/warrior_runu6", gp.getTileSize()  * 2, gp.getTileSize()  * 2);
+        up1 = setup("/player/warrior_runu1", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        up2 = setup("/player/warrior_runu2", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        up3 = setup("/player/warrior_runu3", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        up4 = setup("/player/warrior_runu4", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        up5 = setup("/player/warrior_runu5", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        up6 = setup("/player/warrior_runu6", gp.getTileSize() * 2, gp.getTileSize() * 2);
 
         down1 = setup("/player/warrior_rund1", gp.getTileSize() * 2, gp.getTileSize() * 2);
-        down2 = setup("/player/warrior_rund2", gp.getTileSize()  * 2, gp.getTileSize()  * 2);
-        down3 = setup("/player/warrior_rund3", gp.getTileSize() * 2, gp.getTileSize()  * 2);
-    down4 = setup("/player/warrior_rund4", gp.getTileSize()  * 2, gp.getTileSize()  * 2);
-        down5 = setup("/player/warrior_rund5", gp.getTileSize()  * 2, gp.getTileSize()  * 2);
-        down6 = setup("/player/warrior_rund6", gp.getTileSize() * 2, gp.getTileSize()  * 2);
+        down2 = setup("/player/warrior_rund2", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        down3 = setup("/player/warrior_rund3", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        down4 = setup("/player/warrior_rund4", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        down5 = setup("/player/warrior_rund5", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        down6 = setup("/player/warrior_rund6", gp.getTileSize() * 2, gp.getTileSize() * 2);
 
-        left1 = setup("/player/warrior_runl1", gp.getTileSize()  * 2, gp.getTileSize()  * 2);
-        left2 = setup("/player/warrior_runl2", gp.getTileSize()  * 2, gp.getTileSize()  * 2);
-        left3 = setup("/player/warrior_runl3", gp.getTileSize()  * 2, gp.getTileSize()  * 2);
-        left4 = setup("/player/warrior_runl4", gp.getTileSize()  * 2, gp.getTileSize()  * 2);
-        left5 = setup("/player/warrior_runl5", gp.getTileSize()  * 2, gp.getTileSize()  * 2);
-        left6 = setup("/player/warrior_runl6", gp.getTileSize() * 2, gp.getTileSize()  * 2);
+        left1 = setup("/player/warrior_runl1", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        left2 = setup("/player/warrior_runl2", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        left3 = setup("/player/warrior_runl3", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        left4 = setup("/player/warrior_runl4", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        left5 = setup("/player/warrior_runl5", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        left6 = setup("/player/warrior_runl6", gp.getTileSize() * 2, gp.getTileSize() * 2);
 
-        right1 = setup("/player/warrior_runr1", gp.getTileSize()  * 2, gp.getTileSize()  * 2);
-        right2 = setup("/player/warrior_runr2", gp.getTileSize()  * 2, gp.getTileSize()  * 2);
-        right3 = setup("/player/warrior_runr3", gp.getTileSize()  * 2, gp.getTileSize()  * 2);
-        right4 = setup("/player/warrior_runr4", gp.getTileSize()  * 2, gp.getTileSize()  * 2);
-        right5 = setup("/player/warrior_runr5", gp.getTileSize()  * 2, gp.getTileSize()  * 2);
-        right6 = setup("/player/warrior_runr6", gp.getTileSize()  * 2, gp.getTileSize()  * 2);
+        right1 = setup("/player/warrior_runr1", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        right2 = setup("/player/warrior_runr2", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        right3 = setup("/player/warrior_runr3", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        right4 = setup("/player/warrior_runr4", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        right5 = setup("/player/warrior_runr5", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        right6 = setup("/player/warrior_runr6", gp.getTileSize() * 2, gp.getTileSize() * 2);
 
-        idle1 = setup("/player/idle/Warrior_idle1", gp.getTileSize()  * 2, gp.getTileSize()  * 2);
-        idle2 = setup("/player/idle/Warrior_idle2", gp.getTileSize()  * 2, gp.getTileSize()  * 2);
-        idle3 = setup("/player/idle/Warrior_idle3", gp.getTileSize()  * 2, gp.getTileSize()  * 2);
-        idle4 = setup("/player/idle/Warrior_idle4", gp.getTileSize()  * 2, gp.getTileSize()  * 2);
-        idle5 = setup("/player/idle/Warrior_idle1", gp.getTileSize()  * 2, gp.getTileSize()  * 2);
-        idle6 = setup("/player/idle/Warrior_idle1", gp.getTileSize()  * 2, gp.getTileSize()  * 2);
+        idle1 = setup("/player/idle/Warrior_idle1", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        idle2 = setup("/player/idle/Warrior_idle2", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        idle3 = setup("/player/idle/Warrior_idle3", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        idle4 = setup("/player/idle/Warrior_idle4", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        idle5 = setup("/player/idle/Warrior_idle1", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        idle6 = setup("/player/idle/Warrior_idle1", gp.getTileSize() * 2, gp.getTileSize() * 2);
     }
 
-private void getPlayerSwimmingImage() {
-    swim_up1 = setup("/player/swim/u1", gp.getTileSize() * 2, gp.getTileSize() * 2);
-    swim_up2 = setup("/player/swim/u2", gp.getTileSize() * 2, gp.getTileSize() * 2);
-    swim_up3 = setup("/player/swim/u3", gp.getTileSize() * 2, gp.getTileSize() * 2);
-    swim_up4 = setup("/player/swim/u4", gp.getTileSize() * 2, gp.getTileSize() * 2);
-    swim_up5 = setup("/player/swim/u5", gp.getTileSize() * 2, gp.getTileSize() * 2);
-    swim_up6 = setup("/player/swim/u6", gp.getTileSize() * 2, gp.getTileSize() * 2);
+    private void getPlayerSwimmingImage() {
+        swim_up1 = setup("/player/swim/u1", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        swim_up2 = setup("/player/swim/u2", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        swim_up3 = setup("/player/swim/u3", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        swim_up4 = setup("/player/swim/u4", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        swim_up5 = setup("/player/swim/u5", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        swim_up6 = setup("/player/swim/u6", gp.getTileSize() * 2, gp.getTileSize() * 2);
 
-    swim_down1 = setup("/player/swim/d1", gp.getTileSize() * 2, gp.getTileSize() * 2);
-    swim_down2 = setup("/player/swim/d2", gp.getTileSize() * 2, gp.getTileSize() * 2);
-    swim_down3 = setup("/player/swim/d3", gp.getTileSize() * 2, gp.getTileSize() * 2);
-    swim_down4 = setup("/player/swim/d4", gp.getTileSize() * 2, gp.getTileSize() * 2);
-    swim_down5 = setup("/player/swim/d5", gp.getTileSize() * 2, gp.getTileSize() * 2);
-    swim_down6 = setup("/player/swim/d6", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        swim_down1 = setup("/player/swim/d1", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        swim_down2 = setup("/player/swim/d2", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        swim_down3 = setup("/player/swim/d3", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        swim_down4 = setup("/player/swim/d4", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        swim_down5 = setup("/player/swim/d5", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        swim_down6 = setup("/player/swim/d6", gp.getTileSize() * 2, gp.getTileSize() * 2);
 
-    swim_left1 = setup("/player/swim/l1", gp.getTileSize() * 2, gp.getTileSize() * 2);
-    swim_left2 = setup("/player/swim/l2", gp.getTileSize() * 2, gp.getTileSize() * 2);
-    swim_left3 = setup("/player/swim/l3", gp.getTileSize() * 2, gp.getTileSize() * 2);
-    swim_left4 = setup("/player/swim/l4", gp.getTileSize() * 2, gp.getTileSize() * 2);
-    swim_left5 = setup("/player/swim/l5", gp.getTileSize() * 2, gp.getTileSize() * 2);
-    swim_left6 = setup("/player/swim/l6", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        swim_left1 = setup("/player/swim/l1", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        swim_left2 = setup("/player/swim/l2", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        swim_left3 = setup("/player/swim/l3", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        swim_left4 = setup("/player/swim/l4", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        swim_left5 = setup("/player/swim/l5", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        swim_left6 = setup("/player/swim/l6", gp.getTileSize() * 2, gp.getTileSize() * 2);
 
-    swim_right1 = setup("/player/swim/r1", gp.getTileSize() * 2, gp.getTileSize() * 2);
-    swim_right2 = setup("/player/swim/r2", gp.getTileSize() * 2, gp.getTileSize() * 2);
-    swim_right3 = setup("/player/swim/r3", gp.getTileSize() * 2, gp.getTileSize() * 2);
-    swim_right4 = setup("/player/swim/r4", gp.getTileSize() * 2, gp.getTileSize() * 2);
-    swim_right5 = setup("/player/swim/r5", gp.getTileSize() * 2, gp.getTileSize() * 2);
-    swim_right6 = setup("/player/swim/r6", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        swim_right1 = setup("/player/swim/r1", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        swim_right2 = setup("/player/swim/r2", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        swim_right3 = setup("/player/swim/r3", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        swim_right4 = setup("/player/swim/r4", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        swim_right5 = setup("/player/swim/r5", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        swim_right6 = setup("/player/swim/r6", gp.getTileSize() * 2, gp.getTileSize() * 2);
 
-    swim_idle1 = setup("/player/swim/d1", gp.getTileSize() * 2, gp.getTileSize() * 2);
-    swim_idle2 = setup("/player/swim/d2", gp.getTileSize() * 2, gp.getTileSize() * 2);
-    swim_idle3 = setup("/player/swim/d3", gp.getTileSize() * 2, gp.getTileSize() * 2);
-    swim_idle4 = setup("/player/swim/d4", gp.getTileSize() * 2, gp.getTileSize() * 2);
-    swim_idle5 = setup("/player/swim/d5", gp.getTileSize() * 2, gp.getTileSize() * 2);
-    swim_idle6 = setup("/player/swim/d6", gp.getTileSize() * 2, gp.getTileSize() * 2);
-}
+        swim_idle1 = setup("/player/swim/d1", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        swim_idle2 = setup("/player/swim/d2", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        swim_idle3 = setup("/player/swim/d3", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        swim_idle4 = setup("/player/swim/d4", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        swim_idle5 = setup("/player/swim/d5", gp.getTileSize() * 2, gp.getTileSize() * 2);
+        swim_idle6 = setup("/player/swim/d6", gp.getTileSize() * 2, gp.getTileSize() * 2);
+    }
+
     private void getPlayerAttackImage() {
         attackUp1 = setup("/player/attack/upa/u1", gp.getTileSize() * 2, gp.getTileSize() * 2);
         attackUp2 = setup("/player/attack/upa/u2", gp.getTileSize() * 2, gp.getTileSize() * 2);
@@ -183,12 +188,13 @@ private void getPlayerSwimmingImage() {
         attackDown5 = setup("/player/attack/downa/d5", gp.getTileSize() * 2, gp.getTileSize() * 2);
         attackDown6 = setup("/player/attack/downa/d6", gp.getTileSize() * 2, gp.getTileSize() * 2);
     }
+
     public void update() {
         checkSwimming();
         //idle state
         if (attacking) {
             attacking();
-        }else if (!(keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed)) {
+        } else if (!(keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed)) {
             direction = "idle";
             //CHECK NPC collision for idle case
             int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
@@ -309,7 +315,7 @@ private void getPlayerSwimmingImage() {
     public void draw(Graphics2D g2) {
 
         BufferedImage image = null;
-        if(!isSwim){
+        if (!isSwim) {
             switch (direction) {
                 case "idle":
                     if (!attacking) {
@@ -433,7 +439,7 @@ private void getPlayerSwimmingImage() {
                     break;
             }
 
-        }else{
+        } else {
             switch (direction) {
                 case "idle":
                     image = switch (spriteNum) {
@@ -506,6 +512,7 @@ private void getPlayerSwimmingImage() {
 
 
     }
+
     @Override
     public void attacking() {
         spriteCounter++;
@@ -546,7 +553,7 @@ private void getPlayerSwimmingImage() {
                         gp.playSoundEffect(5);
 
                         gp.obj[gp.getCurrentMap()][i] = null;
-                        gold +=100;
+                        gold += 100;
                         gp.ui.addMessage("You got 100 golds!");
                         break;
                     case "Key":
@@ -612,9 +619,9 @@ private void getPlayerSwimmingImage() {
                         gp.playSoundEffect(4);
                         if (gp.player.life < gp.player.maxLife - 1) {
                             gp.player.life += 2;
-                        } else if(gp.player.life < gp.player.maxLife){
+                        } else if (gp.player.life < gp.player.maxLife) {
                             gp.player.life++;
-                        }else{
+                        } else {
                             gp.ui.addMessage("You are already at max life!");
                             break;
                         }
@@ -656,7 +663,8 @@ private void getPlayerSwimmingImage() {
             attacking = true;
         }
     }
-    private void contactWater(int count){
+
+    private void contactWater(int count) {
         if (!invincible && count > 50) {
             gp.playSoundEffect(8);
             life -= 1;
@@ -664,6 +672,7 @@ private void getPlayerSwimmingImage() {
         }
 
     }
+
     private void interactNPC(int i) {
         if (i != 999) {
             if (gp.keyH.enterPressed) {
@@ -690,7 +699,9 @@ private void getPlayerSwimmingImage() {
             speed = 8;
             counterWater = 0;
         }
-    }    private void checkAttacking() {
+    }
+
+    private void checkAttacking() {
         int currentWorldX = worldX;
         int currentWorldY = worldY;
         int solidAreaWidth = solidArea.width;
@@ -729,12 +740,14 @@ private void getPlayerSwimmingImage() {
         solidArea.width = solidAreaWidth;
         solidArea.height = solidAreaHeight;
     }
-    public void knockBack(Entity entity){
+
+    public void knockBack(Entity entity) {
         entity.direction = direction;
         entity.speed += 10;
         entity.knockBack = true;
     }
-//    private void damageMonster(int i) {
+
+    //    private void damageMonster(int i) {
 //        if (i != 999) {
 //            if (!gp.monster[gp.getCurrentMap()][i].invincible) {
 //                gp.playSoundEffect(9);
@@ -749,25 +762,19 @@ private void getPlayerSwimmingImage() {
 //            System.out.println("Missed attack!");
 //        }
 //    }
-    public void damageMonster(int i, Entity attacker, int attack, int knockBackPower)
-    {
-        if(i != 999)
-        {
-            if(gp.monster[gp.getCurrentMap()][i].invincible == false)
-            {
+    public void damageMonster(int i, Entity attacker, int attack, int knockBackPower) {
+        if (i != 999) {
+            if (gp.monster[gp.getCurrentMap()][i].invincible == false) {
                 gp.playSoundEffect(7);   //hitmonster.wav
 
-                if(knockBackPower > 0)
-                {
+                if (knockBackPower > 0) {
                     setKnockBack(gp.monster[gp.getCurrentMap()][i], attacker, knockBackPower);
                 }
-                if(gp.monster[gp.getCurrentMap()][i].offBalance == true)
-                {
+                if (gp.monster[gp.getCurrentMap()][i].offBalance == true) {
                     attack *= 2;
                 }
                 int damage = attack - gp.monster[gp.getCurrentMap()][i].defense;
-                if(damage <= 0 )
-                {
+                if (damage <= 0) {
                     damage = 1;
                 }
                 gp.monster[gp.getCurrentMap()][i].life -= damage;
@@ -775,8 +782,7 @@ private void getPlayerSwimmingImage() {
                 gp.monster[gp.getCurrentMap()][i].invincible = true;
                 gp.monster[gp.getCurrentMap()][i].damageReaction();  //run away from player
 
-                if(gp.monster[gp.getCurrentMap()][i].life <= 0)
-                {
+                if (gp.monster[gp.getCurrentMap()][i].life <= 0) {
                     gp.monster[gp.getCurrentMap()][i].dying = true;
                     gp.ui.addMessage("Killed the " + gp.monster[gp.getCurrentMap()][i].name + "!");
                     gp.ui.addMessage("Exp +" + gp.monster[gp.getCurrentMap()][i].exp + "!");
@@ -785,6 +791,7 @@ private void getPlayerSwimmingImage() {
             }
         }
     }
+
     public String getDirection() {
         return direction;
     }

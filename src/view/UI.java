@@ -64,7 +64,7 @@ public class UI {
 
     public void drawPauseScreen() {
         String text = "PAUSED";
-        int x = getXforCenteredText(text), y = gp.screenHeight / 2;
+        int x = getXforCenteredText(text), y = gp.getScreenHeight() / 2;
         g2.drawString(text, x, y);
     }
 
@@ -72,7 +72,7 @@ public class UI {
         //Window
         int x = gp.getTileSize() * 2;
         int y = gp.getTileSize() * 6;
-        int width = gp.screenWidth - (gp.getTileSize() * 4);
+        int width = gp.getScreenWidth() - (gp.getTileSize() * 4);
         int height = gp.getTileSize() * 5;
         drawSubWindow(x, y, width, height);
 
@@ -88,7 +88,7 @@ public class UI {
 
     public void drawGameOverScreen() {
         g2.setColor(new Color(0, 0, 0, 150));
-        g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+        g2.fillRect(0, 0, gp.getScreenWidth(), gp.getScreenHeight());
 
         int x;
         int y;
@@ -233,7 +233,7 @@ public class UI {
 
     public int getXforCenteredText(String text) {
         int length = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
-        int x = gp.screenWidth / 2 - length / 2;
+        int x = gp.getScreenWidth() / 2 - length / 2;
         return x;
     }
 
@@ -382,16 +382,16 @@ public class UI {
         }
         g2.setColor(Color.black);
         g2.setFont(g2.getFont().deriveFont(Font.BOLD, 20F));
-        titleScreenImage = utool.scaleImage(titleScreenImage, gp.screenWidth, gp.screenHeight);
+        titleScreenImage = utool.scaleImage(titleScreenImage, gp.getScreenWidth(), gp.getScreenHeight());
         g2.drawImage(titleScreenImage, 0, 0, null);
 
-        int button_x = gp.screenWidth / 2 - gp.screenHeight / 5 + gp.screenWidth / (640);
-        int button_y = gp.screenHeight / 2;
-        int space = gp.screenHeight / 4 - gp.screenHeight / 7;
+        int button_x = gp.getScreenWidth() / 2 - gp.getScreenHeight() / 5 + gp.getScreenWidth() / (640);
+        int button_y = gp.getScreenHeight() / 2;
+        int space = gp.getScreenHeight() / 4 - gp.getScreenHeight() / 7;
 
         g2.drawImage(titleButtonImage, button_x, button_y, null);
 
-        int textspace = gp.screenHeight / 14;
+        int textspace = gp.getScreenHeight() / 14;
         String text1 = "New Game";
         int x = getXforCenteredText(text1);
         int x_choose = x;

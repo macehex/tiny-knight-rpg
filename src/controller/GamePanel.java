@@ -28,12 +28,12 @@ public class GamePanel extends JPanel implements Runnable {
     // how many view.tiles can be displayed on a screen
     private final int maxScreenCol = 20;
     private final int maxScreenRow = 12; // ~ 16:9
-    public final int screenWidth = tileSize * maxScreenCol;  //16*16*3 = 768
-    public final int screenHeight = tileSize * maxScreenRow; //12*16*3 = 576
+    private final int screenWidth = tileSize * maxScreenCol;  //16*16*3 = 768
+    private final int screenHeight = tileSize * maxScreenRow; //12*16*3 = 576
 
     // GAME WORLD SETTINGS:
-    public final int maxWorldCol = 100;
-    public final int maxWorldRow = 55;
+    private final int maxWorldCol = 100;
+    private final int maxWorldRow = 55;
     private final int maxMap = 10;
     private int currentMap = 0;
 
@@ -311,5 +311,11 @@ public class GamePanel extends JPanel implements Runnable {
     }
     public int getMaxMap() {
         return maxMap;
+    }
+    public int getMaxWorldCol(){
+        return maxWorldCol;
+    }
+    public int getMaxWorldRow(){
+        return maxWorldRow;
     }
 }

@@ -24,7 +24,7 @@ public class TileManager {
     public TileManager(GamePanel gp) {
         this.gp = gp;
         tile = new Tile[tileCount]; // types of view.tiles
-        mapTileNum = new int[gp.getMaxMap()][gp.maxWorldCol][gp.maxWorldRow];  // the array thats the axiom of .txt array
+        mapTileNum = new int[gp.getMaxMap()][gp.getMaxWorldCol()][gp.getMaxWorldRow()];  // the array thats the axiom of .txt array
         getTitleImage();
 
 //        mapString = "/maps/map2/map2.txt";
@@ -80,16 +80,16 @@ public class TileManager {
             int col = 0;
             int row = 0;
 
-            while (col < gp.maxWorldCol && row < gp.maxWorldRow) {
+            while (col < gp.getMaxWorldCol() && row < gp.getMaxWorldRow()) {
                 String line = br.readLine();  // read a single line
-                while (col < gp.maxWorldCol) {
+                while (col < gp.getMaxWorldCol()) {
                     String numbers[] = line.split(","); //numbers is the array of one line
 
                     int num = Integer.parseInt(numbers[col]);
                     mapTileNum[map][col][row] = num;
                     col++;
                 }
-                if (col == gp.maxWorldCol) {
+                if (col == gp.getMaxWorldCol()) {
                     col = 0; //reset collumn index
                     row++;
                 }
@@ -104,7 +104,7 @@ public class TileManager {
         int worldCol = 0;
         int worldRow = 0;
 
-        while (worldCol < gp.maxWorldCol && worldRow < gp.maxWorldRow) {
+        while (worldCol < gp.getMaxWorldCol() && worldRow < gp.getMaxWorldRow()) {
             int tileNum = mapTileNum[gp.getCurrentMap()][worldCol][worldRow];
 
             int worldX = worldCol * gp.getTileSize();
@@ -121,7 +121,7 @@ public class TileManager {
             }
             //draw view.tiles
             worldCol++;
-            if (worldCol == gp.maxWorldCol) {
+            if (worldCol == gp.getMaxWorldCol()) {
                 worldCol = 0;
                 worldRow++;
             }
