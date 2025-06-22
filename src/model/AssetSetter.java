@@ -16,7 +16,6 @@ public class AssetSetter {
 
     public AssetSetter(GamePanel gp) {
         this.gp = gp;
-
     }
 
     public void setObject() {
@@ -51,6 +50,7 @@ public class AssetSetter {
                 () -> new OBJ_Chest(gp),
 
                 // Other objects
+                () -> new OBJ_Potion_Strength(gp),
                 () -> new OBJ_Potion_Speed(gp),
                 () -> new OBJ_Potion_Heath_Two(gp),
                 () -> new OBJ_Potion_Heath_Two(gp),
@@ -168,6 +168,8 @@ public class AssetSetter {
                 {15, 6},
 
                 // Other objects
+                // Strength Potion
+                {9, 30},
                 {53, 28}, // Speed Potion
                 // Health Potion
                 {42, 7},
@@ -217,7 +219,6 @@ public class AssetSetter {
             gp.obj[mapNum][i].worldX = objectCoords[i][0] * gp.getTileSize();
             gp.obj[mapNum][i].worldY = objectCoords[i][1] * gp.getTileSize();
         }
-
 
     }
 
@@ -324,7 +325,7 @@ public class AssetSetter {
 
         // Corresponding coordinates for each potion
         int[][] potionCoords = {
-                {12, 30}, // Strength Potion
+                {9, 30},                // Strength Potion
                 {53, 28}, // Speed Potion
 
                 {42, 7},  // Health Potion
@@ -348,5 +349,4 @@ public class AssetSetter {
             gp.obj[mapNum][i].worldY = potionCoords[i][1] * gp.getTileSize();
         }
     }
-
 }

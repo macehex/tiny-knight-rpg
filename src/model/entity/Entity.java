@@ -416,10 +416,6 @@ public class Entity {
 
         boolean contactPlayer = gp.cChecker.checkPlayer(this);
         if (this.type == 2 && contactPlayer && !gp.player.invincible) {
-//            // damage
-//            gp.playSoundEffect(8);
-//            gp.player.life -= 1;
-//            gp.player.invincible = true;
             damagePlayer(attack);
 
         }

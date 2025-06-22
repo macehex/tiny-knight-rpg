@@ -9,5 +9,6 @@ public class OBJ_Potion_Strength extends AnimatedEntity {
         name = "Strength Potion";
         imageIcon = setupAnimatedGif("/object/consumable/blue_potion", gp.getTileSize(), gp.getTileSize());
         collision = false;
+        System.out.println("OBJ_Potion_Strength created");
     }
 }

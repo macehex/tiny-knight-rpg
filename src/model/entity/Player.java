@@ -69,7 +69,6 @@ public class Player extends Entity {
         hasKey = 0;
         damage = 1;
         gold = 0;
-
     }
 
     public void setDefaultPosition() {
@@ -607,15 +606,15 @@ public class Player extends Entity {
                         gp.ui.addMessage("Picked up speed potion!");
                         break;
                     case "Strength Potion":
-                        //adding extra damage to monster later
-                        gp.playSoundEffect(4);
-                        maxLife += 2;
-                        gp.ui.drawPlayerLife();
-                        gp.obj[gp.getCurrentMap()][i] = null;
-                        gp.ui.addMessage("Picked up strength potion!");
-                        gp.ui.addMessage("You got stronger!");
-                        gp.player.damage++;
-                        gp.ui.addMessage("Your damage increased by 1!");
+                            gp.playSoundEffect(4);
+                            maxLife += 2;
+                            gp.ui.addMessage("Picked up strength potion!");
+                            gp.ui.addMessage("You got stronger!");
+
+                            gp.player.damage++;
+                            gp.ui.addMessage("Your damage increased by 1!");
+
+                            gp.obj[gp.getCurrentMap()][i] = null;
                         break;
                     case "Health Potion 2":
                         gp.playSoundEffect(4);
@@ -689,6 +688,7 @@ public class Player extends Entity {
             setNotSwimming();
         }
     }
+
     private void setNotSwimming() {
         isSwim = false;
         speed = 8;
@@ -764,7 +764,7 @@ public class Player extends Entity {
                 if (gp.monster[gp.getCurrentMap()][i].life <= 0) {
                     gp.monster[gp.getCurrentMap()][i].dying = true;
                     gp.ui.addMessage("Killed the " + gp.monster[gp.getCurrentMap()][i].name + "!");
-                    gp.ui.addMessage("Exp +" + gp.monster[gp.getCurrentMap()][i].exp + "!");
+//                    gp.ui.addMessage("Exp +" + gp.monster[gp.getCurrentMap()][i].exp + "!");
                     exp += gp.monster[gp.getCurrentMap()][i].exp;
                 }
             }

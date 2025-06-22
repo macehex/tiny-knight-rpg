@@ -19,7 +19,7 @@ public class MON_Orc extends MON {
         speed = defaultSpeed;
         maxLife = 8;
         life = maxLife;
-        attack = 1;
+        attack = 2;
         defense = 2;
         exp = 8;
         knockBackPower = 5;
