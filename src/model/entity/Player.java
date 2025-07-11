@@ -508,8 +508,7 @@ public class Player extends Entity {
 
         g2.drawImage(image, screenX, screenY, null);
 //        // HIT BOX troubleshooting
-        g2.setColor(Color.red);
-        g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
+
 
 
     }
